@@ -1,3 +1,6 @@
+import re
+si_prefix_search = re.compile(r"(?P<prefix>^[pnumkMG]?)(?P<base>[\s\S]{1,}$)")
+
 
 def unit_conversion(source, target, value):
     """
@@ -19,6 +22,10 @@ def unit_conversion(source, target, value):
         ...
     ValueError
 
+    >>> unit_conversion('kl abbagalamaga', 'kl', 10)
+    Traceback (most recent call last):
+        ...
+    ValueError
 
 
     :param source:
@@ -28,7 +35,7 @@ def unit_conversion(source, target, value):
     """
     si_prefix = {
         'm': 1,
-        ' ': 1000,
+        '': 1000,
         'k': 1000000,
         'M': 1000000000,
     }
@@ -37,23 +44,8 @@ def unit_conversion(source, target, value):
     elif source == target:
         return value, target
     else:
-        source_prefix = ' '
-        source_base = ''
-        target_prefix = ' '
-        target_base = ''
-        if len(source) == 1:
-            source_prefix = ' '
-            source_base = source
-        else:
-            source_prefix = source[0]
-            source_base = source[1:]
-
-        if len(target) == 1:
-            target_prefix = ' '
-            target_base = target
-        else:
-            target_prefix = target[0]
-            target_base = target[1:]
+        source_prefix, source_base = si_prefix_search.findall(source)[0]
+        target_prefix, target_base = si_prefix_search.findall(target)[0]
 
         if source_base == target_base:
             ratio = si_prefix[source_prefix] / si_prefix[target_prefix]
