@@ -6,7 +6,7 @@ si_prefix_search = re.compile(r"(?P<prefix>^[pnumkMG]?)(?P<base>[\s\S]{1,}$)")
 item_type = [
         ('co', _('Component')),
         ('ap', _('Assembly Part')),
-        ('cm', _('Consumables')),
+        ('cm', _('Consumable')),
     ]
 
 item_value_units = [
@@ -75,8 +75,50 @@ class Item(models.Model):
                                    null=False, blank=False)
     item_type = models.CharField(max_length=2, verbose_name=_('Type'), choices=item_type,
                                  default='co', null=False, blank=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
+    _price = models.DecimalField(verbose_name='_price', default=0.0, max_digits=10, decimal_places=3,
+                                 null=False, blank=False)
     value = models.IntegerField(verbose_name=_('value'), default=0, null=False, blank=False)
     value_units = models.CharField(max_length=5, verbose_name=_('Units'), choices=item_value_units,
                                    default='pcs', null=False, blank=False)
+    subcategory = models.ForeignKey('ItemSubCategory', verbose_name=_('Sub Category'), on_delete=models.PROTECT,
+                                    null=False, blank=False)
+    bom = models.ManyToManyField('self', through='BOM', symmetrical=False, related_name='related_to')
 
+    def __str__(self):
+        return self.part_number
+
+    @property
+    def price(self):
+        if self.item_type != 'ap':
+            return self._price
+        else:
+            return 0.00
+
+    @price.setter
+    def price(self, value):
+        if self.item_type != 'ap':
+            self._price = value
+
+
+class ItemCategory(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('Category name'), unique=True, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
+class ItemSubCategory(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('Sub Category name'), unique=False, null=False, blank=False)
+    category = models.ForeignKey('ItemCategory', verbose_name=_('Category'), on_delete=models.PROTECT,
+                                 null=False, blank=False)
+
+    def __str__(self):
+        return self.name + ' ' + self.category.name
+
+
+class BOM(models.Model):
+    assembly_part = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='assembly_part')
+    item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
+
+    # def __str__(self):
+    #     return self.assembly_part.part_number + 'BOM'
