@@ -119,6 +119,7 @@ class ItemSubCategory(models.Model):
 class BOM(models.Model):
     assembly_part = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='assembly_part')
     item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
+    quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
 
-    # def __str__(self):
-    #     return self.assembly_part.part_number + 'BOM'
+    def __str__(self):
+        return self.assembly_part.part_number + 'BOM'
