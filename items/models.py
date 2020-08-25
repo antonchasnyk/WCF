@@ -70,6 +70,7 @@ def unit_conversion(source, target, value):
 
 class Item(models.Model):
     part_number = models.CharField(max_length=200, verbose_name=_('Part Number'), unique=True, null=False, blank=False)
+    comment = models.CharField(max_length=200, default='', verbose_name=_('Comment'), unique=False, null=True, blank=True)
     collection_name = models.CharField(max_length=200, verbose_name=_('Collection name'), null=False, blank=False)
     created_by = models.ForeignKey('auth.User', verbose_name=_('Created_by'), on_delete=models.PROTECT,
                                    null=False, blank=False)
@@ -99,6 +100,9 @@ class Item(models.Model):
         if self.item_type != 'ap':
             self._price = value
 
+    def designator(self):
+        return self.comment + ' ' + self.part_number if self.comment else self.part_number
+
 
 class ItemCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Category name'), unique=True, null=False, blank=False)
@@ -119,7 +123,9 @@ class ItemSubCategory(models.Model):
 class BOM(models.Model):
     assembly_part = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='assembly_part')
     item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
+    position = models.CharField(max_length=200, verbose_name=_('position'),
+                                unique=False, null=False, blank=False)
     quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
 
     def __str__(self):
-        return self.assembly_part.part_number + 'BOM'
+        return self.assembly_part.part_number + ' BOM'
