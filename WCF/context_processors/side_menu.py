@@ -22,6 +22,4 @@ def side_menu(request):
             kwargs[key] = 'active'
         else:
             kwargs[key] = ''
-    print(kwargs)
-    print(MENU_STRUCT)
     return kwargs
