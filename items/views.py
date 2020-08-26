@@ -17,6 +17,14 @@ def components(request):
                   )
 
 
+def assembly_pars(request):
+    item_list = Item.objects.filter(item_type='ap')
+    return render(request,
+                  'components.html',
+                  {'components': item_list}
+                  )
+
+
 def bom(request, number):
     item = get_object_or_404(Item, pk=number)
     item_list = item.assembly_part.all()
