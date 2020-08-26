@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'items',
     'helpers',
 ]
@@ -104,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = ('WCF.backends.EmailBackend',)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

@@ -2,12 +2,12 @@ from django.conf import settings
 from django.urls import reverse_lazy
 
 MENU_STRUCT = {
-    'dash': [reverse_lazy('dashboard')],
-    'comp': [reverse_lazy('component_list')],
-    'comp_all': [reverse_lazy('component_list')],
+    'dash': [reverse_lazy('items:dashboard')],
+    'comp': [reverse_lazy('items:component_list')],
+    'comp_all': [reverse_lazy('items:component_list')],
     'comp_nop': [],
-    'asp': [reverse_lazy('assembly_parts')],
-    'asp_all': [reverse_lazy('assembly_parts')],
+    'asp': [reverse_lazy('items:assembly_parts')],
+    'asp_all': [reverse_lazy('items:assembly_parts')],
     'asp_nop': [],
     'cons': [],
     'cons_all': [],
