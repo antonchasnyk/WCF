@@ -1,0 +1,787 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>WCF</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static "assets/css/app.min.css" %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+  <link rel="stylesheet" href="{% static "assets/css/components.css" %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static "assets/css/custom.css"%}">
+  <link rel='shortcut icon' type='image/x-icon' href='{% static "assets/img/favicon.ico"%}' />
+</head>
+
+<body>
+  <div class="loader"></div>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
+                  class="fas fa-bars"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i class="fas fa-expand"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+              class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+              <div class="dropdown-header">Notifications
+                <div class="float-right">
+                  <a href="#">Mark All As Read</a>
+                </div>
+              </div>
+              <div class="dropdown-list-content dropdown-list-icons">
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <span class="dropdown-item-icon bg-primary text-white">
+                    <i class="fas fa-code"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    Template update is available now!
+                    <span class="time text-primary">2 Min Ago</span>
+                  </span>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <span class="dropdown-item-icon bg-info text-white">
+                    <i class="far fa-user"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    <b>You</b> and <b>Dedik Sugiharto</b> are now friends
+                    <span class="time">10 Hours Ago</span>
+                  </span>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <span class="dropdown-item-icon bg-success text-white">
+                    <i class="fas fa-check"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>
+                    <span class="time">12 Hours Ago</span>
+                  </span>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <span class="dropdown-item-icon bg-danger text-white">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    Low disk space. Let's clean it!
+                    <span class="time">17 Hours Ago</span>
+                  </span>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <span class="dropdown-item-icon bg-info text-white">
+                    <i class="fas fa-bell"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    Welcome to Ality template!
+                    <span class="time">Yesterday</span>
+                  </span>
+                </a>
+              </div>
+              <div class="dropdown-footer text-center">
+                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <img alt="image" src="{% static "assets/img/user.png"%}" class="user-img-radious-style">
+              <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-title">Hello Sarah Smith</div>
+              <a href="profile.html" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Profile
+              </a>
+              <a href="timeline.html" class="dropdown-item has-icon">
+                <i class="fas fa-bolt"></i> Activities
+              </a>
+              <a href="" class="dropdown-item has-icon">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="auth-login.html" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="/">
+              <img alt="image" src="{% static "assets/img/logo.png"%}" class="header-logo" />
+              <span class="logo-name">WCF</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">{% translate "Main" %}</li>
+                <li class="{{ dash }}"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>{% translate "Dashboard" %}</span></a></li>
+            <li class="menu-header">{% translate "Items" %}</li>
+                <li class="dropdown {{ comp }}">
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-microchip"></i><span>{% translate "Components"%}</span></a>
+                  <ul class="dropdown-menu">
+                    <li class="{{ comp_all }}"><a class="nav-link" href="{% url 'component_list' %}">{% translate "all" %}</a></li>
+                    <li class="{{ comp_nop }}"><a class="nav-link" href="/">{% translate  "nop"%}</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown {{ asp }}">
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>{% translate "Assembly parts" %}</span></a>
+                  <ul class="dropdown-menu">
+                    <li class="{{ asp_all }}"><a class="nav-link" href="/">{% translate "all" %}</a></li>
+                    <li class="{{ asp_nop }}"><a class="nav-link" href="/">{% translate "nop" %}</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown {{ cons }}">
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-oil-can"></i><span>{% translate "Consumable" %}</span></a>
+                  <ul class="dropdown-menu">
+                    <li class="{{ cons_all }}"><a class="nav-link" href="/">{% translate "all" %}</a></li>
+                    <li class="{{ cons_nop }}"><a class="nav-link" href="/">{% translate "nop" %}</a></li>
+                  </ul>
+                </li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            {% block section_header %} <h1>{% translate "Dashboard" %}</h1> {% endblock %}
+          </div>
+            {% block main %}
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-6">
+                      <div class="card">
+                        <div class="card-body card-type-3">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-muted mb-0">Orders</h6>
+                              <span class="font-weight-bold mb-0">450</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="card-circle l-bg-orange text-white">
+                                <i class="fas fa-book-open"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 10%</span>
+                            <span class="text-nowrap">Since last month</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                      <div class="card">
+                        <div class="card-body card-type-3">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-muted mb-0">New Booking</h6>
+                              <span class="font-weight-bold mb-0">1,562</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="card-circle l-bg-cyan text-white">
+                                <i class="fas fa-briefcase"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 7.8%</span>
+                            <span class="text-nowrap">Since last month</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                      <div class="card">
+                        <div class="card-body card-type-3">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-muted mb-0">Inquiry</h6>
+                              <span class="font-weight-bold mb-0">7,897</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="card-circle l-bg-green text-white">
+                                <i class="fas fa-phone"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 15%</span>
+                            <span class="text-nowrap">Since last month</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                      <div class="card">
+                        <div class="card-body card-type-3">
+                          <div class="row">
+                            <div class="col">
+                              <h6 class="text-muted mb-0">Earning</h6>
+                              <span class="font-weight-bold mb-0">$8,965</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="card-circle l-bg-purple text-white">
+                                <i class="fas fa-dollar-sign"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 5.4%</span>
+                            <span class="text-nowrap">Since last month</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>Revenue Chart</h4>
+                        </div>
+                        <div class="card-body">
+                          <canvas id="chart-1"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>Revenue Chart</h4>
+                        </div>
+                        <div class="card-body">
+                          <canvas id="myChart"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>Project Details</h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive table-invoice">
+                            <table class="table table-striped">
+                              <tr>
+                                <th>Project</th>
+                                <th>Customer</th>
+                                <th>Team</th>
+                                <th>Status</th>
+                                <th>Start Date</th>
+                                <th>Delivery Date</th>
+                                <th>Action</th>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 1</a></td>
+                                <td class="font-weight-600">Sarah Smith</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-8.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-9.png" %}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="John Deo">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-10.png" %}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+4</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-warning">In Progress</div>
+                                </td>
+                                <td>July 19, 2018</td>
+                                <td>March 25, 2019</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 2</a></td>
+                                <td class="font-weight-600">Airi Satou</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-3.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-7.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+2</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-success">Completed</div>
+                                </td>
+                                <td>March 21, 2015</td>
+                                <td>July 22, 2017</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 3</a></td>
+                                <td class="font-weight-600">Ashton Cox</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0 m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-1.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-5.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="John Deo">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-9.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+5</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-danger">cancelled</div>
+                                </td>
+                                <td>January 02, 2018</td>
+                                <td>March 12, 2019</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 4</a></td>
+                                <td class="font-weight-600">Cara Stevens</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-4.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-7.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="John Deo">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-10.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="John Deo">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-2.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+1</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-warning">In Progress</div>
+                                </td>
+                                <td>July 19, 2018</td>
+                                <td>March 25, 2019</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 5</a></td>
+                                <td class="font-weight-600">John Doe</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-8.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-4.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="John Deo">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-3.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+2</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-success">Completed</div>
+                                </td>
+                                <td>May 11, 2017</td>
+                                <td>March 15, 2018</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><a href="#">Project 6</a></td>
+                                <td class="font-weight-600">Angelica Ramos</td>
+                                <td class="text-truncate">
+                                  <ul class="list-unstyled order-list m-b-0">
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-3.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                                    </li>
+                                    <li class="team-member team-member-sm">
+                                      <img class="rounded-circle" src="{% static "assets/img/users/user-1.png"%}" alt="user"
+                                        data-toggle="tooltip" title="" data-original-title="Sarah Smith">
+                                    </li>
+                                    <li class="avatar avatar-sm">
+                                      <span class="badge badge-primary">+2</span>
+                                    </li>
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="badge badge-danger">cancelled</div>
+                                </td>
+                                <td>November 02, 2018</td>
+                                <td>April 05, 2019</td>
+                                <td>
+                                  <a href="#" class="btn btn-primary">Detail</a>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>Earning Details</h4>
+                        </div>
+                        <div class="card-body">
+                          <h4 class="header-title">Earning Reports</h4>
+                          <p class="text-muted">1 Mar - 31 Mar Data</p>
+                          <h2 class="mb-3"><i class="mdi mdi-currency-usd text-primary"></i>$1,65,203</h2>
+                          <div class="row mb-1">
+                            <div class="col-6">
+                              <p class="text-muted mb-1">This Month</p>
+                              <h3 class="mt-0 font-20">$117,968
+                              </h3>
+                            </div>
+                            <div class="col-6">
+                              <p class="text-muted mb-1">Last Month</p>
+                              <h3 class="mt-0 font-20">$74,568
+                              </h3>
+                            </div>
+                          </div>
+                          <div class="mt-1">
+                            <div class="recent-report__chart">
+                              <div id="chart2"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                      <div class="card">
+                        <div class="card-header">
+                          <h4>Task Details</h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <tr>
+                                <th class="text-center">
+                                  <div class="custom-checkbox custom-checkbox-table custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
+                                      class="custom-control-input" id="checkbox-all">
+                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </th>
+                                <th>Task Name</th>
+                                <th>Progress</th>
+                                <th>Due Date</th>
+                                <th>Action</th>
+                              </tr>
+                              <tr>
+                                <td class="p-0 text-center">
+                                  <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                      id="checkbox-1">
+                                    <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </td>
+                                <td>Ecommerce website</td>
+                                <td class="align-middle">
+                                  <div class="progress" data-height="4" data-toggle="tooltip" title="100%">
+                                    <div class="progress-bar bg-success" data-width="100"></div>
+                                  </div>
+                                </td>
+                                <td>2018-01-20</td>
+                                <td>
+                                  <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                  <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="p-0 text-center">
+                                  <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                      id="checkbox-4">
+                                    <label for="checkbox-4" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </td>
+                                <td>Android App</td>
+                                <td class="align-middle">
+                                  <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
+                                    <div class="progress-bar bg-orange" data-width="30"></div>
+                                  </div>
+                                </td>
+                                <td>2018-09-11</td>
+                                <td>
+                                  <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                  <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="p-0 text-center">
+                                  <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                      id="checkbox-5">
+                                    <label for="checkbox-5" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </td>
+                                <td>Logo Design</td>
+                                <td class="align-middle">
+                                  <div class="progress" data-height="4" data-toggle="tooltip" title="67%">
+                                    <div class="progress-bar bg-purple" data-width="67"></div>
+                                  </div>
+                                </td>
+                                <td>2018-04-12</td>
+                                <td>
+                                  <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                  <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="p-0 text-center">
+                                  <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                      id="checkbox-6">
+                                    <label for="checkbox-6" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </td>
+                                <td>Java Project</td>
+                                <td class="align-middle">
+                                  <div class="progress" data-height="4" data-toggle="tooltip" title="43%">
+                                    <div class="progress-bar bg-success" data-width="43"></div>
+                                  </div>
+                                </td>
+                                <td>2018-01-20</td>
+                                <td>
+                                  <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                  <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="p-0 text-center">
+                                  <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                      id="checkbox-4">
+                                    <label for="checkbox-4" class="custom-control-label">&nbsp;</label>
+                                  </div>
+                                </td>
+                                <td>Android App</td>
+                                <td class="align-middle">
+                                  <div class="progress" data-height="4" data-toggle="tooltip" title="30%">
+                                    <div class="progress-bar bg-orange" data-width="30"></div>
+                                  </div>
+                                </td>
+                                <td>2018-09-11</td>
+                                <td>
+                                  <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i
+                                      class="fas fa-pencil-alt"></i></a>
+                                  <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                    data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            {% endblock %}
+        </section>
+
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Setting Panel
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input select-layout" checked>
+                    <span class="selectgroup-button">Light</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input select-layout">
+                    <span class="selectgroup-button">Dark</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label>
+                    <span class="control-label p-r-20">Mini Sidebar</span>
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <div class="disk-server-setting m-b-20">
+                    <p>Disk Space</p>
+                    <div class="sidebar-progress">
+                      <div class="progress" data-height="5">
+                        <div class="progress-bar l-bg-green" role="progressbar" data-width="80%" aria-valuenow="80"
+                          aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <span class="progress-description">
+                        <small>26% remaining</small>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="disk-server-setting">
+                    <p>Server Load</p>
+                    <div class="sidebar-progress">
+                      <div class="progress" data-height="5">
+                        <div class="progress-bar l-bg-orange" role="progressbar" data-width="58%" aria-valuenow="25"
+                          aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <span class="progress-description">
+                        <small>Highly Loaded</small>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Restore Default
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="#">Redstar</a>
+        </div>
+        <div class="footer-right">
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="{% static "assets/js/app.min.js"%}"></script>
+  <!-- JS Libraies -->
+  <script src="{% static "assets/bundles/chartjs/chart.min.js" %}"></script>
+  <script src="{% static "assets/bundles/apexcharts/apexcharts.min.js" %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static "assets/js/page/index.js" %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static "assets/js/scripts.js" %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static "assets/js/custom.js" %}"></script>
+</body>
+
+</html>

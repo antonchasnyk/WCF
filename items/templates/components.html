@@ -1,36 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
 
-<table class="table table-hover">
-<thead class="thead-inverse">
-    <th width="5%">#</th>
-    <th> Type </th>
-    <th> Comment </th>
-    <th> Partnumber </th>
-    <th> Value </th>
-    <th> Units</th>
-</thead>
-<tbody>
-    {% for component in components %}
-        <tr>
-            <th>
-                {{ forloop.counter }}
-            </th>
-            <td>  {{ component.subcategory }}</td>
-            <td>  {{ component.comment }}</td>
-            <td>  {{ component.part_number }}</td>
-            <td>  {{ component.value }}</td>
-            <td> {{ component.value_units }}</td>
+{% block section_header %} <h1>{% translate "Components list" %}</h1> {% endblock %}
 
-        </tr>
-    {% endfor %}
-</tbody>
-</table>
+{% block main %}
+    {{ request.path }}
+     <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+         <div class="card">
+            <table class="table table-hover">
+        <thead class="thead-inverse">
+            <th width="5%">#</th>
+            <th> Type </th>
+            <th> Comment </th>
+            <th> Partnumber </th>
+            <th> Value </th>
+            <th> Units</th>
+        </thead>
+        <tbody>
+            {% for component in components %}
+                <tr>
+                    <th>
+                        {{ forloop.counter }}
+                    </th>
+                    <td>  {{ component.subcategory }}</td>
+                    <td>  {{ component.comment }}</td>
+                    <td>  {{ component.part_number }}</td>
+                    <td>  {{ component.value }}</td>
+                    <td> {{ component.value_units }}</td>
 
-</body>
-</html>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+         </div>
+        </div>
+     </div>
+{% endblock %}
+
