@@ -12,6 +12,8 @@ MENU_STRUCT = {
     'cons': [],
     'cons_all': [],
     'cons_nop': [],
+    'team_all': [],
+
 }
 
 

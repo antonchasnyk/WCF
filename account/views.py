@@ -1,11 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, reverse_lazy
 
-from account.forms import LoginForm
+from account.forms import LoginForm, ProfileForm, UserForm
 
 
 def log_in(request):
@@ -36,9 +38,45 @@ def log_out(request):
 
 
 @login_required(login_url=reverse_lazy('account:login'))
-def profile_detail(request):
+@transaction.atomic
+def profile_detail(request, user_id=-1):
+
+    if user_id == -1:
+        user_id = request.user.pk
+    user = get_object_or_404(User, pk=user_id)
+    ami = False
+    user_form = None
+    profile_form = None
+    if request.user == user:
+        ami = True
+        if request.method == 'POST':
+            user_form = UserForm(request.POST, instance=request.user)
+            profile_form = ProfileForm(request.POST, instance=request.user.profile)
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+                return redirect("account:profile_detail")
+            else:
+                pass
+        else:
+            user_form = UserForm(instance=request.user)
+            profile_form = ProfileForm(instance=request.user.profile)
     return render(
         request,
-        'account/profile.html'
+        'account/profile.html',
+        {'user_profile': user,
+         'ami': ami,
+         'user_form': user_form,
+         'profile_form': profile_form,
+         }
     )
 
+
+@login_required(login_url=reverse_lazy('account:login'))
+def team(request):
+    user_list = User.objects.all().prefetch_related('profile')
+    return render(
+        request,
+        'account/team.html',
+        {'team': user_list}
+    )

@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block section_header %} <h1>{% translate "Team" %}</h1> {% endblock %}
+
+
+{% block main %}
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <tbody><tr>
+                  <th>{% translate "Photo" %}</th>
+                  <th>{% translate "Full Name" %}</th>
+                  <th>{% translate "Position" %}</th>
+                  <th>{% translate "Number" %}</th>
+                  <th>{% translate "Location" %}</th>
+                  <th>{% translate "Action" %}</th>
+                </tr>
+                {% for person in team %}
+                    <tr>
+                      <td>
+                        <img alt="image" src="assets/img/users/user-5.png" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                      </td>
+                      <td>{{ person.get_full_name }}</td>
+                      <td>{{ person.profile.position }}</td>
+                      <td>{{ person.profile.internal_phone }}</td>
+                      <td>{{ person.profile.location }}</td>
+                      <td><a href="{% url "account:profile_detail" person.pk %}" class="btn btn-primary">Detail</a></td>
+                    </tr>
+                {% endfor %}
+              </tbody></table>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+

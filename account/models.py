@@ -9,7 +9,16 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(verbose_name=_("Bio"), max_length=500, blank=True)
     location = models.CharField(verbose_name=_("Location"), max_length=30, blank=True)
-    birth_date = models.DateField(verbose_name=_("Birth date"), null=True, blank=True)
+    position = models.ForeignKey('Position', on_delete=models.PROTECT, blank=True, null=True)
+    mobile_phone = models.CharField(verbose_name=_("Mobile phone"), max_length=50, blank=True)
+    internal_phone = models.CharField(verbose_name=_("Internal phone"), max_length=50, blank=True)
+
+
+class Position(models.Model):
+    name = models.CharField(verbose_name=_("Position"), max_length=50, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 @receiver(post_save, sender=User)
