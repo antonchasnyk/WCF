@@ -121,7 +121,7 @@
               <img alt="image" src="{% static "assets/img/user.png"%}" class="user-img-radious-style">
               <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">{% translate  "Hello"%} {{ user.first_name }} {{ user.last_name }}</div>
+              <div class="dropdown-title">{% translate  "Hello"%} {{ user.get_full_name }}</div>
               <a href="{% url "account:profile_detail" %}" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> {% translate "Profile" %}
               </a>
