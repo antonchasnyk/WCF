@@ -27,7 +27,7 @@
                     <div class="d-block">
                       <label for="password" class="control-label">{% translate "Password" %}</label>
                       <div class="float-right">
-                        <a href="auth-forgot-password.html" class="text-small">
+                        <a href="{% url "account:password_reset" %}" class="text-small">
                           {% translate "Forgot Password?" %}
                         </a>
                       </div>

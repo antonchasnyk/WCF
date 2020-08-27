@@ -130,3 +130,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# usermanager/settings.py
+# EMAIL_HOST = ''
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = ''
+# MAIL_HOST_PASSWORD = ''
+# MAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = 'Epicups Team <admin@epicups.com>'

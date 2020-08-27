@@ -22,6 +22,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url='/static/assets/img/favicon.ico', permanent=True)),
     path('', include('items.urls')),
     path('', include('account.urls')),
+    path('account/', include('django.contrib.auth.urls')),
 ]
 
 handler404 = 'helpers.views.error_404'
