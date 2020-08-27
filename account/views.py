@@ -1,8 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+
 from account.forms import LoginForm
 
 
@@ -25,5 +27,18 @@ def log_in(request):
             'title': _('login'),
             'form': form
         }
+    )
+
+
+def log_out(request):
+    logout(request)
+    return redirect(reverse('account:login'))
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+def profile_detail(request):
+    return render(
+        request,
+        'account/profile.html'
     )
 
