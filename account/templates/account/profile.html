@@ -8,6 +8,21 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static "assets/cropper/cropper.min.css" %}">
+    <style>
+        .container {
+          margin: 20px auto;
+          max-width: 640px;
+        }
+
+        img {
+          max-width: 100%;
+        }
+
+        .cropper-view-box,
+        .cropper-face {
+          border-radius: 50%;
+        }
+    </style>
 {% endblock %}
 
 {% block section_header %}
@@ -198,7 +213,7 @@
               </div>
               <div class="modal-body">
                 <div class="img-container">
-                  <img id="image" src="blob:https://fengyuanchen.github.io/d4a9a841-c92c-4ab8-a232-081207c4127c" class=""
+                  <img id="image" src="blob:null"  class=""
                   style="max-width:100%; height:auto;">
                 </div>
               </div>
@@ -221,6 +236,7 @@
 
     <script src="{% static "assets/cropper/cropper.min.js" %}"></script>
     <script>
+
     window.addEventListener('DOMContentLoaded', function () {
       var avatar = document.getElementById('avatar');
       var image = document.getElementById('image');
@@ -230,8 +246,6 @@
       var $alert = $('.alert');
       var $modal = $('#modal');
       var cropper;
-
-      $('[data-toggle="tooltip"]').tooltip();
 
       input.addEventListener('change', function (e) {
         var files = e.target.files;
@@ -277,10 +291,12 @@
         $modal.modal('hide');
 
         if (cropper) {
+
           canvas = cropper.getCroppedCanvas({
             width: 160,
             height: 160,
           });
+
           initialAvatarURL = avatar.src;
           avatar.src = canvas.toDataURL();
           $progress.show();
