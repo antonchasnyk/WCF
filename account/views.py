@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, reverse_lazy
@@ -50,9 +51,11 @@ def profile_detail(request, user_id=-1):
     if request.user == user:
         ami = True
         if request.method == 'POST':
+            print(request.POST)
             user_form = UserForm(request.POST, instance=request.user)
             profile_form = ProfileForm(request.POST, instance=request.user.profile)
             if user_form.is_valid() and profile_form.is_valid():
+                print('valid')
                 user_form.save()
                 profile_form.save()
                 return redirect("account:profile_detail")
@@ -80,3 +83,10 @@ def team(request):
         'account/team.html',
         {'team': user_list}
     )
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+def upload_user_avatar(request):
+    if request.method == 'POST':
+        print(request.POST)
+    return HttpResponse('')
