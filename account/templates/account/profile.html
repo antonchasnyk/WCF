@@ -95,7 +95,7 @@
                               <div class="form-group col-md-6 col-12">
                                 <label>{% translate "First Name" %}</label>
                                 <input type="text" class="form-control" name="first_name" id="id_first_name"
-                                       value={{ user_form.first_name.value }}>
+                                       value="{{ user_form.first_name.value }}">
                                 <div class="invalid-feedback">
                                   {%  translate "Please fill in the first name" %}
                                 </div>
@@ -103,7 +103,7 @@
                               <div class="form-group col-md-6 col-12">
                                 <label>{% translate "Last Name" %}</label>
                                 <input type="text" class="form-control" name="last_name" id="id_last_name"
-                                       value={{ user_form.last_name.value }}>
+                                       value="{{ user_form.last_name.value }}">
                                 <div class="invalid-feedback">
                                   {%  translate "Please fill in the last name" %}
                                 </div>
@@ -113,17 +113,17 @@
                               <div class="form-group col-md-2 col-12">
                                 <label>{% translate "Internal number" %}</label>
                                 <input type="text" class="form-control" name="internal_phone" id="id_internal_phone"
-                                       value={{ profile_form.internal_phone.value }}>
+                                       value="{{ profile_form.internal_phone.value }}">
                               </div>
                               <div class="form-group col-md-3 col-12">
                                 <label>{% translate "Mobile number" %}</label>
                                 <input type="tel" class="form-control" name="mobile_phone" id="id_mobile_phone"
-                                       value={{ profile_form.mobile_phone.value }}>
+                                       value="{{ profile_form.mobile_phone.value }}">
                               </div>
                               <div class="form-group col-md-7 col-12">
                                 <label>{% translate "Location" %}</label>
                                 <input type="text" class="form-control" name="location" id="id_location"
-                                       value={{ profile_form.location.value }}> {# TODO with spaces #}
+                                       value="{{ profile_form.location.value }}">
                               </div>
                             </div>
                             <div class="row">
@@ -135,7 +135,7 @@
                             </div>
                           </div>
                           <div class="card-footer text-right">
-                            <button class="btn btn-primary">Save Changes</button>
+                            <button class="btn btn-primary">{% translate "Save Changes" %}</button>
                           </div>
                         </form>
                   </div>
