@@ -3,8 +3,9 @@
 {% load i18n %}
 
 {% block general_css %}
-    <link rel="stylesheet" href="{% static "assets/bundles/bootstrap-social/bootstrap-social.css" %}">
+    <link rel="stylesheet" href="{% static "assets/bundles/prism/prism.css" %}">
     <link rel="stylesheet" href="{% static "assets/bundles/summernote/summernote-bs4.css" %}">
+
 {% endblock %}
 
 {% block section_header %}
@@ -20,8 +21,14 @@
                 <div class="card author-box">
                   <div class="card-body">
                     <div class="author-box-center">
-                      <img alt="image" src="{% static "assets/img/users/user-1.png" %}" class="rounded-circle author-box-picture">
+                        <div class="avatar-item" style="width: 120px; margin: 0 auto">
+                          <img alt="image" src="{% static "assets/img/users/user-1.png" %}" class="rounded-circle author-box-picture img-fluid">
+                          {% if ami %}
+                            <div class="avatar-badge" title="Editor" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-wrench"></i></div>
+                          {% endif %}
+                        </div>
                       <div class="clearfix"></div>
+
                       <div class="author-box-name">
                         <a href="#">{{ user_profile.get_full_name}}</a>
                       </div>
@@ -148,9 +155,32 @@
     </div>
 {% endblock %}
 
+{% block free_content %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="formModal">{% translate "Upload new avatar" %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="">
+
+
+                  <button type="button" class="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}
 
 {% block js_libraries %}
     <script src="{% static "assets/bundles/summernote/summernote-bs4.js"%}"></script>
+    <script src="{% static "assets/bundles/prism/prism.js" %}"></script>
 {% endblock %}
 
 {% block page_specific_js %}
