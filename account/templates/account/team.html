@@ -23,7 +23,7 @@
                 {% for person in team %}
                     <tr>
                       <td>
-                        <img alt="image" src="assets/img/users/user-5.png" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                        <img alt="image" src="{{MEDIA_URL}}{{ person.profile.avatar }}" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
                       </td>
                       <td>{{ person.get_full_name }}</td>
                       <td>{{ person.profile.position }}</td>
