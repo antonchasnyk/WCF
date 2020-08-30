@@ -39,7 +39,7 @@
                   <div class="card-body">
                     <div class="author-box-center">
                         <div class="avatar-item" style="width: 120px; margin: 0 auto">
-                          <img alt="image" src="{% static "assets/img/users/user-1.png" %}" class="rounded-circle author-box-picture img-fluid">
+                          <img alt="image" src="{{MEDIA_URL}}{{ user.profile.avatar }}" class="rounded-circle author-box-picture img-fluid">
                           {% if ami %}
                             <div class="avatar-badge" title="Editor" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-wrench"></i></div>
                           {% endif %}
@@ -179,7 +179,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="formModal">Modal title</h5>
+                <h5 class="modal-title" id="formModal">{% translate "Change your avatar" %}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -188,7 +188,7 @@
 
                 <div class="container">
                     <label class="label" data-toggle="tooltip" title="" data-original-title="Change your avatar">
-                      <img class="rounded" id="avatar" src="https://avatars0.githubusercontent.com/u/3456749?s=160" alt="avatar">
+                      <img class="rounded" id="avatar" src="{{MEDIA_URL}}{{ user.profile.avatar }}" alt="avatar">
                       <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                     </label>
                     <div class="progress" style="display: none;">
@@ -213,7 +213,7 @@
               </div>
               <div class="modal-body">
                 <div class="img-container">
-                  <img id="image" src="blob:null"  class=""
+                  <img id="image" src="blob:{{ request.scheme }}:// {{ request.META.HTTP_HOST }}{{MEDIA_URL}}{{ user.profile.avatar }}"  class=""
                   style="max-width:100%; height:auto;">
                 </div>
               </div>
@@ -304,7 +304,7 @@
           canvas.toBlob(function (blob) {
             var formData = new FormData();
              formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-             formData.append('avatar', blob, 'avatar.jpg');
+             formData.append('avatar', blob, 'avatar.png');
             $.ajax('{% url "account:profile_upload_avatar" %}', {
               method: 'POST',
               data: formData,
@@ -333,9 +333,9 @@
                 setTimeout(function(){location.reload();}, 500)
               },
 
-              error: function () {
+              error: function (jqXHR, textStatus, errorThrown) {
                 avatar.src = initialAvatarURL;
-                $alert.show().addClass('alert-warning').text('Upload error');
+                $alert.show().addClass('alert-warning').text(textStatus);
               },
 
               complete: function () {

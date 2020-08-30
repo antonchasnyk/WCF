@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.files.base import ContentFile
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, reverse_lazy
@@ -89,5 +91,14 @@ def team(request):
 def upload_user_avatar(request):
     if request.method == 'POST':
         print(request.POST)
-        print(request.FILES)
+        if request.FILES:
+            try:
+                uploaded = request.FILES['avatar']
+                print(uploaded.__dict__)
+                if uploaded.size > 100000:
+                    return HttpResponseNotAllowed(_('avatar to large'))
+                print(uploaded.content_type)
+                request.user.profile.avatar.save(request.user.username+'.png', uploaded.file)
+            except KeyError:
+                return HttpResponseNotAllowed('Image file corrupted')
     return HttpResponse('')

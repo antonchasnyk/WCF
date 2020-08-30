@@ -12,6 +12,7 @@ class Profile(models.Model):
     position = models.ForeignKey('Position', on_delete=models.PROTECT, blank=True, null=True)
     mobile_phone = models.CharField(verbose_name=_("Mobile phone"), max_length=50, blank=True)
     internal_phone = models.CharField(verbose_name=_("Internal phone"), max_length=50, blank=True)
+    avatar = models.ImageField(upload_to='avatars', default='/static/assets/img/users/default_avatar.png')
 
 
 class Position(models.Model):
