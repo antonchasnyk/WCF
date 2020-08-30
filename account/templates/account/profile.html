@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load utils %}
 {% load i18n %}
 
 {% block general_css %}
@@ -117,44 +118,46 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="form-group col-md-6 col-12">
-                                <label>{% translate "First Name" %}</label>
-                                <input type="text" class="form-control" name="first_name" id="id_first_name"
-                                       value="{{ user_form.first_name.value }}">
+                                  {{ user_form.first_name.label_tag }}
+                                  {% if  user_form.first_name.errors%}
+                                      {{ user_form.first_name | attr:"class:form-control is-invalid, required:required"}}
+                                  {% else %}
+                                     {{ user_form.first_name | attr:"class:form-control, required:required"}}
+                                  {% endif %}
                                 <div class="invalid-feedback">
-                                  {%  translate "Please fill in the first name" %}
+                                  {{ user_form.first_name.errors.as_text }}
                                 </div>
                               </div>
                               <div class="form-group col-md-6 col-12">
-                                <label>{% translate "Last Name" %}</label>
-                                <input type="text" class="form-control" name="last_name" id="id_last_name"
-                                       value="{{ user_form.last_name.value }}">
+                                  {{ user_form.last_name.label_tag }}
+                                  {% if  user_form.last_name.errors%}
+                                      {{ user_form.last_name | attr:"class:form-control is-invalid, required:required"}}
+                                  {% else %}
+                                     {{ user_form.last_name | attr:"class:form-control, required:required"}}
+                                  {% endif %}
                                 <div class="invalid-feedback">
-                                  {%  translate "Please fill in the last name" %}
+                                  {{ user_form.last_name.errors.as_text }}
                                 </div>
                               </div>
                             </div>
                             <div class="row">
                               <div class="form-group col-md-2 col-12">
-                                <label>{% translate "Internal number" %}</label>
-                                <input type="text" class="form-control" name="internal_phone" id="id_internal_phone"
-                                       value="{{ profile_form.internal_phone.value }}">
+                                  {{ profile_form.internal_phone.label_tag }}
+                                  {{ profile_form.internal_phone | attr:"class:form-control"}}
                               </div>
                               <div class="form-group col-md-3 col-12">
-                                <label>{% translate "Mobile number" %}</label>
-                                <input type="tel" class="form-control" name="mobile_phone" id="id_mobile_phone"
-                                       value="{{ profile_form.mobile_phone.value }}">
+                                {{ profile_form.mobile_phone.label_tag }}
+                                {{ profile_form.mobile_phone | attr:"class:form-control"}}
                               </div>
                               <div class="form-group col-md-7 col-12">
-                                <label>{% translate "Location" %}</label>
-                                <input type="text" class="form-control" name="location" id="id_location"
-                                       value="{{ profile_form.location.value }}">
+                                {{ profile_form.location.label_tag }}
+                                {{ profile_form.location | attr:"class:form-control"}}
                               </div>
                             </div>
                             <div class="row">
                               <div class="form-group col-12">
-                                <label>{% translate "Bio" %}</label>
-                                <textarea name="bio" id="id_bio"
-                                  class="form-control summernote-simple"> {{ profile_form.bio.value }}</textarea>
+                                  {{ profile_form.bio.label_tag }}
+                                  {{ profile_form.bio | attr:"class:form-control"}}
                               </div>
                             </div>
                           </div>
