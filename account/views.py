@@ -89,4 +89,5 @@ def team(request):
 def upload_user_avatar(request):
     if request.method == 'POST':
         print(request.POST)
+        print(request.FILES)
     return HttpResponse('')
