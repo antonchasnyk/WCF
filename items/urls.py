@@ -13,4 +13,6 @@ urlpatterns = [
     path('components/edit/<int:component_id>', views.edit_component, name='edit_components'),
     path('components/subcategory/add/<str:to>', views.subcategory_popup, name='subcategory_add_popup'),
     path('components/subcategory/<int:subcategory_id>/<str:to>', views.subcategory_popup, name='subcategory_edit_popup'),
+    path('components/category/add/<str:to>', views.category_popup, name='category_add_popup'),
+    path('components/category/<int:category_id>/<str:to>', views.category_popup, name='category_edit_popup'),
 ]

@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
+from items.forms import CategoryForm
+from items.models import ItemCategory
 from .forms import ComponentForm, SubCategoryForm
 from .models import Item, BOM, ItemSubCategory
 
@@ -89,5 +91,19 @@ def subcategory_popup(request, to, subcategory_id=-1):
         return HttpResponse(
             '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
     return render(request, "items/edit_subcategory_popup.html", {"form": form})
-# TODO Extract script to custom.js
-# TODO make templates more pretty
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.add_item', raise_exception=PermissionDenied())
+def category_popup(request, to, category_id=-1):
+    if category_id >= 0:
+        category = get_object_or_404(ItemCategory, id=category_id)
+    else:
+        category = None
+    form = CategoryForm(request.POST or None, instance=category)
+    if form.is_valid():
+        instance = form.save()
+        return HttpResponse(
+            '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
+    return render(request, "items/edit_category_popup.html", {"form": form})
+

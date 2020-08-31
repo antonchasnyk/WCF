@@ -83,30 +83,5 @@
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
-    <script type="text/javascript">
-        function showEditPopup(triggeringLink) {
-            href = triggeringLink.href;
-            var parts = href.split('/');
-            var lastSegment = parts[parts.length - 1];
-            var name = $("#"+lastSegment+" :selected").val();
-            parts[parts.length - 2] = name;
-            var newurl = parts.join("/");
-            var win = window.open(newurl, "Edit",
-               'height=500,width=800,resizable=yes,scrollbars=yes');
-            win.focus();
-            return false;
-        }
-        function showAddPopup(triggeringLink) {
-            href = triggeringLink.href;
-            var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
-            win.focus();
-            return false;
-        }
-        function closePopup(win, newID, newRepr, id) {
-            $(id).append('<option value=' + newID + ' selected >' + newRepr + '</option>')
-            win.close();
-        }
-
-</script>
 {% endblock %}
 
