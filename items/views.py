@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
 from .forms import ComponentForm, SubCategoryForm
-from .models import Item, BOM
+from .models import Item, BOM, ItemSubCategory
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -79,9 +79,15 @@ def edit_component(request, component_id=-1):
 @login_required(login_url=reverse_lazy('account:login'))
 @permission_required('items.add_item', raise_exception=PermissionDenied())
 def subcategory_popup(request, to, subcategory_id=-1):
-    form = SubCategoryForm(request.POST or None)
+    if subcategory_id >= 0:
+        subcategory = get_object_or_404(ItemSubCategory, id=subcategory_id)
+    else:
+        subcategory = None
+    form = SubCategoryForm(request.POST or None, instance=subcategory)
     if form.is_valid():
         instance = form.save()
         return HttpResponse(
             '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
     return render(request, "items/edit_subcategory_popup.html", {"form": form})
+# TODO Extract script to custom.js
+# TODO make templates more pretty

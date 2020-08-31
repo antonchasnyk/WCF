@@ -106,7 +106,7 @@ class ItemSubCategory(models.Model):
                                  null=False, blank=False)
 
     def __str__(self):
-        return self.name + ' / ' + self.category.name
+        return self.name + ' ' + self.category.name
 
 
 class BOM(models.Model):
