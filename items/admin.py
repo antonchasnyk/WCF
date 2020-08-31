@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+from purchase.models import ItemPrice
 from .models import Item, ItemCategory, ItemSubCategory, BOM
 
 admin.site.register(ItemCategory)
@@ -19,10 +20,16 @@ class UsedInInline(admin.TabularInline):
     fk_name = "item"
 
 
+class PriceInInline(admin.TabularInline):
+    model = ItemPrice
+    extra = 3
+
+
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    readonly_fields = ['price']
-    exclude = ['_price']
     list_display = ('part_number', 'subcategory', 'value', 'value_units')
     list_filter = ('subcategory__category', 'subcategory')
-    inlines = [BOMInline, UsedInInline]
+    inlines = [BOMInline, UsedInInline, PriceInInline]
+
+
+

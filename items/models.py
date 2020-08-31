@@ -69,15 +69,15 @@ def unit_conversion(source, target, value):
 
 
 class Item(models.Model):
-    part_number = models.CharField(max_length=200, verbose_name=_('Part Number'), unique=True, null=False, blank=False)
-    comment = models.CharField(max_length=200, default='', verbose_name=_('Comment'), unique=False, null=True, blank=True)
+    part_number = models.CharField(max_length=200, verbose_name=_('Part Number'), unique=True,
+                                   null=False, blank=False)
+    comment = models.CharField(max_length=200, default='', verbose_name=_('Comment'),
+                               unique=False, null=True, blank=True)
     collection_name = models.CharField(max_length=200, verbose_name=_('Collection name'), null=False, blank=False)
     created_by = models.ForeignKey('auth.User', verbose_name=_('Created_by'), on_delete=models.PROTECT,
                                    null=False, blank=False)
     item_type = models.CharField(max_length=2, verbose_name=_('Type'), choices=item_type,
                                  default='co', null=False, blank=False)
-    _price = models.DecimalField(verbose_name='_price', default=0.0, max_digits=10, decimal_places=3,
-                                 null=False, blank=False)
     value = models.IntegerField(verbose_name=_('value'), default=0, null=False, blank=False)
     value_units = models.CharField(max_length=5, verbose_name=_('Units'), choices=item_value_units,
                                    default='pcs', null=False, blank=False)
@@ -87,18 +87,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.part_number
-
-    @property
-    def price(self):
-        if self.item_type != 'ap':
-            return self._price
-        else:
-            return 0.00
-
-    @price.setter
-    def price(self, value):
-        if self.item_type != 'ap':
-            self._price = value
 
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number
@@ -112,7 +100,8 @@ class ItemCategory(models.Model):
 
 
 class ItemSubCategory(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('Sub Category name'), unique=False, null=False, blank=False)
+    name = models.CharField(max_length=100, verbose_name=_('Sub Category name'), unique=False,
+                            null=False, blank=False)
     category = models.ForeignKey('ItemCategory', verbose_name=_('Category'), on_delete=models.PROTECT,
                                  null=False, blank=False)
 
