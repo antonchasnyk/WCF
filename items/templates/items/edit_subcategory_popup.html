@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block section_header %} <h1>{% translate "Blank Page" %}</h1> {% endblock %}
+
+
+{% block body %}
+    <div class = "container">
+        <h1>Add Subcategory</h1>
+        <form method = 'POST' action= '' enctype = "multipart/form-data" novalidate id = "author-form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value = "Submit" />
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+

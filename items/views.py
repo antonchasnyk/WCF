@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import ComponentAddForm
+from .forms import ComponentForm, SubCategoryForm
 from .models import Item, BOM
 
 
@@ -57,7 +58,7 @@ def edit_component(request, component_id=-1):
     else:
         item = None
     if request.method == 'POST':
-        item_form = ComponentAddForm(request.POST, instance=item)
+        item_form = ComponentForm(request.POST, instance=item)
         if item_form.is_valid():
             item_form.instance.created_by = request.user
             item_form.instance.item_type = 'co'
@@ -66,10 +67,21 @@ def edit_component(request, component_id=-1):
         else:
             messages.error(request, _('Input incorrect'), extra_tags='alert-danger')
     else:
-        item_form = ComponentAddForm(instance=item)
+        item_form = ComponentForm(instance=item)
     return render(
         request,
         'items/edit_component.html',
         {'item_form': item_form,
          }
     )
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.add_item', raise_exception=PermissionDenied())
+def subcategory_popup(request, to, subcategory_id=-1):
+    form = SubCategoryForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+        return HttpResponse(
+            '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
+    return render(request, "items/edit_subcategory_popup.html", {"form": form})

@@ -10,5 +10,7 @@ urlpatterns = [
     path('assemblies', views.assembly_pars, name='assembly_parts'),
     path('bom/<int:number>', views.bom, name='bom_list'),
     path('components/add', views.edit_component, name='add_components'),
-    path('components/edit/<int:component_id>', views.edit_component, name='edit_components')
+    path('components/edit/<int:component_id>', views.edit_component, name='edit_components'),
+    path('components/subcategory/add/<str:to>', views.subcategory_popup, name='subcategory_add_popup'),
+    path('components/subcategory/<int:subcategory_id>/<str:to>', views.subcategory_popup, name='subcategory_edit_popup'),
 ]
