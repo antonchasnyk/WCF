@@ -28,6 +28,9 @@ urlpatterns = [
 ]
 
 handler404 = 'helpers.views.error_404'
+handler403 = 'helpers.views.error_403'
+handler500 = 'helpers.views.error_500'
+handler503 = 'helpers.views.error_503'
 
 if settings.DEBUG:
     from django.conf.urls.static import static

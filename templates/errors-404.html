@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "index.html" %}
 {% load static %}
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Ality - Admin Dashboard Template</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="{% static "assets/css/app.min.css" %}">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
-  <link rel="stylesheet" href="{% static "assets/css/components.css" %}">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
-</head>
+{% load i18n %}
 
-<body>
+{% block body %}
   <div class="loader"></div>
   <div id="app">
     <section class="section">
@@ -53,14 +40,5 @@
       </div>
     </section>
   </div>
-  <!-- General JS Scripts -->
-  <script src="assets/js/app.min.js"></script>
-  <!-- JS Libraies -->
-  <!-- Page Specific JS File -->
-  <!-- Template JS File -->
-  <script src="assets/js/scripts.js"></script>
-  <!-- Custom JS File -->
-  <script src="assets/js/custom.js"></script>
-</body>
 
-</html>
+{% endblock %}

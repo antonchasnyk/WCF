@@ -1,0 +1,60 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block section_header %}
+    <h1>{% translate "Components list" %}</h1>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="d-inline"></h4>
+                <div class="card-header-action">
+                    {% if perms.items.add_item %}
+                        <a href="{% url "items:add_components" %}" class="btn btn-success">{% translate "Add New" %}</a>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                        <th width="5%">#</th>
+                        <th> Type </th>
+                        <th> Comment </th>
+                        <th> Partnumber </th>
+                        <th> Value </th>
+                        <th> Units</th>
+                    </thead>
+                    <tbody>
+                        {% for component in components %}
+                            <tr>
+                                <th>
+                                    {{ forloop.counter }}
+                                </th>
+                                <td>  {{ component.subcategory }}</td>
+                                <td>  {{ component.comment }}</td>
+                                <td>  {{ component.part_number }}</td>
+                                <td>  {{ component.value }}</td>
+                                <td> {{ component.value_units }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+

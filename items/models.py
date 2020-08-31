@@ -73,7 +73,6 @@ class Item(models.Model):
                                    null=False, blank=False)
     comment = models.CharField(max_length=200, default='', verbose_name=_('Comment'),
                                unique=False, null=True, blank=True)
-    collection_name = models.CharField(max_length=200, verbose_name=_('Collection name'), null=False, blank=False)
     created_by = models.ForeignKey('auth.User', verbose_name=_('Created_by'), on_delete=models.PROTECT,
                                    null=False, blank=False)
     item_type = models.CharField(max_length=2, verbose_name=_('Type'), choices=item_type,
@@ -81,8 +80,9 @@ class Item(models.Model):
     value = models.IntegerField(verbose_name=_('value'), default=0, null=False, blank=False)
     value_units = models.CharField(max_length=5, verbose_name=_('Units'), choices=item_value_units,
                                    default='pcs', null=False, blank=False)
-    subcategory = models.ForeignKey('ItemSubCategory', verbose_name=_('Sub Category'), on_delete=models.PROTECT,
+    subcategory = models.ForeignKey('ItemSubCategory', verbose_name=_('Category'), on_delete=models.PROTECT,
                                     null=False, blank=False)
+    attributes = models.JSONField(verbose_name=_('Attributes'), null=True, blank=True)
     bom = models.ManyToManyField('self', through='BOM', symmetrical=False, related_name='related_to')
 
     def __str__(self):

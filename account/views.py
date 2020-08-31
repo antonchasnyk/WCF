@@ -43,7 +43,6 @@ def log_out(request):
 @login_required(login_url=reverse_lazy('account:login'))
 @transaction.atomic
 def profile_detail(request, user_id=-1):
-
     if user_id == -1:
         user_id = request.user.pk
     user = get_object_or_404(User, pk=user_id)
