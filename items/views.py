@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -8,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from items.forms import CategoryForm
 from items.models import ItemCategory
+from purchase.models import ItemValue
 from .forms import ComponentForm, SubCategoryForm
 from .models import Item, BOM, ItemSubCategory
 
@@ -18,12 +21,11 @@ def index(request):
                   'index.html',
                   {}
                   )
-# Create your views here.
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 def components(request):
-    item_list = Item.objects.filter(item_type='co')
+    item_list = Item.components.all()
     return render(request,
                   'items/index.html',
                   {'components': item_list}
@@ -32,7 +34,7 @@ def components(request):
 
 @login_required(login_url=reverse_lazy('account:login'))
 def assembly_pars(request):
-    item_list = Item.objects.filter(item_type='ap')
+    item_list = Item.assembly_parts.all()
     return render(request,
                   'items/index.html',
                   {'components': item_list}
@@ -54,6 +56,7 @@ def bom(request, number):
 
 @login_required(login_url=reverse_lazy('account:login'))
 @permission_required('items.add_item', raise_exception=PermissionDenied())
+@transaction.atomic
 def edit_component(request, component_id=-1):
     if component_id >= 0:
         item = get_object_or_404(Item, pk=component_id)
@@ -64,7 +67,12 @@ def edit_component(request, component_id=-1):
         if item_form.is_valid():
             item_form.instance.created_by = request.user
             item_form.instance.item_type = 'co'
-            item_form.save()
+            item = item_form.save()
+            if item_form.cleaned_data['value'] > 0:
+                value = ItemValue(value=item_form.cleaned_data['value'],
+                                  created_by=request.user,
+                                  item=item)
+                value.save()
             return redirect("items:component_list")
         else:
             messages.error(request, _('Input incorrect'), extra_tags='alert-danger')

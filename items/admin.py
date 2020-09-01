@@ -27,7 +27,7 @@ class PriceInInline(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('part_number', 'subcategory', 'value', 'value_units')
+    list_display = ('part_number', 'subcategory', 'value_units')
     list_filter = ('subcategory__category', 'subcategory')
     inlines = [BOMInline, UsedInInline, PriceInInline]
 
