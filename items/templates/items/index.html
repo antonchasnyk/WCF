@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block section_header %}
-    <h1>{% translate "Components list" %}</h1>
+    <h1>{{ title }}</h1>
 {% endblock %}
 
 
@@ -16,7 +16,7 @@
                 <h4 class="d-inline"></h4>
                 <div class="card-header-action">
                     {% if perms.items.add_item %}
-                        <a href="{% url "items:add_components" %}" class="btn btn-success">{% translate "Add New" %}</a>
+                        <a href="{{add_url}}" class="btn btn-success">{% translate "Add New" %}</a>
                     {% endif %}
                 </div>
               </div>

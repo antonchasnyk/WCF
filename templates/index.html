@@ -168,7 +168,7 @@
                 <li class="dropdown {{ cons }}">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-oil-can"></i><span>{% translate "Consumable" %}</span></a>
                   <ul class="dropdown-menu">
-                    <li class="{{ cons_all }}"><a class="nav-link" href="#">{% translate "all" %}</a></li>
+                    <li class="{{ cons_all }}"><a class="nav-link" href="{% url 'items:consumables' %}">{% translate "all" %}</a></li>
                     <li class="{{ cons_nop }}"><a class="nav-link" href="#">{% translate "nop" %}</a></li>
                   </ul>
                 </li>

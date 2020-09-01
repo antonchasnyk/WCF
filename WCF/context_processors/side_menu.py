@@ -9,8 +9,8 @@ MENU_STRUCT = {
     'asp': [reverse_lazy('items:assembly_parts')],
     'asp_all': [reverse_lazy('items:assembly_parts')],
     'asp_nop': [],
-    'cons': [],
-    'cons_all': [],
+    'cons': [reverse_lazy('items:consumables')],
+    'cons_all': [reverse_lazy('items:consumables')],
     'cons_nop': [],
     'team_all': [],
 
