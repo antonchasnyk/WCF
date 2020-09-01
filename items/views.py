@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Sum
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
+from WCF import settings
 from items.forms import CategoryForm
 from items.models import ItemCategory
 from purchase.models import ItemValue
@@ -26,9 +28,12 @@ def index(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def components(request):
     item_list = Item.components.all()
+    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
+    page_number = request.GET.get('p')
+    page_obj = paginator.get_page(page_number)
     return render(request,
                   'items/index.html',
-                  {'components': item_list,
+                  {'item_list': page_obj,
                    'title': _('Components'),
                    'add_url': reverse_lazy('items:add_components'),
                    }
@@ -38,9 +43,12 @@ def components(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def assembly_pars(request):
     item_list = Item.assembly_parts.all()
+    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
+    page_number = request.GET.get('p')
+    page_obj = paginator.get_page(page_number)
     return render(request,
                   'items/index.html',
-                  {'components': item_list,
+                  {'item_list': page_obj,
                    'title': _('Assembly parts'),
                    'add_url': reverse_lazy('items:add_assemblies'),
                    }
@@ -50,9 +58,12 @@ def assembly_pars(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def consumables(request):
     item_list = Item.consumable.all()
+    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
+    page_number = request.GET.get('p')
+    page_obj = paginator.get_page(page_number)
     return render(request,
                   'items/index.html',
-                  {'components': item_list,
+                  {'item_list': page_obj,
                    'title': _('Consumables'),
                    'add_url': reverse_lazy('items:add_consumable'),
                    }
@@ -66,7 +77,7 @@ def bom(request, number):
     return render(request,
                   'items/bom.html',
                   {
-                    'items': item_list,
+                    'item_list': item_list,
                     'assembly_part': item,
                   }
                   )

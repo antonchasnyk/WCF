@@ -141,6 +141,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+ITEMS_ON_PAGE = 5
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # usermanager/settings.py
 # EMAIL_HOST = ''

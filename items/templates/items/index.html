@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 {% load i18n %}
+{% load utils %}
 
 {% block section_header %}
     <h1>{{ title }}</h1>
@@ -31,21 +32,23 @@
                         <th> Units</th>
                     </thead>
                     <tbody>
-                        {% for component in components %}
+                        {% for item in item_list %}
                             <tr>
                                 <th>
-                                    {{ forloop.counter }}
+                                    {{forloop.counter|paginate:item_list.number}}
                                 </th>
-                                <td>  {{ component.subcategory }}</td>
-                                <td>  {{ component.comment }}</td>
-                                <td>  {{ component.part_number }}</td>
-                                <td>  {{ component.value }}</td>
-                                <td> {{ component.value_units }}</td>
-
+                                <td>  {{ item.subcategory }}</td>
+                                <td>  {{ item.comment }}</td>
+                                <td>  {{ item.part_number }}</td>
+                                <td>  {{ item.value }}</td>
+                                <td> {{ item.value_units }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+
+                {% include "paginator.html" %}
+
               </div>
             </div>
         </div>
