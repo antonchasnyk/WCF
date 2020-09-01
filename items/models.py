@@ -140,9 +140,10 @@ class ItemSubCategory(models.Model):
         return self.name + ' ' + self.category.name
 
 
+# TODO CASCADE OR RESTRICT or PROTECT - make right choice
 class BOM(models.Model):
-    assembly_part = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='assembly_part')
-    item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='consist_of')
+    assembly_part = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='used_in')
     position = models.CharField(max_length=200, verbose_name=_('position'),
                                 unique=False, null=False, blank=False)
     quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
