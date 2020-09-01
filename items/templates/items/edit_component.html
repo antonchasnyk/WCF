@@ -42,9 +42,9 @@
                               <div class="form-group col-md-4 col-12">
                                   {{ item_form.subcategory.label_tag }}
                                   {% if  item_form.subcategory.errors%}
-                                      {{ item_form.subcategory | attr:"class:form-control is-invalid, required:required"}}
+                                      {{ item_form.subcategory | attr:'class:form-control is-invalid searchable, required:required'}}
                                   {% else %}
-                                     {{ item_form.subcategory | attr:"class:form-control, required:required"}}
+                                     {{ item_form.subcategory | attr:'class:form-control searchable, required:required'}}
                                   {% endif %}
                                 <div class="invalid-feedback">
                                   {{ item_form.subcategory.errors.as_text }}

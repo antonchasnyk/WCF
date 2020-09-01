@@ -7,6 +7,8 @@
 
 "use strict";
 
+$('.searchable').searchable();
+
 function showEditPopup(triggeringLink) {
     let href = triggeringLink.href;
     let parts = href.split('/');
