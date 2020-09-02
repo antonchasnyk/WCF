@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -29,7 +29,13 @@ def search(queryset, request):
     q = request.GET.get('q', default='')
     item_list = queryset
     if q:
-        item_list = item_list.filter(part_number__icontains=q)
+        chunks = q.split(' ')
+        for chunk in chunks:
+            item_list = item_list.filter(Q(part_number__icontains=chunk) |
+                                         Q(comment__icontains=chunk) |
+                                         Q(subcategory__name__icontains=chunk) |
+                                         Q(subcategory__category__name__icontains=chunk)
+                                         )
     paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
     page_number = request.GET.get('p')
     page_obj = paginator.get_page(page_number)

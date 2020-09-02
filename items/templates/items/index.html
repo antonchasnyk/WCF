@@ -3,13 +3,6 @@
 {% load i18n %}
 {% load utils %}
 
-{% block template_css %}
-    <style>
-        .highlight {
-          background-color: yellow;
-        }
-    </style>
-{% endblock %}
 
 {% block section_header %}
     <h1>{{ title }}</h1>
@@ -73,45 +66,21 @@
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
-    <script>
-        $(function() {
-            let inp = $('#search')
-        inp.change(search);
-        inp.keyup(search);
-        });
-        function search() {
+    <script src="{% static "assets/js/hilitor.js" %}"></script>
+{% endblock %}
 
-                $.ajax({
-                    type: "GET",
-                    data: {
-                        'q' : $('#search').val(),
-                        'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
-                    },
-                    success: searchSuccess,
-                    dataType: 'html'
-                });
-            }
+{% block last_scripts %}
+     <script>
+        $(function() {
+            let inp = document.getElementById('search')
+            inp.addEventListener('input', search);
+        });
+
         function searchSuccess(data, textStatus, jqXHR)
         {
-            $('#result').html(data)
-            highlight($('#search').val())
-        }
-
-        function highlight(text) {
-            if (!text)
-            { return}
-            let result_table = document.getElementById("result");
-            result_table = result_table.childNodes[1].childNodes[1];
-            let innerHTML = result_table.innerHTML;
-            let index = innerHTML.indexOf(text);
-            let startIndex = 0;
-            let insertion = "<span class='highlight'>" + text + "</span>"
-            let searchStrLen = insertion.length;
-            while ((index = innerHTML.indexOf(text, startIndex)) > -1) {
-                innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-                startIndex = index + searchStrLen;
-            }
-            result_table.innerHTML = innerHTML;
+            $('#result').html(data);
+            let result_table = document.getElementById("result").getElementsByTagName('table')[0].getElementsByTagName('tbody')[0];
+            search_highlight(result_table, $('#search').val());
         }
     </script>
 {% endblock %}
