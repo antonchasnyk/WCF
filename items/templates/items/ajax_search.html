@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+{% load utils %}
+
+
+<div class="card-body" id="result">
+    <table class="table table-hover">
+        <thead class="thead-inverse">
+            <th width="5%">#</th>
+            <th> Type </th>
+            <th> Comment </th>
+            <th> Partnumber </th>
+            <th> Value </th>
+            <th> Units</th>
+        </thead>
+        <tbody>
+            {% for item in item_list %}
+                <tr>
+                    <th>
+                        {{forloop.counter|paginate:item_list.number}}
+                    </th>
+                    <td>  {{ item.subcategory }}</td>
+                    <td>  {{ item.comment }}</td>
+                    <td>  {{ item.part_number }}</td>
+                    <td>  {{ item.value }}</td>
+                    <td> {{ item.value_units }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include "paginator.html" %}
+
+</div>

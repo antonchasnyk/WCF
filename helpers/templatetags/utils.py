@@ -1,4 +1,5 @@
 from django import template
+from django.http import QueryDict
 
 from WCF import settings
 
@@ -30,4 +31,9 @@ def url_replace(context, **kwargs):
     query = context['request'].GET.copy()
     for key in kwargs:
         query[key] = kwargs[key]
+    try:
+        del query['csrfmiddlewaretoken']
+    except KeyError:
+        pass
+
     return query.urlencode()

@@ -25,19 +25,33 @@ def index(request):
                   )
 
 
+def search(queryset, *args, **kwargs):
+    return queryset.filter(*args, **kwargs)
+
+
 @login_required(login_url=reverse_lazy('account:login'))
 def components(request):
     item_list = Item.components.all()
+    q = request.GET.get('q', default='')
+    if q:
+        item_list = search(item_list, part_number__icontains=q)
     paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
     page_number = request.GET.get('p')
     page_obj = paginator.get_page(page_number)
-    return render(request,
-                  'items/index.html',
-                  {'item_list': page_obj,
-                   'title': _('Components'),
-                   'add_url': reverse_lazy('items:add_components'),
-                   }
-                  )
+
+    if request.is_ajax():
+        return render(request, 'items/ajax_search.html',
+                      {'item_list': page_obj,
+                       })
+    else:
+        return render(request,
+                      'items/index.html',
+                      {'item_list': page_obj,
+                       'title': _('Components'),
+                       'add_url': reverse_lazy('items:add_components'),
+                       'q': q,
+                       }
+                      )
 
 
 @login_required(login_url=reverse_lazy('account:login'))

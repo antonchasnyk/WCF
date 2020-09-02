@@ -3,6 +3,14 @@
 {% load i18n %}
 {% load utils %}
 
+{% block template_css %}
+    <style>
+        .highlight {
+          background-color: yellow;
+        }
+    </style>
+{% endblock %}
+
 {% block section_header %}
     <h1>{{ title }}</h1>
 {% endblock %}
@@ -13,15 +21,21 @@
     <div class="row">
         <div class="col-12 col-sm-12 col-lg-12">
             <div class="card">
-              <div class="card-header">
-                <h4 class="d-inline"></h4>
+              <div class="card-header navbar">
+                <h4 class="d-inline">
+                    {% csrf_token %}
+                <form class="form-inline " method="get" action="{{ request.path }}">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"
+                           id="search" name="q" value="{{ q }}">
+                  </form>
+                </h4>
                 <div class="card-header-action">
                     {% if perms.items.add_item %}
                         <a href="{{add_url}}" class="btn btn-success">{% translate "Add New" %}</a>
                     {% endif %}
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body" id="result">
                 <table class="table table-hover">
                     <thead class="thead-inverse">
                         <th width="5%">#</th>
@@ -59,5 +73,46 @@
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
+    <script>
+        $(function() {
+            let inp = $('#search')
+        inp.change(search);
+        inp.keyup(search);
+        });
+        function search() {
+
+                $.ajax({
+                    type: "GET",
+                    data: {
+                        'q' : $('#search').val(),
+                        'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                    success: searchSuccess,
+                    dataType: 'html'
+                });
+            }
+        function searchSuccess(data, textStatus, jqXHR)
+        {
+            $('#result').html(data)
+            highlight($('#search').val())
+        }
+
+        function highlight(text) {
+            if (!text)
+            { return}
+            let result_table = document.getElementById("result");
+            result_table = result_table.childNodes[1].childNodes[1];
+            let innerHTML = result_table.innerHTML;
+            let index = innerHTML.indexOf(text);
+            let startIndex = 0;
+            let insertion = "<span class='highlight'>" + text + "</span>"
+            let searchStrLen = insertion.length;
+            while ((index = innerHTML.indexOf(text, startIndex)) > -1) {
+                innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+                startIndex = index + searchStrLen;
+            }
+            result_table.innerHTML = innerHTML;
+        }
+    </script>
 {% endblock %}
 
