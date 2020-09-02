@@ -21,7 +21,7 @@
             </th>
             <td>  {{ item.position}}</td>
             <td>  {{ item.item.designator}}</td>
-            <td>  {{ item.quantity }}</td>
+            <td>  {{ item.quantity }} {{ item.item.value_units }}</td>
         </tr>
     {% endfor %}
 </tbody>

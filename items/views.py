@@ -73,7 +73,7 @@ def consumables(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def bom(request, number):
     item = get_object_or_404(Item, pk=number)
-    item_list = item.consist_of.all()
+    item_list = item.consist_of.order_by('item__subcategory__category', 'position').all()
     print(item_list)
     return render(request,
                   'items/bom.html',
