@@ -30,7 +30,7 @@ function showAddPopup(triggeringLink) {
 }
 
 function closePopup(win, newID, newRepr, id) {
-    $(id).append('<option value=' + newID + ' selected >' + newRepr + '</option>')
+    $(id).append('<option value=' + newID + ' selected >' + newRepr + '</option>');
     win.close();
 }
 
@@ -49,13 +49,13 @@ function search() {
 function _highlight_element(tag, text)
 {
     let innerHTML = tag[0].innerHTML;
-    let chunks = text.split(' ')
+    let chunks = text.split(' ');
     for (let i = 0; i < chunks.length; i++) {
         text = chunks[i];
         if (!text) continue;
         let index = innerHTML.indexOf(text);
         let startIndex = 0;
-        let insertion = "<mark>" + text + "</mark>"
+        let insertion = "<mark>" + text + "</mark>";
         let searchStrLen = insertion.length;
         while ((index = innerHTML.toUpperCase().indexOf(text.toUpperCase(), startIndex)) > -1) {
             innerHTML = innerHTML.substring(0, index) + "<mark>" + innerHTML.substring(index, index + text.length) + "</mark>" + innerHTML.substring(index + text.length);
@@ -70,7 +70,7 @@ function search_highlight(tag, text) {
             return;
         if (tag.nodeName === 'A' || tag.nodeName ==='BUTTON')
             return;
-        let head = $(tag)
+        let head = $(tag);
         let ch_array = head.children();
         if (ch_array.length > 0)
             for(let i=0; i< ch_array.length; i++)
