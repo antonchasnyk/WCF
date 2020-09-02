@@ -25,25 +25,31 @@ def index(request):
                   )
 
 
-def search(queryset, *args, **kwargs):
-    return queryset.filter(*args, **kwargs)
+def search(queryset, request):
+    q = request.GET.get('q', default='')
+    item_list = queryset
+    if q:
+        item_list = item_list.filter(part_number__icontains=q)
+    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
+    page_number = request.GET.get('p')
+    page_obj = paginator.get_page(page_number)
+    if request.is_ajax():
+        return True, render(request, 'items/ajax_search.html',
+                      {'item_list': page_obj,
+                       })
+    else:
+        return False, q, page_obj
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 def components(request):
     item_list = Item.components.all()
-    q = request.GET.get('q', default='')
-    if q:
-        item_list = search(item_list, part_number__icontains=q)
-    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
-    page_number = request.GET.get('p')
-    page_obj = paginator.get_page(page_number)
+    ajax, *z = search(item_list, request)
 
-    if request.is_ajax():
-        return render(request, 'items/ajax_search.html',
-                      {'item_list': page_obj,
-                       })
+    if ajax:
+        return z[0]
     else:
+        q, page_obj = z
         return render(request,
                       'items/index.html',
                       {'item_list': page_obj,
@@ -57,31 +63,36 @@ def components(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def assembly_pars(request):
     item_list = Item.assembly_parts.all()
-    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
-    page_number = request.GET.get('p')
-    page_obj = paginator.get_page(page_number)
-    return render(request,
-                  'items/index.html',
-                  {'item_list': page_obj,
-                   'title': _('Assembly parts'),
-                   'add_url': reverse_lazy('items:add_assemblies'),
-                   }
-                  )
+
+    ajax, *z = search(item_list, request)
+    if ajax:
+        return z[0]
+    else:
+        q, page_obj = z
+        return render(request,
+                      'items/index.html',
+                      {'item_list': page_obj,
+                       'title': _('Assembly parts'),
+                       'add_url': reverse_lazy('items:add_assemblies'),
+                       }
+                      )
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 def consumables(request):
     item_list = Item.consumable.all()
-    paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
-    page_number = request.GET.get('p')
-    page_obj = paginator.get_page(page_number)
-    return render(request,
-                  'items/index.html',
-                  {'item_list': page_obj,
-                   'title': _('Consumables'),
-                   'add_url': reverse_lazy('items:add_consumable'),
-                   }
-                  )
+    ajax, *z = search(item_list, request)
+    if ajax:
+        return z[0]
+    else:
+        q, page_obj = z
+        return render(request,
+                      'items/index.html',
+                      {'item_list': page_obj,
+                       'title': _('Consumables'),
+                       'add_url': reverse_lazy('items:add_consumable'),
+                       }
+                      )
 
 
 @login_required(login_url=reverse_lazy('account:login'))
