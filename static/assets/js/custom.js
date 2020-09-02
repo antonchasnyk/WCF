@@ -67,7 +67,9 @@ function _highlight_element(tag, text)
 
 function search_highlight(tag, text) {
         if (!text)
-        { return }
+            return;
+        if (tag.nodeName === 'A' || tag.nodeName ==='BUTTON')
+            return;
         let head = $(tag)
         let ch_array = head.children();
         if (ch_array.length > 0)

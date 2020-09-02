@@ -12,49 +12,28 @@
 {% block main %}
 
     <div class="row">
-        <div class="col-12 col-sm-12 col-lg-12">
+        <div class="col-12">
             <div class="card">
-              <div class="card-header navbar">
-                <h4 class="d-inline">
-                    {% csrf_token %}
-                <form class="form-inline " method="get" action="{{ request.path }}">
-                    <input class="form-control" type="search" placeholder="Search" aria-label="Search"
-                           id="search" name="q" value="{{ q }}">
-                  </form>
-                </h4>
-                <div class="card-header-action">
-                    {% if perms.items.add_item %}
+                <div class="card-header">
+                    <h4>{% if perms.items.add_item %}
                         <a href="{{add_url}}" class="btn btn-success">{% translate "Add New" %}</a>
-                    {% endif %}
-                </div>
-              </div>
-              <div class="card-body" id="result">
-                <table class="table table-hover">
-                    <thead class="thead-inverse">
-                        <th width="5%">#</th>
-                        <th> Type </th>
-                        <th> Comment </th>
-                        <th> Partnumber </th>
-                        <th> Value </th>
-                        <th> Units</th>
-                    </thead>
-                    <tbody>
-                        {% for item in item_list %}
-                            <tr>
-                                <th>
-                                    {{forloop.counter|paginate:item_list.number}}
-                                </th>
-                                <td>  {{ item.subcategory }}</td>
-                                <td>  {{ item.comment }}</td>
-                                <td>  {{ item.part_number }}</td>
-                                <td>  {{ item.value }}</td>
-                                <td> {{ item.value_units }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        {% endif %}
+                    </h4>
+                    <div class="card-header-form ">
+                        {% csrf_token %}
+                      <form>
+                        <div class="input-group">
+                          <input type="search" class="form-control" placeholder="Search" id="search" name="q" value="{{ q }}">
+                          <div class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+              <div class="card-body p-0" id="result">
 
-                {% include "paginator.html" %}
+                {% include "items/ajax_search.html" %}
 
               </div>
             </div>

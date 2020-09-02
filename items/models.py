@@ -122,6 +122,22 @@ class Item(models.Model):
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number
 
+    def get_absolute_url(self):
+        if self.item_type == 'cm':
+            return "/" + self.pk
+        elif self.item_type == 'ap':
+            return "/" + self.pk
+        elif self.item_type == 'cm':
+            return "/" + self.pk
+
+    def get_edit_url(self):
+        if self.item_type == 'cm':
+            return "/" + self.pk
+        elif self.item_type == 'ap':
+            return "/" + self.pk
+        elif self.item_type == 'cm':
+            return "/" + self.pk
+
 
 class ItemCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Category name'), unique=True, null=False, blank=False)

@@ -3,8 +3,8 @@
 {% load utils %}
 
 
-
-    <table class="table table-hover">
+<div class="table-responsive">
+    <table class="table table-striped">
         <thead class="thead-inverse">
             <th width="5%">#</th>
             <th> Type </th>
@@ -12,6 +12,7 @@
             <th> Partnumber </th>
             <th> Value </th>
             <th> Units</th>
+            <th> Action</th>
         </thead>
         <tbody>
             {% for item in item_list %}
@@ -24,10 +25,26 @@
                     <td>  {{ item.part_number }}</td>
                     <td>  {{ item.value }}</td>
                     <td> {{ item.value_units }}</td>
+                    <td>
+                        {% if perms.items.add_item %}
+                            <div class="dropdown d-inline mr-2">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {% translate "Action"%}
+                                </button>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" href="#">{% translate "Detail" %}</a>
+                                    <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="#" class="btn btn-primary">{% translate "Detail" %}</a>
+                        {% endif %}
+
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     {% include "paginator.html" %}
-
+</div>
