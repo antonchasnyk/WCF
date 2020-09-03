@@ -10,6 +10,7 @@
   <title>WCF</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{% static "assets/css/app.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/bundles/izitoast/css/iziToast.min.css" %}">
     {% block general_css %}
     {% endblock %}
   <!-- Template CSS -->
@@ -23,22 +24,6 @@
 </head>
 
 <body>
-{% if messages %}
- <span class="popup">
-{% for message in messages %}
-        <div class="alert {% if message.tags %} {{ message.tags }} {% endif %} alert-has-icon alert-dismissible show fade">
-          <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-          <div class="alert-body">
-            <button class="close" data-dismiss="alert">
-              <span>×</span>
-            </button>
-            {{ message }}
-          </div>
-        </div>
-{% endfor %}
-</span>
-{% endif %}
-
 {% block body %}
   <div class="loader"></div>
   <div id="app">
@@ -799,9 +784,9 @@
   <!-- General JS Scripts -->
   <script src="{% static "assets/js/app.min.js"%}"></script>
   <!-- JS Libraies -->
+   <script src="{% static "assets/bundles/izitoast/js/iziToast.min.js" %}"></script>
 {% block js_libraries %}
   <script src="{% static "assets/bundles/chartjs/chart.min.js" %}"></script>
-  <script src="{% static "assets/bundles/apexcharts/apexcharts.min.js" %}"></script>
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
@@ -813,6 +798,23 @@
   <script src="{% static "assets/js/custom.js" %}"></script>
 {% block last_scripts %}
 {% endblock %}
+
+<script>
+
+{% if messages %}
+
+        window.onload = function() {
+                {% for message in messages %}
+                    iziToast.{{ message.tags }}({
+                        title: '{{message.message}}',
+                        position: 'topRight'
+                    })
+                {% endfor %}
+        }
+
+{% endif %}
+</script>
+
 </body>
 
 </html>

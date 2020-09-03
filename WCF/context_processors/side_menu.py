@@ -3,10 +3,10 @@ from django.urls import reverse_lazy
 
 MENU_STRUCT = {
     'dash': [reverse_lazy('items:dashboard')],
-    'comp': [reverse_lazy('items:component_list'), reverse_lazy('items:add_components')],
+    'comp': [reverse_lazy('items:component_list'), reverse_lazy('items:add_component')],
     'comp_all': [reverse_lazy('items:component_list')],
     'comp_nop': [],
-    'asp': [reverse_lazy('items:assembly_parts'), reverse_lazy('items:add_assemblies')],
+    'asp': [reverse_lazy('items:assembly_parts'), reverse_lazy('items:add_assembly')],
     'asp_all': [reverse_lazy('items:assembly_parts')],
     'asp_nop': [],
     'cons': [reverse_lazy('items:consumables'), reverse_lazy('items:add_consumable')],

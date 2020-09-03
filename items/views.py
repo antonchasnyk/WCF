@@ -60,7 +60,7 @@ def components(request):
                       'items/index.html',
                       {'item_list': page_obj,
                        'title': _('Components'),
-                       'add_url': reverse_lazy('items:add_components'),
+                       'add_url': reverse_lazy('items:add_component'),
                        'q': q,
                        }
                       )
@@ -79,7 +79,7 @@ def assembly_pars(request):
                       'items/index.html',
                       {'item_list': page_obj,
                        'title': _('Assembly parts'),
-                       'add_url': reverse_lazy('items:add_assemblies'),
+                       'add_url': reverse_lazy('items:add_assembly'),
                        }
                       )
 
@@ -134,6 +134,7 @@ def edit_component(request, comp_type, component_id=-1):
                                   created_by=request.user,
                                   item=item)
                 value.save()
+            messages.success(request, _('Item {} added ').format(item.designator()))
             if comp_type == 'co':
                 return redirect("items:component_list")
             elif comp_type == 'ap':
@@ -141,7 +142,7 @@ def edit_component(request, comp_type, component_id=-1):
             elif comp_type == 'cm':
                 return redirect("items:consumables")
         else:
-            messages.error(request, _('Input incorrect'), extra_tags='alert-danger')
+            messages.error(request, _('Input incorrect. Check form fields'))
     else:
         item_form = ComponentForm(instance=item)
 
@@ -191,3 +192,14 @@ def category_popup(request, to, category_id=-1):
             '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
     return render(request, "items/edit_category_popup.html", {"form": form})
 
+
+@login_required(login_url=reverse_lazy('account:login'))
+def component(request, component_id):
+    item = get_object_or_404(Item, pk=component_id)
+    return render(
+        request,
+        'items/detail.html',
+        {'item': item,
+         'title': _('Component Detail'),
+         }
+    )

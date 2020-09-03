@@ -144,6 +144,8 @@ STATICFILES_DIRS = [
 ITEMS_ON_PAGE = 5
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SESSION_COOKIE_SECURE = False
 # usermanager/settings.py
 # EMAIL_HOST = ''
 # EMAIL_PORT = 587

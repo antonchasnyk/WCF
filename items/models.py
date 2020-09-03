@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 import re
 si_prefix_search = re.compile(r"(?P<prefix>^[pnumkMG]?)(?P<base>[\s\S]{1,}$)")
@@ -119,19 +120,22 @@ class Item(models.Model):
     def __str__(self):
         return self.part_number
 
+    def get_value(self):
+        return self.item_value.aggregate(value=Sum('value'))['value']
+
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number
 
     def get_absolute_url(self):
-        if self.item_type == 'cm':
-            return "/" + self.pk
+        if self.item_type == 'co':
+            return reverse_lazy('items:detail_component', kwargs={'component_id': self.pk})
         elif self.item_type == 'ap':
-            return "/" + self.pk
+            return "/" + str(self.pk)
         elif self.item_type == 'cm':
-            return "/" + self.pk
+            return "/" + str(self.pk)
 
     def get_edit_url(self):
-        if self.item_type == 'cm':
+        if self.item_type == 'co':
             return "/" + self.pk
         elif self.item_type == 'ap':
             return "/" + self.pk

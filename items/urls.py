@@ -11,11 +11,12 @@ urlpatterns = [
     path('consumables', views.consumables, name='consumables'),
     path('bom/<int:number>', views.bom, name='bom_list'),
 
-    path('component/add', views.edit_component, {'comp_type': 'co'}, name='add_components'),
-    path('component/edit/<int:component_id>', views.edit_component, {'comp_type': 'co'}, name='edit_components'),
+    path('component/add', views.edit_component, {'comp_type': 'co'}, name='add_component'),
+    path('component/edit/<int:component_id>', views.edit_component, {'comp_type': 'co'}, name='edit_component'),
+    path('component/<int:component_id>', views.component, name='detail_component'),
 
-    path('assemblie/add', views.edit_component, {'comp_type': 'ap'}, name='add_assemblies'),
-    path('assemblie/edit/<int:component_id>', views.edit_component, {'comp_type': 'ap'}, name='edit_assemblies'),
+    path('assemblie/add', views.edit_component, {'comp_type': 'ap'}, name='add_assembly'),
+    path('assemblie/edit/<int:component_id>', views.edit_component, {'comp_type': 'ap'}, name='edit_assembly'),
 
     path('consumable/add', views.edit_component, {'comp_type': 'cm'}, name='add_consumable'),
     path('consumable/edit/<int:component_id>', views.edit_component, {'comp_type': 'cm'}, name='edit_consumable'),

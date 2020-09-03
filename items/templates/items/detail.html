@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block section_header %} <h1>{{ item }} {{title}}</h1> {% endblock %}
+
+
+{% block main %}
+     <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.designator }}
+                </div>
+                <div class="card-body">
+                    <p>{{item.part_number}}</p>
+                    <p>{{item.comment}}</p>
+                    <p>{{item.get_value }}</p>
+                    <p>{{item.value_units }}</p>
+                </div>
+            </div>
+        </div>
+     </div>
+
+{% endblock %}
+
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+

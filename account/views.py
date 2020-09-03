@@ -24,7 +24,8 @@ def log_in(request):
             login(request, user)
             return redirect(next_url)
         else:
-            messages.error(request, _('Login or Password incorrect. Try again'), extra_tags='alert-danger')
+            messages.error(request, _('Login or Password incorrect'))
+
     return render(
         request,
         'account/auth-login.html',
