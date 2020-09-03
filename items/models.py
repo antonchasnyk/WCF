@@ -132,7 +132,7 @@ class Item(models.Model):
         elif self.item_type == 'ap':
             return "/" + str(self.pk)
         elif self.item_type == 'cm':
-            return "/" + str(self.pk)
+            return reverse_lazy('items:detail_consumable', kwargs={'component_id': self.pk})
 
     def get_edit_url(self):
         if self.item_type == 'co':

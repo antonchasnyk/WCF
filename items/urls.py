@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('consumable/add', views.edit_component, {'comp_type': 'cm'}, name='add_consumable'),
     path('consumable/edit/<int:component_id>', views.edit_component, {'comp_type': 'cm'}, name='edit_consumable'),
+    path('consumable/<int:component_id>', views.component, name='detail_consumable'),
 
     path('components/subcategory/add/<str:to>', views.subcategory_popup, name='subcategory_add_popup'),
     path('components/subcategory/<int:subcategory_id>/<str:to>', views.subcategory_popup,

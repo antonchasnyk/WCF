@@ -196,10 +196,14 @@ def category_popup(request, to, category_id=-1):
 @login_required(login_url=reverse_lazy('account:login'))
 def component(request, component_id):
     item = get_object_or_404(Item, pk=component_id)
+    if item.item_type == 'cm':
+        title = _('Consumable Detail')
+    else:
+        title = _('Component Detail')
     return render(
         request,
-        'items/detail.html',
+        'items/detail_component.html',
         {'item': item,
-         'title': _('Component Detail'),
+         'title': title,
          }
     )
