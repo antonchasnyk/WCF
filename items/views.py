@@ -135,12 +135,7 @@ def edit_component(request, comp_type, component_id=-1):
                                   item=item)
                 value.save()
             messages.success(request, _('Item {} added ').format(item.designator()))
-            if comp_type == 'co':
-                return redirect("items:component_list")
-            elif comp_type == 'ap':
-                return redirect("items:assembly_parts")
-            elif comp_type == 'cm':
-                return redirect("items:consumables")
+            return redirect(item.get_absolute_url())
         else:
             messages.error(request, _('Input incorrect. Check form fields'))
     else:

@@ -10,86 +10,123 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    {{ item.subcategory }} {{ item.designator }}
+                  <h4>{{ item.subcategory }} {{ item.designator }}</h4>
+                    <div class="card-header-action">
+                        {% if perms.items.add_item %}
+                          <a href="{{ item.get_edit_url }}" class="btn btn-primary">
+                            {% translate "Edit" %}
+                          </a>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="card-body">
-                    <p>{{item.part_number}}</p>
-                    <p>{{item.comment}}</p>
-                    <p>{{item.get_value }}</p>
-                    <p>{{item.value_units }}</p>
-                    <ul class="nav nav-tabs" id="Item tabs" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" id="used_in-tab" data-toggle="tab" href="#used_in" role="tab"
-                          aria-controls="used_in" aria-selected="true">{% translate 'Used In' %}</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" id="value-tab" data-toggle="tab" href="#value" role="tab"
-                          aria-controls="value" aria-selected="false">{% translate 'Warehouse' %}</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link " id="parameters-tab" data-toggle="tab" href="#parameters" role="tab"
-                          aria-controls="parameters" aria-selected="false">{% translate 'Parameters' %}</a>
-                      </li>
-                    </ul>
-                    <div class="tab-content tab-bordered" id="myTab3Content">
-                      <div class="tab-pane fade show active" id="used_in" role="tabpanel" aria-labelledby="used_in-tab">
-                        <table class="table table-striped">
-                            <thead class="thead-inverse">
-                            <th width="5%">#</th>
-                            <th> Type </th>
-                            <th> Comment </th>
-                            <th> Partnumber </th>
-                            <th> Qtt/Value </th>
-                            <th> Units</th>
-                            <th> Action</th>
-                        </thead>
-                            <tbody>
-                             {% for item in item.used_in.all %}
-                                <tr>
-                                    <th>
-                                        {{forloop.counter}}
-                                    </th>
-                                    <td>  {{ item.assembly_part.subcategory}}</td>
-                                    <td>  {{ item.assembly_part.comment }}</td>
-                                    <td>  {{ item.assembly_part.part_number }}</td>
-                                    <td>  {{ item.quantity }} / {{ item.item.get_value }}</td>
-                                    <td> {{ item.item.value_units }}</td>
-                                    <td>
-                                        {% if perms.items.add_item %}
-                                            <div class="dropdown d-inline mr-2">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {% translate "Action"%}
-                                                </button>
-                                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                    <a class="dropdown-item" href="{{ item.assembly_part.get_absolute_url }}">{% translate "Detail" %}</a>
-                                                    <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
-                                                </div>
-                                            </div>
-                                        {% else %}
-                                            <a href="#" class="btn btn-primary">{% translate "Detail" %}</a>
-                                        {% endif %}
+                    <div class="row">
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4">
+                            <dl class="">
+                              <dt>{% translate "Partnumber" %}</dt>
+                              <dd>{{item.part_number}}</dd>
+                              <dt>{% translate "Comment" %}</dt>
+                              <dd>{{item.comment}}</dd>
+                              <dt>{% translate "In Stock" %}</dt>
+                              <dd>{{item.get_value }} {{item.value_units }}</dd>
+                              <dt>{% translate "Avereg used" %}</dt>
+                              <dd>Coming soon  {{item.value_units }}/month</dd>
+                              <dt>&nbsp;</dt>
+                              <dd>Coming soon  {{item.value_units }}/year</dd>
+                            </dl>
+                        </div>
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-8">
 
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                        </table>
-                      </div>
-                      <div class="tab-pane fade" id="parameters" role="tabpanel" aria-labelledby="parameters-tab">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      </div>
-                      <div class="tab-pane fade" id="value" role="tabpanel" aria-labelledby="value-tab">
-                        Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis
-                        quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus.
-                        Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur,
-                        eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget
-                        scelerisque tellus pharetra a.
-                      </div>
+                        </div>
+                    </div>
+                    <div class="margin-20"></div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs" id="Item tabs" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link active" id="used_in-tab" data-toggle="tab" href="#used_in" role="tab"
+                                  aria-controls="used_in" aria-selected="true">{% translate 'Used In' %}</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="warehouse-tab" data-toggle="tab" href="#warehouse" role="tab"
+                                  aria-controls="warehouse" aria-selected="false">{% translate 'Warehouse' %}</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link " id="parameters-tab" data-toggle="tab" href="#parameters" role="tab"
+                                  aria-controls="parameters" aria-selected="false">{% translate 'Parameters' %}</a>
+                              </li>
+                            </ul>
+                            <div class="tab-content tab-bordered" id="myTab3Content">
+                              <div class="tab-pane fade show active" id="used_in" role="tabpanel" aria-labelledby="used_in-tab">
+                                  <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="thead-inverse">
+                                        <th width="5%">#</th>
+                                        <th> Type </th>
+                                        <th> Comment </th>
+                                        <th> Partnumber </th>
+                                        <th> Qtt/Value </th>
+                                        <th> Units</th>
+                                        <th> Action</th>
+                                    </thead>
+                                        <tbody>
+                                         {% for item in item.used_in.all %}
+                                            <tr>
+                                                <th>
+                                                    {{forloop.counter}}
+                                                </th>
+                                                <td>  {{ item.assembly_part.subcategory}}</td>
+                                                <td>  {{ item.assembly_part.comment }}</td>
+                                                <td>  {{ item.assembly_part.part_number }}</td>
+                                                <td>  {{ item.quantity }} / {{ item.item.get_value }}</td>
+                                                <td> {{ item.item.value_units }}</td>
+                                                <td>
+                                                    {% if perms.items.add_item %}
+                                                        <div class="dropdown d-inline mr-2">
+                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {% translate "Action"%}
+                                                            </button>
+                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                <a class="dropdown-item" href="{{ item.assembly_part.get_absolute_url }}">{% translate "Detail" %}</a>
+                                                                <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <a href="#" class="btn btn-primary">{% translate "Detail" %}</a>
+                                                    {% endif %}
+
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    </table>
+                                  </div>
+                              </div>
+                              <div class="tab-pane fade" id="warehouse" role="tabpanel" aria-labelledby="value-tab">
+                                income and outcome + price
+                              </div>
+                              <div class="tab-pane fade" id="parameters" role="tabpanel" aria-labelledby="parameters-tab">
+                                <div class="table col-12 col-sm-6 col-md-6 col-lg-4">
+                                  <table class="table table-sm">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">{% translate "Parameter" %}</th>
+                                        <th scope="col">{% translate "Value" %}</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for key, value in item.attributes.items %}
+                                        <tr>
+                                            <td>{{ key }}</td>
+                                            <td>{{ value }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                  </table>
+                            </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

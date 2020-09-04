@@ -136,11 +136,11 @@ class Item(models.Model):
 
     def get_edit_url(self):
         if self.item_type == 'co':
-            return "/" + self.pk
+            return "/" + str(self.pk)
         elif self.item_type == 'ap':
-            return "/" + self.pk
+            return "/" + str(self.pk)
         elif self.item_type == 'cm':
-            return "/" + self.pk
+            return "/" + str(self.pk)
 
 
 class ItemCategory(models.Model):

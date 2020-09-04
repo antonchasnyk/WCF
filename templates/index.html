@@ -807,7 +807,8 @@
                 {% for message in messages %}
                     iziToast.{{ message.tags }}({
                         title: '{{message.message}}',
-                        position: 'topRight'
+                        position: 'topRight',
+                        timeout: 10000,
                     })
                 {% endfor %}
         }
