@@ -20,8 +20,6 @@ MENU_STRUCT = {
 def side_menu(request):
     kwargs = MENU_STRUCT.copy()
     for key in kwargs:
-        print(request.path)
-        print(MENU_STRUCT[key])
         if request.path.startswith(MENU_STRUCT[key]):
             kwargs[key] = 'active'
         else:

@@ -1,8 +1,13 @@
+import os
+
 from django.db import models
 from django.db.models import Sum
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 import re
+
+from WCF import settings
+
 si_prefix_search = re.compile(r"(?P<prefix>^[pnumkMG]?)(?P<base>[\s\S]{1,}$)")
 
 item_type = [
@@ -110,6 +115,8 @@ class Item(models.Model):
                                     null=False, blank=False)
     attributes = models.JSONField(verbose_name=_('Attributes'), null=True, blank=True)
     bom = models.ManyToManyField('self', through='BOM', symmetrical=False, related_name='related_to')
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
 
     objects = models.Manager()
     valued_objects = ValuedManager()
@@ -160,12 +167,36 @@ class ItemSubCategory(models.Model):
         return self.name + ' ' + self.category.name
 
 
+class DocType(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('Document type'), unique=True, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
+def get_doc_file_path(instance, filename):
+    path = os.path.join(settings.BASE_DIR, 'media/items_docs/{}/{}s'.format(instance.item.part_number, instance.doc_type.name),
+                        filename)
+    print(path)
+    return path
+
+
+class ItemDocFile(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='document')
+    doc_type = models.ForeignKey(DocType, on_delete=models.PROTECT, related_name='document')
+    document = models.FileField(upload_to=get_doc_file_path,  null=False, verbose_name="File")
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False,)
+
+
 class BOM(models.Model):
     item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
     assembly_part = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='consist_of')
     position = models.CharField(max_length=200, verbose_name=_('position'),
                                 unique=False, null=False, blank=False)
     quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
         return self.assembly_part.part_number + ' BOM'
