@@ -7,6 +7,7 @@ from .models import Item, ItemCategory, ItemSubCategory, BOM, ItemDocFile, DocTy
 admin.site.register(ItemCategory)
 admin.site.register(ItemSubCategory)
 admin.site.register(DocType)
+admin.site.register(ItemDocFile)
 
 
 class BOMInline(admin.TabularInline):

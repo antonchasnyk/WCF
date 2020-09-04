@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-sm-4 col-md-4 col-lg-4">
-                            <dl class="">
+                            <dl>
                               <dt>{% translate "Partnumber" %}</dt>
                               <dd>{{item.part_number}}</dd>
                               <dt>{% translate "Comment" %}</dt>
@@ -33,6 +33,14 @@
                               <dd>Coming soon  {{item.value_units }}/month</dd>
                               <dt>&nbsp;</dt>
                               <dd>Coming soon  {{item.value_units }}/year</dd>
+                            </dl>
+                            <h6> Documentation</h6>
+                            <dl class="">
+                             <dl>
+                              {% for file in documents %}
+                                  <dt>{{ file.doc_type.name }}</dt>
+                                  <dd><a href="{{ file.document.url }}">{{ file.filename }}</a></dd>
+                              {% endfor %}
                             </dl>
                         </div>
                         <div class="col-12 col-sm-8 col-md-8 col-lg-8">

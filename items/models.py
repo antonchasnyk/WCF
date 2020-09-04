@@ -2,6 +2,7 @@ import os
 
 from django.db import models
 from django.db.models import Sum
+from django.dispatch import receiver
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 import re
@@ -175,18 +176,47 @@ class DocType(models.Model):
 
 
 def get_doc_file_path(instance, filename):
-    path = os.path.join(settings.BASE_DIR, 'media/items_docs/{}/{}s'.format(instance.item.part_number, instance.doc_type.name),
-                        filename)
-    print(path)
+    path = os.path.join(settings.BASE_DIR,
+                        'media/items_docs/{}/{}s/'.format(instance.item.part_number,
+                                                          instance.doc_type.name),
+                        '{}_{}{}'.format(instance.item.part_number,
+                                         instance.doc_type,
+                                         os.path.splitext(instance.document.name)[1]))
     return path
 
 
 class ItemDocFile(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='document')
     doc_type = models.ForeignKey(DocType, on_delete=models.PROTECT, related_name='document')
-    document = models.FileField(upload_to=get_doc_file_path,  null=False, verbose_name="File")
+    document = models.FileField(upload_to=get_doc_file_path,  null=False, verbose_name="File", max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False,)
+
+    def filename(self):
+        return os.path.basename(self.document.name)
+
+
+@receiver(models.signals.post_delete, sender=ItemDocFile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.document:
+        if os.path.isfile(instance.document.path):
+            os.remove(instance.document.path)
+
+
+@receiver(models.signals.pre_save, sender=ItemDocFile)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = sender.objects.get(pk=instance.pk).document
+    except sender.DoesNotExist:
+        return False
+
+    new_file = instance.document
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
 
 
 class BOM(models.Model):

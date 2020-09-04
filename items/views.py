@@ -191,6 +191,7 @@ def category_popup(request, to, category_id=-1):
 @login_required(login_url=reverse_lazy('account:login'))
 def component(request, component_id):
     item = get_object_or_404(Item, pk=component_id)
+    documents = item.document.all().prefetch_related('doc_type')
     if item.item_type == 'cm':
         title = _('Consumable Detail')
     else:
@@ -200,5 +201,6 @@ def component(request, component_id):
         'items/detail_component.html',
         {'item': item,
          'title': title,
+         'documents': documents,
          }
     )
