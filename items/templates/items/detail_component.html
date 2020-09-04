@@ -39,7 +39,7 @@
                              <dl>
                               {% for file in documents %}
                                   <dt>{{ file.doc_type.name }}</dt>
-                                  <dd><a href="{{ file.document.url }}">{{ file.filename }}</a></dd>
+                                  <dd><a href="{{ MEDIA_URL }}{{ file.document.name }}">{{ file.filename }}</a></dd>
                               {% endfor %}
                             </dl>
                         </div>

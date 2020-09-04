@@ -176,9 +176,8 @@ class DocType(models.Model):
 
 
 def get_doc_file_path(instance, filename):
-    path = os.path.join(settings.BASE_DIR,
-                        'media/items_docs/{}/{}s/'.format(instance.item.part_number,
-                                                          instance.doc_type.name),
+    path = os.path.join('items_docs/{}/{}s/'.format(instance.item.part_number,
+                                                    instance.doc_type.name),
                         '{}_{}{}'.format(instance.item.part_number,
                                          instance.doc_type,
                                          os.path.splitext(instance.document.name)[1]))
