@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('items.urls')),
     path('', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
+    path('', RedirectView.as_view(url='/dashboard', permanent=True)),
 ]
 
 handler404 = 'helpers.views.error_404'

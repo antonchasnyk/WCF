@@ -134,7 +134,7 @@
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">{% translate "Main" %}</li>
-                <li class="{{ dash }}"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>{% translate "Dashboard" %}</span></a></li>
+                <li class="{{ dash }}"><a class="nav-link" href="{% url "items:dashboard" %}"><i class="fas fa-home"></i><span>{% translate "Dashboard" %}</span></a></li>
             <li class="menu-header">{% translate "Items" %}</li>
                 <li class="dropdown {{ comp }}">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-microchip"></i><span>{% translate "Components"%}</span></a>

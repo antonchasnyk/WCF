@@ -5,7 +5,7 @@ from . import views
 app_name = 'items'
 
 urlpatterns = [
-    path('', views.index, name='dashboard'),
+    path('dashboard', views.index, name='dashboard'),
     path('components', views.components, name='component_list'),
     path('assemblies', views.assembly_pars, name='assembly_parts'),
     path('consumables', views.consumables, name='consumables'),
