@@ -1,0 +1,4 @@
+
+[Django translations]
+python manage.py makemessages -l ru --ignore venv
+python manage.py compilemessages --ignore venv

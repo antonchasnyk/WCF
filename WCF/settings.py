@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -146,6 +147,8 @@ ITEMS_ON_PAGE = 25
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SESSION_COOKIE_SECURE = False
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
 # usermanager/settings.py
 # EMAIL_HOST = ''
 # EMAIL_PORT = 587

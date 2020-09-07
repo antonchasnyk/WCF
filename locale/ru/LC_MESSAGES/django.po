@@ -1,0 +1,577 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-07 17:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%"
+"100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\account\forms.py:11 .\account\templates\account\auth-login.html:14
+#: .\account\templates\account\auth-login.html:48
+msgid "Login"
+msgstr "Логин"
+
+#: .\account\forms.py:12 .\account\templates\account\auth-login.html:28
+msgid "Password"
+msgstr "Пароль"
+
+#: .\account\forms.py:20
+msgid "First Name"
+msgstr "Имя"
+
+#: .\account\forms.py:21
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: .\account\forms.py:26
+msgid "First Name is required"
+msgstr "Имя обязательно для заполнения"
+
+#: .\account\forms.py:31
+msgid "Last Name is required"
+msgstr "Фамилия обязательна для заполнения"
+
+#: .\account\forms.py:40
+msgid "Mobile Number"
+msgstr "Номер мобильного"
+
+#: .\account\forms.py:41
+msgid "Internal Number"
+msgstr "Внутренний номер"
+
+#: .\account\forms.py:42 .\account\models.py:12
+msgid "Bio"
+msgstr "О себе"
+
+#: .\account\forms.py:43 .\account\models.py:13
+#: .\account\templates\account\profile.html:74
+#: .\account\templates\account\team.html:20
+msgid "Location"
+msgstr "Расположение"
+
+#: .\account\models.py:15
+msgid "Mobile phone"
+msgstr "Номер мобильного"
+
+#: .\account\models.py:16
+msgid "Internal phone"
+msgstr "Внутренний номер"
+
+#: .\account\models.py:21 .\account\templates\account\team.html:18
+msgid "Position"
+msgstr "Должность"
+
+#: .\account\templates\account\auth-login.html:20
+#: .\templates\registration\password_reset_form.html:21
+msgid "Email"
+msgstr "Email"
+
+#: .\account\templates\account\auth-login.html:23
+msgid "Please fill in your email"
+msgstr "Пожалуйста укажите ваш email"
+
+#: .\account\templates\account\auth-login.html:31
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: .\account\templates\account\auth-login.html:37
+msgid "please fill in your password"
+msgstr "Пожалуйста укажите ваш пароль"
+
+#: .\account\templates\account\auth-login.html:43
+msgid "Remember Me"
+msgstr "Запомнить меня"
+
+#: .\account\templates\account\auth-login.html:55
+msgid "Don't have an account?"
+msgstr "Нет учетной записи?"
+
+#: .\account\templates\account\auth-login.html:55
+msgid "Create One"
+msgstr "Создайть"
+
+#: .\account\templates\account\profile.html:30 .\templates\index.html:111
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\account\templates\account\profile.html:68
+msgid "Personal Details"
+msgstr ""
+
+#: .\account\templates\account\profile.html:82
+msgid "Internal number"
+msgstr "Внутренний номер"
+
+#: .\account\templates\account\profile.html:90
+msgid "Mobile number"
+msgstr "Номер мобильного"
+
+#: .\account\templates\account\profile.html:98
+msgid "email"
+msgstr "email"
+
+#: .\account\templates\account\profile.html:165
+#: .\items\templates\items\edit_category_popup.html:36
+#: .\items\templates\items\edit_component.html:73
+#: .\items\templates\items\edit_subcategory_popup.html:58
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: .\account\templates\account\profile.html:185
+msgid "Change your avatar"
+msgstr "Изменить аватар"
+
+#: .\account\templates\account\team.html:5 .\templates\index.html:170
+#: .\templates\index.html:171
+msgid "Team"
+msgstr "Комманда"
+
+#: .\account\templates\account\team.html:16
+msgid "Photo"
+msgstr "Фото"
+
+#: .\account\templates\account\team.html:17
+msgid "Full Name"
+msgstr "ФИО"
+
+#: .\account\templates\account\team.html:19
+msgid "Number"
+msgstr "Номер"
+
+#: .\account\templates\account\team.html:21
+#: .\items\templates\items\ajax_search.html:32
+#: .\items\templates\items\detail_assembly.html:94
+#: .\items\templates\items\detail_assembly.html:125
+#: .\items\templates\items\detail_assembly.html:156
+#: .\items\templates\items\detail_component.html:95
+#: .\purchase\templates\purchase\needs.html:49
+msgid "Action"
+msgstr "Действие"
+
+#: .\account\views.py:27
+msgid "Login or Password incorrect"
+msgstr "Лониг или пароль не верны"
+
+#: .\account\views.py:33
+msgid "login"
+msgstr "Логин"
+
+#: .\account\views.py:63
+msgid "Input incorrect"
+msgstr "Не верный ввод"
+
+#: .\account\views.py:95
+msgid "avatar to large"
+msgstr "Аватар слишком большой"
+
+#: .\items\models.py:15
+msgid "Component"
+msgstr "Компонент"
+
+#: .\items\models.py:16
+msgid "Assembly Part"
+msgstr "Сборочная единица"
+
+#: .\items\models.py:17 .\templates\index.html:154
+msgid "Consumable"
+msgstr "Расходник"
+
+#: .\items\models.py:21
+msgid "pcs"
+msgstr "шт."
+
+#: .\items\models.py:22
+msgid "ml"
+msgstr "мл"
+
+#: .\items\models.py:23
+msgid "g"
+msgstr "г"
+
+#: .\items\models.py:24
+msgid "mm"
+msgstr "мм"
+
+#: .\items\models.py:108
+msgid "Part Number"
+msgstr "Part Number"
+
+#: .\items\models.py:110 .\items\templates\items\detail_assembly.html:28
+#: .\items\templates\items\detail_component.html:28
+msgid "Comment"
+msgstr "Коментарий"
+
+#: .\items\models.py:112
+msgid "Created_by"
+msgstr "Кем создано"
+
+#: .\items\models.py:114
+msgid "Type"
+msgstr "Тип"
+
+#: .\items\models.py:116
+msgid "Units"
+msgstr "Единицы"
+
+#: .\items\models.py:118 .\items\models.py:171
+#: .\items\templates\items\edit_category_popup.html:6
+msgid "Category"
+msgstr "Категория"
+
+#: .\items\models.py:120
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: .\items\models.py:162
+msgid "Category name"
+msgstr "Имя категории"
+
+#: .\items\models.py:169
+msgid "Sub Category name"
+msgstr "Имя подкатегории"
+
+#: .\items\models.py:179
+msgid "Document type"
+msgstr "Тип документа"
+
+#: .\items\models.py:231
+msgid "position"
+msgstr "должность"
+
+#: .\items\models.py:233
+msgid "Quantity"
+msgstr "Количество"
+
+#: .\items\templates\items\ajax_search.html:35
+#: .\items\templates\items\ajax_search.html:40
+#: .\items\templates\items\detail_assembly.html:97
+#: .\items\templates\items\detail_assembly.html:102
+#: .\items\templates\items\detail_assembly.html:128
+#: .\items\templates\items\detail_assembly.html:133
+#: .\items\templates\items\detail_assembly.html:159
+#: .\items\templates\items\detail_assembly.html:164
+#: .\items\templates\items\detail_component.html:98
+#: .\items\templates\items\detail_component.html:103
+#: .\purchase\templates\purchase\done.html:46
+#: .\purchase\templates\purchase\in_progres.html:48
+#: .\purchase\templates\purchase\needs.html:52
+#: .\purchase\templates\purchase\needs.html:57
+msgid "Detail"
+msgstr ""
+
+#: .\items\templates\items\ajax_search.html:36
+#: .\items\templates\items\detail_assembly.html:17
+#: .\items\templates\items\detail_assembly.html:98
+#: .\items\templates\items\detail_assembly.html:129
+#: .\items\templates\items\detail_assembly.html:160
+#: .\items\templates\items\detail_component.html:17
+#: .\items\templates\items\detail_component.html:99
+msgid "Edit"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:26
+#: .\items\templates\items\detail_component.html:26
+msgid "Partnumber"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:30
+#: .\items\templates\items\detail_component.html:30
+msgid "In Stock"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:32
+msgid "Avereg sales"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:56
+msgid "BOM"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:60
+#: .\items\templates\items\detail_component.html:60 .\templates\index.html:160
+msgid "Warehouse"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:64
+#: .\items\templates\items\detail_component.html:64
+msgid "Parameters"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:81 .\items\views.py:62
+#: .\templates\index.html:140
+msgid "Components"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:111 .\items\views.py:81
+#: .\templates\index.html:147
+msgid "Assembly parts"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:142 .\items\views.py:98
+msgid "Consumables"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:183
+#: .\items\templates\items\detail_component.html:148
+msgid "Parameter"
+msgstr ""
+
+#: .\items\templates\items\detail_assembly.html:184
+#: .\items\templates\items\detail_component.html:149 .\purchase\models.py:55
+msgid "Value"
+msgstr ""
+
+#: .\items\templates\items\detail_component.html:32
+msgid "Avereg used"
+msgstr ""
+
+#: .\items\templates\items\detail_component.html:56
+msgid "Used In"
+msgstr ""
+
+#: .\items\templates\items\edit_category_popup.html:18
+msgid "Edit Category"
+msgstr ""
+
+#: .\items\templates\items\edit_subcategory_popup.html:6
+msgid "Subcategory"
+msgstr ""
+
+#: .\items\templates\items\edit_subcategory_popup.html:18
+msgid "Edit Subcategory"
+msgstr ""
+
+#: .\items\templates\items\index.html:19
+msgid "Add New"
+msgstr ""
+
+#: .\items\views.py:137
+msgid "Item {} added "
+msgstr ""
+
+#: .\items\views.py:140
+msgid "Input incorrect. Check form fields"
+msgstr ""
+
+#: .\items\views.py:145
+msgid "Edit Component"
+msgstr ""
+
+#: .\items\views.py:147
+msgid "Edit Assembly Part"
+msgstr ""
+
+#: .\items\views.py:149
+msgid "Edit Consumable"
+msgstr ""
+
+#: .\items\views.py:151
+msgid "Unknown Type"
+msgstr ""
+
+#: .\items\views.py:196
+msgid "Consumable Detail"
+msgstr ""
+
+#: .\items\views.py:198 .\items\views.py:219
+msgid "Component Detail"
+msgstr ""
+
+#: .\items\views.py:217
+msgid "Assembly Detail"
+msgstr ""
+
+#: .\purchase\models.py:21 .\purchase\views.py:14 .\purchase\views.py:25
+#: .\purchase\views.py:36
+msgid "Needs"
+msgstr ""
+
+#: .\purchase\models.py:22
+msgid "Ordered"
+msgstr ""
+
+#: .\purchase\models.py:23
+msgid "Paid"
+msgstr ""
+
+#: .\purchase\models.py:24
+msgid "On the way"
+msgstr ""
+
+#: .\purchase\models.py:25
+msgid "Done"
+msgstr ""
+
+#: .\purchase\models.py:29 .\templates\index.html:162
+msgid "Purchase"
+msgstr ""
+
+#: .\purchase\models.py:30
+msgid "Manufacturing"
+msgstr ""
+
+#: .\purchase\models.py:31
+msgid "Repair"
+msgstr ""
+
+#: .\purchase\models.py:32
+msgid "User correction"
+msgstr ""
+
+#: .\purchase\models.py:56
+msgid "Status"
+msgstr ""
+
+#: .\purchase\models.py:58
+msgid "Reason"
+msgstr ""
+
+#: .\purchase\models.py:75
+msgid "Can order needs"
+msgstr ""
+
+#: .\purchase\models.py:76
+msgid "Can pay ordered"
+msgstr ""
+
+#: .\purchase\models.py:77
+msgid "Can make delivery"
+msgstr ""
+
+#: .\purchase\models.py:78
+msgid "Can accept to warehouse"
+msgstr ""
+
+#: .\purchase\templates\purchase\needs.html:53
+msgid "Order"
+msgstr ""
+
+#: .\templates\blank.html:5
+msgid "Blank Page"
+msgstr ""
+
+#: .\templates\index.html:109
+msgid "Hello"
+msgstr ""
+
+#: .\templates\index.html:114
+msgid "Activities"
+msgstr ""
+
+#: .\templates\index.html:117
+msgid "Settings"
+msgstr ""
+
+#: .\templates\index.html:121
+msgid "Logout"
+msgstr ""
+
+#: .\templates\index.html:136
+msgid "Main"
+msgstr ""
+
+#: .\templates\index.html:137 .\templates\index.html:180
+msgid "Dashboard"
+msgstr ""
+
+#: .\templates\index.html:138
+msgid "Items"
+msgstr ""
+
+#: .\templates\index.html:142 .\templates\index.html:149
+#: .\templates\index.html:156
+msgid "all"
+msgstr ""
+
+#: .\templates\index.html:143 .\templates\index.html:150
+#: .\templates\index.html:157
+msgid "nop"
+msgstr ""
+
+#: .\templates\index.html:164
+msgid "needs"
+msgstr ""
+
+#: .\templates\index.html:165
+msgid "in progress"
+msgstr ""
+
+#: .\templates\index.html:166
+msgid "done"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:5
+msgid "Password reset Done"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:15
+#: .\templates\registration\password_reset_done.html:14
+msgid "Forgot Password Done"
+msgstr ""
+
+#: .\templates\registration\password_reset_complete.html:20
+#, python-format
+msgid ""
+"\n"
+"                        Your password has been set. You may go ahead and <a "
+"href=\"%(url)s\">sign in</a> now.\n"
+"                    "
+msgstr ""
+
+#: .\templates\registration\password_reset_confirm.html:42
+msgid ""
+"\n"
+"                      The password reset link was invalid, possibly because "
+"it has already been used.\n"
+"                      Please request a new password reset.\n"
+"                      "
+msgstr ""
+
+#: .\templates\registration\password_reset_done.html:18
+msgid ""
+"\n"
+"                        We sent a link to reset your password. Please check "
+"your email.\n"
+"                    "
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:3
+#, python-format
+msgid ""
+"\n"
+"Hello %(username)s!\n"
+"to initiate the password reset process for your WCF account,\n"
+"click the link below:\n"
+msgstr ""
+
+#: .\templates\registration\password_reset_email.html:11
+msgid ""
+"\n"
+"If clicking the link above doesn't work, please copy and paste the URL in a "
+"new browser\n"
+"window instead.\n"
+"Sincerely,\n"
+"The WCF Team\n"
+msgstr ""
+
+#: .\templates\registration\password_reset_form.html:14
+#: .\templates\registration\password_reset_form.html:26
+msgid "Forgot Password"
+msgstr ""
+
+#: .\templates\registration\password_reset_form.html:17
+msgid "We will send a link to reset your password"
+msgstr ""
