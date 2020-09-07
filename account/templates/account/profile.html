@@ -217,7 +217,7 @@
               <div class="modal-body">
                 <div class="img-container">
                   <img id="image" src="blob:{{ request.scheme }}:// {{ request.META.HTTP_HOST }}{{MEDIA_URL}}{{ user.profile.avatar }}"  class=""
-                  style="max-width:100%; height:auto;">
+                  style="width:100%; height: inherit !important;">
                 </div>
               </div>
               <div class="modal-footer">

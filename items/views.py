@@ -204,3 +204,27 @@ def component(request, component_id):
          'documents': documents,
          }
     )
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+def assembly(request, assembly_id):
+    item = get_object_or_404(Item, pk=assembly_id)
+    documents = item.document.all().prefetch_related('doc_type')
+    components = item.consist_of.filter(item__item_type='co').order_by('position')
+    assemblies = item.consist_of.filter(item__item_type='ap').order_by('position')
+    consumables = item.consist_of.filter(item__item_type='cm').order_by('position')
+    if item.item_type == 'ap':
+        title = _('Assembly Detail')
+    else:
+        title = _('Component Detail')
+    return render(
+        request,
+        'items/detail_assembly.html',
+        {'item': item,
+         'title': title,
+         'documents': documents,
+         'components': components,
+         'assemblies': assemblies,
+         'consumables': consumables,
+         }
+    )

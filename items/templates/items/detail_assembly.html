@@ -29,7 +29,7 @@
                               <dd>{{item.comment}}</dd>
                               <dt>{% translate "In Stock" %}</dt>
                               <dd>{{item.get_value }} {{item.value_units }}</dd>
-                              <dt>{% translate "Avereg used" %}</dt>
+                              <dt>{% translate "Avereg sales" %}</dt>
                               <dd>Coming soon  {{item.value_units }}/month</dd>
                               <dt>&nbsp;</dt>
                               <dd>Coming soon  {{item.value_units }}/year</dd>
@@ -53,7 +53,7 @@
                             <ul class="nav nav-tabs" id="Item tabs" role="tablist">
                               <li class="nav-item">
                                 <a class="nav-link active" id="used_in-tab" data-toggle="tab" href="#used_in" role="tab"
-                                  aria-controls="used_in" aria-selected="true">{% translate 'Used In' %}</a>
+                                  aria-controls="used_in" aria-selected="true">{% translate 'BOM' %}</a>
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link" id="warehouse-tab" data-toggle="tab" href="#warehouse" role="tab"
@@ -68,26 +68,25 @@
                               <div class="tab-pane fade show active" id="used_in" role="tabpanel" aria-labelledby="used_in-tab">
                                   <div class="table-responsive">
                                     <table class="table table-striped">
-                                        <thead class="thead-inverse">
-                                        <th width="5%">#</th>
-                                        <th> Type </th>
-                                        <th> Comment </th>
-                                        <th> Partnumber </th>
+                                    <thead class="thead-inverse">
+                                        <th> Position </th>
+                                        <th> Designator </th>
                                         <th> Qtt/Value </th>
                                         <th> Units</th>
                                         <th> Action</th>
                                     </thead>
                                         <tbody>
-                                         {% for item in item.used_in.all %}
+                                         <tr>
+                                             <td colspan="6" style="text-align: center; font-weight: bold">
+                                                {% translate 'Components' %}
+                                              </td>
+                                         </tr>
+                                         {% for component in components %}
                                             <tr>
-                                                <th>
-                                                    {{forloop.counter}}
-                                                </th>
-                                                <td>  {{ item.assembly_part.subcategory}}</td>
-                                                <td>  {{ item.assembly_part.comment }}</td>
-                                                <td>  {{ item.assembly_part.part_number }}</td>
-                                                <td>  {{ item.quantity }} / {{ item.item.get_value }}</td>
-                                                <td> {{ item.item.value_units }}</td>
+                                                <td>  {{ component.position}}</td>
+                                                <td>  {{ component.item.designator }}</td>
+                                                <td>  {{ component.quantity }} / {{ component.item.get_value }}</td>
+                                                <td> {{ component.item.value_units }}</td>
                                                 <td>
                                                     {% if perms.items.add_item %}
                                                         <div class="dropdown d-inline mr-2">
@@ -95,17 +94,80 @@
                                                                 {% translate "Action"%}
                                                             </button>
                                                             <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                <a class="dropdown-item" href="{{ item.assembly_part.get_absolute_url }}">{% translate "Detail" %}</a>
+                                                                <a class="dropdown-item" href="{{ component.item.get_absolute_url }}">{% translate "Detail" %}</a>
                                                                 <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
                                                             </div>
                                                         </div>
                                                     {% else %}
-                                                        <a href="{{ item.assembly_part.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
+                                                        <a href="{{ component.item.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
                                                     {% endif %}
 
                                                 </td>
                                             </tr>
                                         {% endfor %}
+                                         {% if consumables %}
+                                         <tr>
+                                             <td colspan="6" style="text-align: center; font-weight: bold">
+                                                {% translate 'Assembly parts' %}
+                                              </td>
+                                         </tr>
+                                         {% endif %}
+                                         {% for assembly in assemblies %}
+                                            <tr>
+                                                <td>  {{ assembly.position}}</td>
+                                                <td>  {{ assembly.item.designator }}</td>
+                                                <td>  {{ assembly.quantity }} / {{ assembly.item.get_value }}</td>
+                                                <td> {{ assembly.item.value_units }}</td>
+                                                <td>
+                                                    {% if perms.items.add_item %}
+                                                        <div class="dropdown d-inline mr-2">
+                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {% translate "Action"%}
+                                                            </button>
+                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                <a class="dropdown-item" href="{{ assembly.item.get_absolute_url }}">{% translate "Detail" %}</a>
+                                                                <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <a href="{{ assembly.item.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
+                                                    {% endif %}
+
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                         {% if consumables %}
+                                         <tr>
+                                             <td colspan="6" style="text-align: center; font-weight: bold">
+                                                {% translate 'Consumables' %}
+                                              </td>
+                                         </tr>
+                                         {% endif %}
+                                         {% for consumable in consumables %}
+                                            <tr>
+                                                <td>  {{ consumable.position}}</td>
+                                                <td>  {{ consumable.item.designator }}</td>
+                                                <td>  {{ consumable.quantity }} / {{ consumable.item.get_value }}</td>
+                                                <td> {{ consumable.item.value_units }}</td>
+                                                <td>
+                                                    {% if perms.items.add_item %}
+                                                        <div class="dropdown d-inline mr-2">
+                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                {% translate "Action"%}
+                                                            </button>
+                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                <a class="dropdown-item" href="{{ consumable.item.get_absolute_url }}">{% translate "Detail" %}</a>
+                                                                <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <a href="{{ consumable.item.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
+                                                    {% endif %}
+
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
                                     </tbody>
                                     </table>
                                   </div>

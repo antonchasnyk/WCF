@@ -129,7 +129,8 @@ class Item(models.Model):
         return self.part_number
 
     def get_value(self):
-        return self.item_value.aggregate(value=Sum('value'))['value']
+        value = self.item_value.aggregate(value=Sum('value'))['value']
+        return value if value else 0
 
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number
@@ -138,7 +139,7 @@ class Item(models.Model):
         if self.item_type == 'co':
             return reverse_lazy('items:detail_component', kwargs={'component_id': self.pk})
         elif self.item_type == 'ap':
-            return "/" + str(self.pk)
+            return reverse_lazy('items:detail_assembly', kwargs={'assembly_id': self.pk})
         elif self.item_type == 'cm':
             return reverse_lazy('items:detail_consumable', kwargs={'component_id': self.pk})
 
