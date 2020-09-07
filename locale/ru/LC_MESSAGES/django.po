@@ -109,7 +109,7 @@ msgstr "Профиль"
 
 #: .\account\templates\account\profile.html:68
 msgid "Personal Details"
-msgstr ""
+msgstr "Данные сотрудника"
 
 #: .\account\templates\account\profile.html:82
 msgid "Internal number"
