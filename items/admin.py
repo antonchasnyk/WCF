@@ -30,6 +30,7 @@ class PriceInInline(admin.TabularInline):
 class ValueInInline(admin.TabularInline):
     model = ItemValue
     extra = 3
+    fk_name = "item"
 
 
 class DocInline(admin.TabularInline):

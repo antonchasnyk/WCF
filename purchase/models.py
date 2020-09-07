@@ -16,9 +16,43 @@ class ItemPrice(models.Model):
         return str(self.item) + ' ' + str(self.created_at)
 
 
+value_status = [
+        ('nd', _('Needs')),
+        ('or', _('Ordered')),
+        ('pa', _('Paid')),
+        ('ow', _('On the way')),
+        ('re', _('Done')),
+    ]
+
+value_reason = [
+        ('pu', _('Purchase')),
+        ('mf', _('Manufacturing')),
+        ('rp', _('Repair')),
+        ('uc', _('User correction')),
+]
+
+
+class DoneValueManager(models.Manager):
+    def get_queryset(self):
+        print('custom manager')
+        return super().get_queryset().filter(status='re')
+
+
 class ItemValue(models.Model):
-    item = models.ForeignKey('items.Item', on_delete=models.CASCADE, null=False, blank=False, related_name='item_value')
+    item = models.ForeignKey('items.Item', on_delete=models.PROTECT, null=False, blank=False, related_name='item_value')
     value = models.IntegerField(default=0, verbose_name=_('Value'), null=False, blank=False)
+    status = models.CharField(max_length=2, verbose_name=_('Status'), choices=value_status,
+                              default='nd', null=False, blank=False)
+    reason = models.CharField(max_length=2, verbose_name=_('Reason'), choices=value_reason,
+                              default='pu', null=False, blank=False)
+    assembly_part = models.ForeignKey('items.Item', on_delete=models.PROTECT,
+                                      null=True, blank=True, related_name='value_used_in')
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     created_by = models.ForeignKey('auth.User', on_delete=models.PROTECT, null=False, blank=False)
+
+    objects = models.Manager()
+    objects_done = DoneValueManager()
+
+    def __str__(self):
+        return '{} value:{} status:{}'.format(str(self.item.designator()), str(self.value), str(self.status))

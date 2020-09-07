@@ -1,7 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from purchase.models import ItemPrice
+from purchase.models import ItemPrice, ItemValue
+
+admin.site.register(ItemValue)
 
 
 @admin.register(ItemPrice)

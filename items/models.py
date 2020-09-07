@@ -1,7 +1,7 @@
 import os
 
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.dispatch import receiver
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
@@ -83,22 +83,25 @@ def unit_conversion(source, target, value):
 
 class ValuedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value'))
+        return super().get_queryset().annotate(value=Sum('item_value__value', filter=Q(item_value__status='re')))
 
 
 class ComponentManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value')).filter(item_type='co')
+        return super().get_queryset().annotate(value=Sum('item_value__value',
+                                                         filter=Q(item_value__status='re'))).filter(item_type='co')
 
 
 class AssemblyPartsManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value')).filter(item_type='ap')
+        return super().get_queryset().annotate(value=Sum('item_value__value',
+                                                         filter=Q(item_value__status='re'))).filter(item_type='ap')
 
 
 class ConsumableManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value')).filter(item_type='cm')
+        return super().get_queryset().annotate(value=Sum('item_value__value',
+                                                         filter=Q(item_value__status='re'))).filter(item_type='cm')
 
 
 class Item(models.Model):
@@ -129,8 +132,11 @@ class Item(models.Model):
         return self.part_number
 
     def get_value(self):
-        value = self.item_value.aggregate(value=Sum('value'))['value']
+        value = self.item_value.aggregate(value=Sum('value', filter=Q(status='re')))['value']
         return value if value else 0
+
+    def get_value_set(self):
+        return self.item_value.filter(status='re').order_by("-updated_at")
 
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number

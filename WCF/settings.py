@@ -141,7 +141,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-ITEMS_ON_PAGE = 5
+ITEMS_ON_PAGE = 25
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
