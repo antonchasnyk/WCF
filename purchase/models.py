@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 
@@ -34,8 +35,19 @@ value_reason = [
 
 class DoneValueManager(models.Manager):
     def get_queryset(self):
-        print('custom manager')
-        return super().get_queryset().filter(status='re')
+        return super().get_queryset().filter(Q(status='re') & Q(reason='pu'))
+
+
+class NeedsValueManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(Q(status='nd') & Q(reason='pu'))
+
+
+class InProgressValueManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(reason='pu').filter(Q(status='or') |
+                                                                 Q(status='pa') |
+                                                                 Q(status='ow'))
 
 
 class ItemValue(models.Model):
@@ -53,6 +65,8 @@ class ItemValue(models.Model):
 
     objects = models.Manager()
     objects_done = DoneValueManager()
+    objects_in_progress = InProgressValueManager()
+    objects_needs = NeedsValueManager()
 
     def __str__(self):
         return '{} value:{} status:{}'.format(str(self.item.designator()), str(self.value), str(self.status))
