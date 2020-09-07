@@ -13,9 +13,10 @@ MENU_STRUCT = {
     'cons_all': (reverse('items:consumables'),),
     'cons_nop': (),
     'team_all': (),
-    'purch': (),
-    'purch_needs': (),
-    'purch_ordered': (),
+    'purch': '/purchase',
+    'purch_needs': (reverse('purchase:needs'),),
+    'purch_inp': (reverse('purchase:in_progress')),
+    'purch_done': (reverse('purchase:done')),
 
 }
 

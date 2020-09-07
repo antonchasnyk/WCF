@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+{% load static %}
+{% load i18n %}
+{% load utils %}
+
+
+{% block section_header %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-form ">
+                    </div>
+                  </div>
+              <div class="card-body p-0" id="result">
+
+                <div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-inverse">
+            <th width="5%">#</th>
+            <th> Type </th>
+            <th> Comment </th>
+            <th> Partnumber </th>
+            <th> Value </th>
+            <th> Units</th>
+            <th> Action</th>
+        </thead>
+        <tbody>
+            {% for item in item_list %}
+                <tr>
+                    <th>
+                        {{forloop.counter}}
+                    </th>
+                    <td>  {{ item.item.subcategory }}</td>
+                    <td>  {{ item.item.comment }}</td>
+                    <td>  {{ item.item.part_number }}</td>
+                    <td>  {{ item.value|default:'0' }}</td>
+                    <td> {{ item.item.value_units }}</td>
+                    <td>
+                        {% if perms.purchase.can_order %}
+                            <div class="dropdown d-inline mr-2">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {% translate "Action"%}
+                                </button>
+                                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a class="dropdown-item" href="{{ item.item.get_absolute_url }}">{% translate "Detail" %}</a>
+                                    <a class="dropdown-item" href="#">{% translate "Order" %}</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{{ item.item.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+
+{% block last_scripts %}
+{% endblock %}
+

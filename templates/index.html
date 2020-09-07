@@ -161,9 +161,9 @@
                 <li class="dropdown {{ purch }}">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>{% translate "Purchase"%}</span></a>
                   <ul class="dropdown-menu">
-                    <li class="{{ comp_all }}"><a class="nav-link" href="#">{% translate  "needs" %}</a></li>
-                    <li class="{{ comp_nop }}"><a class="nav-link" href="#">{% translate  "in progress"%}</a></li>
-                    <li class="{{ comp_nop }}"><a class="nav-link" href="#">{% translate  "done"%}</a></li>
+                    <li class="{{ purch_needs }}"><a class="nav-link" href="{% url "purchase:needs" %}"> {% translate  "needs" %}</a></li>
+                    <li class="{{ purch_inp }}"><a class="nav-link" href="{% url "purchase:in_progress" %}">{% translate  "in progress"%}</a></li>
+                    <li class="{{ purch_done }}"><a class="nav-link" href="{% url "purchase:done" %}">{% translate  "done"%}</a></li>
                   </ul>
                 </li>
 
