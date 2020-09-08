@@ -3,7 +3,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -25,7 +25,7 @@ def index(request):
                   )
 
 
-def search(queryset, request):
+def search(queryset, request, context):
     q = request.GET.get('q', default='')
     item_list = queryset
     if q:
@@ -40,17 +40,33 @@ def search(queryset, request):
     page_number = request.GET.get('p')
     page_obj = paginator.get_page(page_number)
     if request.is_ajax():
-        return True, render(request, 'items/ajax_search.html',
-                      {'item_list': page_obj,
-                       })
+        if context == 'full':
+            return True, render(request, 'items/ajax_search.html',
+                          {'item_list': page_obj,
+                           })
+        else:
+
+            return True, render(request, 'items/context_search.html',
+                                {'item_list': page_obj,
+                                 })
     else:
         return False, q, page_obj
 
 
 @login_required(login_url=reverse_lazy('account:login'))
+def context_search(request):
+    item_list = Item.components.all()
+    ajax, *z= search(item_list, request, 'context')
+    if ajax:
+        return z[0]
+    else:
+        return HttpResponseForbidden()
+
+
+@login_required(login_url=reverse_lazy('account:login'))
 def components(request):
     item_list = Item.components.all()
-    ajax, *z = search(item_list, request)
+    ajax, *z = search(item_list, request, 'full')
 
     if ajax:
         return z[0]
@@ -70,7 +86,7 @@ def components(request):
 def assembly_pars(request):
     item_list = Item.assembly_parts.all()
 
-    ajax, *z = search(item_list, request)
+    ajax, *z = search(item_list, request, 'full')
     if ajax:
         return z[0]
     else:
@@ -87,7 +103,7 @@ def assembly_pars(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def consumables(request):
     item_list = Item.consumable.all()
-    ajax, *z = search(item_list, request)
+    ajax, *z = search(item_list, request, 'full')
     if ajax:
         return z[0]
     else:

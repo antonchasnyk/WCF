@@ -10,6 +10,8 @@ urlpatterns = [
     path('assemblies', views.assembly_pars, name='assembly_parts'),
     path('consumables', views.consumables, name='consumables'),
     path('bom/<int:number>', views.bom, name='bom_list'),
+    path('items/search', views.context_search, name='context_search'),
+
 
     path('component/add', views.edit_component, {'comp_type': 'co'}, name='add_component'),
     path('component/edit/<int:component_id>', views.edit_component, {'comp_type': 'co'}, name='edit_component'),

@@ -22,7 +22,7 @@
                     <div class="card-header-form ">
                              {% csrf_token %}
                         <form>
-                            {{ form.search }}
+                            {{ form.search|attr:"class:form-control" }}
                             <button>Ok</button>
                         </form>
                     </div>

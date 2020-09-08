@@ -16,7 +16,7 @@ function get_searchable_id(hid, inp, option_list, search_url) {
     let option_id = $(option_list).attr("id");
     let option = $('#'+option_id+' option[value="' + g +'"]')[0];
     if (option)
-    {
-        $(hid).val(option.id)
-    }
+        $(hid).val(option.id);
+    else
+        $(hid).val(null);
 }

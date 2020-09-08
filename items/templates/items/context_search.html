@@ -1,0 +1,7 @@
+{% load static %}
+{% load i18n %}
+{% load utils %}
+
+{% for item in item_list %}
+<option id="{{ item.pk }}" value="{{ item.designator }}"></option>
+{% endfor %}
