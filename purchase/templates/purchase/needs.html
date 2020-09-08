@@ -16,6 +16,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-form ">
+                             {% csrf_token %}
+                            {{ form.search }}
                     </div>
                   </div>
               <div class="card-body p-0" id="result">
@@ -74,6 +76,9 @@
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
+    {% for js in form.media.render_js%}
+        {{ js }}
+    {% endfor %}
 {% endblock %}
 
 {% block last_scripts %}

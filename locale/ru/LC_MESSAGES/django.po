@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-07 17:32+0300\n"
+"POT-Creation-Date: 2020-09-08 09:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgstr "Сборочная единица"
 
 #: .\items\models.py:17 .\templates\index.html:154
 msgid "Consumable"
-msgstr "Расходник"
+msgstr "Расходники"
 
 #: .\items\models.py:21
 msgid "pcs"
@@ -270,7 +270,7 @@ msgstr "Количество"
 #: .\purchase\templates\purchase\needs.html:52
 #: .\purchase\templates\purchase\needs.html:57
 msgid "Detail"
-msgstr ""
+msgstr "Подробнее"
 
 #: .\items\templates\items\ajax_search.html:36
 #: .\items\templates\items\detail_assembly.html:17
@@ -280,221 +280,225 @@ msgstr ""
 #: .\items\templates\items\detail_component.html:17
 #: .\items\templates\items\detail_component.html:99
 msgid "Edit"
-msgstr ""
+msgstr "Изменить"
 
 #: .\items\templates\items\detail_assembly.html:26
 #: .\items\templates\items\detail_component.html:26
 msgid "Partnumber"
-msgstr ""
+msgstr "Partnumber"
 
 #: .\items\templates\items\detail_assembly.html:30
 #: .\items\templates\items\detail_component.html:30
 msgid "In Stock"
-msgstr ""
+msgstr "На складе"
 
 #: .\items\templates\items\detail_assembly.html:32
 msgid "Avereg sales"
-msgstr ""
+msgstr "Средние продажи"
 
 #: .\items\templates\items\detail_assembly.html:56
 msgid "BOM"
-msgstr ""
+msgstr "Перечень элементов"
 
 #: .\items\templates\items\detail_assembly.html:60
 #: .\items\templates\items\detail_component.html:60 .\templates\index.html:160
 msgid "Warehouse"
-msgstr ""
+msgstr "Склад"
 
 #: .\items\templates\items\detail_assembly.html:64
 #: .\items\templates\items\detail_component.html:64
 msgid "Parameters"
-msgstr ""
+msgstr "Параметры"
 
 #: .\items\templates\items\detail_assembly.html:81 .\items\views.py:62
 #: .\templates\index.html:140
 msgid "Components"
-msgstr ""
+msgstr "Компоненты"
 
 #: .\items\templates\items\detail_assembly.html:111 .\items\views.py:81
 #: .\templates\index.html:147
 msgid "Assembly parts"
-msgstr ""
+msgstr "Сборочные единицы"
 
 #: .\items\templates\items\detail_assembly.html:142 .\items\views.py:98
 msgid "Consumables"
-msgstr ""
+msgstr "Расходники"
 
 #: .\items\templates\items\detail_assembly.html:183
 #: .\items\templates\items\detail_component.html:148
 msgid "Parameter"
-msgstr ""
+msgstr "Параметр"
 
 #: .\items\templates\items\detail_assembly.html:184
-#: .\items\templates\items\detail_component.html:149 .\purchase\models.py:55
+#: .\items\templates\items\detail_component.html:149 .\purchase\models.py:56
 msgid "Value"
-msgstr ""
+msgstr "Значение"
 
 #: .\items\templates\items\detail_component.html:32
 msgid "Avereg used"
-msgstr ""
+msgstr "Среднее потребление"
 
 #: .\items\templates\items\detail_component.html:56
 msgid "Used In"
-msgstr ""
+msgstr "Используется в"
 
 #: .\items\templates\items\edit_category_popup.html:18
 msgid "Edit Category"
-msgstr ""
+msgstr "Редактировать категорию"
 
 #: .\items\templates\items\edit_subcategory_popup.html:6
 msgid "Subcategory"
-msgstr ""
+msgstr "Подкатегория"
 
 #: .\items\templates\items\edit_subcategory_popup.html:18
 msgid "Edit Subcategory"
-msgstr ""
+msgstr "Редактировать подкатегорию"
 
 #: .\items\templates\items\index.html:19
 msgid "Add New"
-msgstr ""
+msgstr "Добавить"
 
 #: .\items\views.py:137
 msgid "Item {} added "
-msgstr ""
+msgstr "Элемент {} добавлен"
 
 #: .\items\views.py:140
 msgid "Input incorrect. Check form fields"
-msgstr ""
+msgstr "Не корректный ввод. Проверьте поля формы"
 
 #: .\items\views.py:145
 msgid "Edit Component"
-msgstr ""
+msgstr "Изменить компонент"
 
 #: .\items\views.py:147
 msgid "Edit Assembly Part"
-msgstr ""
+msgstr "Изменить сборочную единицу"
 
 #: .\items\views.py:149
 msgid "Edit Consumable"
-msgstr ""
+msgstr "Изменить расходник"
 
 #: .\items\views.py:151
 msgid "Unknown Type"
-msgstr ""
+msgstr "Не известный тип"
 
 #: .\items\views.py:196
 msgid "Consumable Detail"
-msgstr ""
+msgstr "Подробнее о расходнике"
 
 #: .\items\views.py:198 .\items\views.py:219
 msgid "Component Detail"
-msgstr ""
+msgstr "Подробнее о компоненте"
 
 #: .\items\views.py:217
 msgid "Assembly Detail"
-msgstr ""
+msgstr "Подробнее о сборочной единице"
 
-#: .\purchase\models.py:21 .\purchase\views.py:14 .\purchase\views.py:25
+#: .\purchase\models.py:21
+msgid "Preliminary"
+msgstr "Предварительный"
+
+#: .\purchase\models.py:22 .\purchase\views.py:14 .\purchase\views.py:25
 #: .\purchase\views.py:36
 msgid "Needs"
-msgstr ""
-
-#: .\purchase\models.py:22
-msgid "Ordered"
-msgstr ""
+msgstr "Необходимо"
 
 #: .\purchase\models.py:23
-msgid "Paid"
-msgstr ""
+msgid "Ordered"
+msgstr "Заказано"
 
 #: .\purchase\models.py:24
-msgid "On the way"
-msgstr ""
+msgid "Paid"
+msgstr "Оплачено"
 
 #: .\purchase\models.py:25
+msgid "On the way"
+msgstr "В дороге"
+
+#: .\purchase\models.py:26
 msgid "Done"
-msgstr ""
+msgstr "Завершено"
 
-#: .\purchase\models.py:29 .\templates\index.html:162
+#: .\purchase\models.py:30 .\templates\index.html:162
 msgid "Purchase"
-msgstr ""
-
-#: .\purchase\models.py:30
-msgid "Manufacturing"
-msgstr ""
+msgstr "Закупки"
 
 #: .\purchase\models.py:31
-msgid "Repair"
-msgstr ""
+msgid "Manufacturing"
+msgstr "Производство"
 
 #: .\purchase\models.py:32
+msgid "Repair"
+msgstr "Ремонт"
+
+#: .\purchase\models.py:33
 msgid "User correction"
-msgstr ""
+msgstr "Корректировка"
 
-#: .\purchase\models.py:56
+#: .\purchase\models.py:57
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
-#: .\purchase\models.py:58
+#: .\purchase\models.py:59
 msgid "Reason"
-msgstr ""
-
-#: .\purchase\models.py:75
-msgid "Can order needs"
-msgstr ""
+msgstr "Причина"
 
 #: .\purchase\models.py:76
-msgid "Can pay ordered"
-msgstr ""
+msgid "Can order needs"
+msgstr "Может заказывать"
 
 #: .\purchase\models.py:77
-msgid "Can make delivery"
-msgstr ""
+msgid "Can pay ordered"
+msgstr "Может оплачивать"
 
 #: .\purchase\models.py:78
+msgid "Can make delivery"
+msgstr "Может доставлять"
+
+#: .\purchase\models.py:79
 msgid "Can accept to warehouse"
-msgstr ""
+msgstr "Может принимать на склад"
 
 #: .\purchase\templates\purchase\needs.html:53
 msgid "Order"
-msgstr ""
+msgstr "Заказать"
 
 #: .\templates\blank.html:5
 msgid "Blank Page"
-msgstr ""
+msgstr "Пустая страница"
 
 #: .\templates\index.html:109
 msgid "Hello"
-msgstr ""
+msgstr "Привет"
 
 #: .\templates\index.html:114
 msgid "Activities"
-msgstr ""
+msgstr "Активность"
 
 #: .\templates\index.html:117
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: .\templates\index.html:121
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: .\templates\index.html:136
 msgid "Main"
-msgstr ""
+msgstr "Главная"
 
 #: .\templates\index.html:137 .\templates\index.html:180
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: .\templates\index.html:138
 msgid "Items"
-msgstr ""
+msgstr "Элементы"
 
 #: .\templates\index.html:142 .\templates\index.html:149
 #: .\templates\index.html:156
 msgid "all"
-msgstr ""
+msgstr "все"
 
 #: .\templates\index.html:143 .\templates\index.html:150
 #: .\templates\index.html:157
@@ -503,24 +507,24 @@ msgstr ""
 
 #: .\templates\index.html:164
 msgid "needs"
-msgstr ""
+msgstr "необходимо"
 
 #: .\templates\index.html:165
 msgid "in progress"
-msgstr ""
+msgstr "в процессе"
 
 #: .\templates\index.html:166
 msgid "done"
-msgstr ""
+msgstr "завершено"
 
 #: .\templates\registration\password_reset_complete.html:5
 msgid "Password reset Done"
-msgstr ""
+msgstr "Сброс пароля завершен"
 
 #: .\templates\registration\password_reset_complete.html:15
 #: .\templates\registration\password_reset_done.html:14
 msgid "Forgot Password Done"
-msgstr ""
+msgstr "Сброс пароля завершен"
 
 #: .\templates\registration\password_reset_complete.html:20
 #, python-format
@@ -570,8 +574,8 @@ msgstr ""
 #: .\templates\registration\password_reset_form.html:14
 #: .\templates\registration\password_reset_form.html:26
 msgid "Forgot Password"
-msgstr ""
+msgstr "Забытый пароль"
 
 #: .\templates\registration\password_reset_form.html:17
 msgid "We will send a link to reset your password"
-msgstr ""
+msgstr "Мы отправили вам ссылку для сброса пароля"

@@ -18,6 +18,7 @@ class ItemPrice(models.Model):
 
 
 value_status = [
+        ('pr', _('Preliminary')),
         ('nd', _('Needs')),
         ('or', _('Ordered')),
         ('pa', _('Paid')),
@@ -81,3 +82,6 @@ class ItemValue(models.Model):
     def __str__(self):
         return '{} value:{} status:{}'.format(str(self.item.designator()), str(self.value), str(self.status))
 
+
+class Proforma(models.Model):
+    pass

@@ -2,16 +2,20 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+
+from purchase.forms import ItemSelectableSearch
 from purchase.models import ItemValue
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 def needs(request):
     item_list = ItemValue.objects_needs.all()
+    form = ItemSelectableSearch()
     return render(request,
                   'purchase/needs.html',
                   {'item_list': item_list,
                    'title': _('Needs'),
+                   'form': form,
                    }
                   )
 
