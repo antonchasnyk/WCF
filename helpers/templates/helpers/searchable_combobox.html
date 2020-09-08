@@ -1,9 +1,18 @@
-
-<input list="browsers" name="browser" id="browser">
-  <datalist id="browsers">
+<input type="hidden"  name="{{ widget.name }}" id="{{ widget.name }}_id" >
+<input list="{{ widget.name }}_options" name="{{ widget.name }}_selector" id="{{ widget.name }}_selector_id" value="{{ widget.text }}">
+  <datalist id="{{ widget.name }}_options">
     <option id="1" value="Internet Explorer">
     <option id="2" value="Firefox">
     <option id="3" value="Chrome">
     <option id="4" value="Opera">
     <option id="5" value="Safari">
   </datalist>
+
+<script>
+    let hid = document.getElementById('{{ widget.name }}_id')
+    let inp = document.getElementById('{{ widget.name }}_selector_id')
+    let option_list = document.getElementById('{{ widget.name }}_options')
+    inp.addEventListener('input', function(){
+        get_searchable_id(hid,inp, option_list, '{{ widget.search_url }}', '{{ widget.target_url }}')
+    });
+</script>

@@ -1,16 +1,22 @@
 "use strict";
 
-$( document ).ready(binder())
-
-function binder(){
-    let inp = document.getElementById('browser')
-    inp.addEventListener('input', get_searchable_id);
-}
-function get_searchable_id() {
-    let g = $('#browser').val();
-    let option = $('#browsers option[value="' + g +'"]')[0];
+function get_searchable_id(hid, inp, option_list, search_url) {
+    let g = $(inp).val();
+        $.ajax(search_url,{
+        type: "GET",
+        data: {
+            'q' : g,
+            'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+        },
+        success: function (data, textStatus, jqXHR) {
+            $(option_list).html(data);
+        },
+        dataType: 'html'
+    });
+    let option_id = $(option_list).attr("id");
+    let option = $('#'+option_id+' option[value="' + g +'"]')[0];
     if (option)
     {
-        console.log(option.id)
+        $(hid).val(option.id)
     }
 }

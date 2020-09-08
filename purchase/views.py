@@ -10,7 +10,7 @@ from purchase.models import ItemValue
 @login_required(login_url=reverse_lazy('account:login'))
 def needs(request):
     item_list = ItemValue.objects_needs.all()
-    form = ItemSelectableSearch()
+    form = ItemSelectableSearch(request.GET)
     return render(request,
                   'purchase/needs.html',
                   {'item_list': item_list,
