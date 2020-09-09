@@ -8,7 +8,7 @@ class SelectableSearch(widgets.Input):
 
     class Media:
         js = (
-            'assets/js/selectable_search.js',
+            'helpers/js/selectable_search.js',
         )
 
     def __init__(self, search_url, attrs=None):
