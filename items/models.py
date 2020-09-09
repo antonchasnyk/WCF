@@ -83,25 +83,25 @@ def unit_conversion(source, target, value):
 
 class ValuedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value', filter=Q(item_value__status='re')))
+        return super().get_queryset().annotate(value=Sum('item_value__value', filter=Q(item_value__status='dn')))
 
 
 class ComponentManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='re'))).filter(item_type='co')
+                                                         filter=Q(item_value__status='dn'))).filter(item_type='co')
 
 
 class AssemblyPartsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='re'))).filter(item_type='ap')
+                                                         filter=Q(item_value__status='dn'))).filter(item_type='ap')
 
 
 class ConsumableManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='re'))).filter(item_type='cm')
+                                                         filter=Q(item_value__status='dn'))).filter(item_type='cm')
 
 
 class Item(models.Model):
@@ -132,11 +132,11 @@ class Item(models.Model):
         return self.part_number
 
     def get_value(self):
-        value = self.item_value.aggregate(value=Sum('value', filter=Q(status='re')))['value']
+        value = self.item_value.aggregate(value=Sum('value', filter=Q(status='dn')))['value']
         return value if value else 0
 
     def get_value_set(self):
-        return self.item_value.filter(status='re').order_by("-updated_at")
+        return self.item_value.filter(status='dn').order_by("-updated_at")
 
     def designator(self):
         return self.comment + ' ' + self.part_number if self.comment else self.part_number
@@ -151,11 +151,11 @@ class Item(models.Model):
 
     def get_edit_url(self):
         if self.item_type == 'co':
-            return "/" + str(self.pk)
+            return reverse_lazy('items:edit_component', kwargs={'component_id': self.pk})
         elif self.item_type == 'ap':
             return "/" + str(self.pk)
         elif self.item_type == 'cm':
-            return "/" + str(self.pk)
+            return reverse_lazy('items:edit_consumable', kwargs={'component_id': self.pk})
 
 
 class ItemCategory(models.Model):

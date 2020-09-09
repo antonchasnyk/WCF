@@ -23,7 +23,7 @@ value_status = [
         ('or', _('Ordered')),
         ('pa', _('Paid')),
         ('ow', _('On the way')),
-        ('re', _('Done')),
+        ('dn', _('Done')),
     ]
 
 value_reason = [
@@ -36,7 +36,7 @@ value_reason = [
 
 class DoneValueManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(Q(status='re') & Q(reason='pu'))
+        return super().get_queryset().filter(Q(status='dn') & Q(reason='pu'))
 
 
 class NeedsValueManager(models.Manager):

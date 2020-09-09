@@ -1,0 +1,41 @@
+{% extends "items/add_item.html" %}
+{% load static %}
+{% load i18n %}
+{% load utils %}
+
+{% block section_header %} {% endblock %}
+
+{% block value_field %}
+    {{ item_form.value_units | attr:"class:custom-select, required:required, hidden:true" }}
+{% endblock %}
+
+{% block title_action %}
+    <div class="card-header-action">
+        <a class="btn btn-icon icon-left btn-danger" href="{{ delete_url }}"><i class="fas fa-times"></i>{% translate "Delete" %}</a>
+    </div>
+
+{% endblock %}
+
+{% block additional_field %}
+        <div class="row">
+            <div class="col-6">
+                <h4> {% translate 'Documentation' %}</h4>
+                {% for file in documents %}
+                  <dt>{{ file.doc_type.name }}</dt>
+                  <dd><a href="{{ MEDIA_URL }}{{ file.document.name }}">{{ file.filename }}</a></dd>
+                {% endfor %}
+                     <button class="btn btn-success">{% translate "Add document" %}</button>
+
+            </div>
+        </div>
+
+{% endblock %}
+
+
+
+{% block js_libraries %}
+{% endblock %}
+  <!-- Page Specific JS File -->
+{% block page_specific_js %}
+{% endblock %}
+

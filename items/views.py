@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import Q, ProtectedError
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -118,23 +118,26 @@ def consumables(request):
 
 
 @login_required(login_url=reverse_lazy('account:login'))
-def bom(request, number):
-    item = get_object_or_404(Item, pk=number)
-    item_list = item.consist_of.order_by('item__subcategory__category', 'position').all()
-    print(item_list)
-    return render(request,
-                  'items/bom.html',
-                  {
-                    'item_list': item_list,
-                    'assembly_part': item,
-                  }
-                  )
+@permission_required('items.delete_item', raise_exception=PermissionDenied())
+def delete_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    if item:
+        try:
+            name = item.designator()
+            item.delete()
+            messages.success(request, _('Item {} deleted ').format(name))
+            return redirect(reverse_lazy('items:component_list'))
+        except ProtectedError:
+            messages.error(request, _('Cant delete {}. Used in references objects').format(item.designator()))
+    else:
+        messages.error(request, _('Cant delete nothing').format(item.designator()))
+    return redirect(item.get_absolute_url())
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 @permission_required('items.add_item', raise_exception=PermissionDenied())
 @transaction.atomic
-def edit_component(request, comp_type, component_id=-1):
+def add_component(request, comp_type, component_id=-1):
     if component_id >= 0:
         item = get_object_or_404(Item, pk=component_id)
     else:
@@ -145,12 +148,46 @@ def edit_component(request, comp_type, component_id=-1):
             item_form.instance.created_by = request.user
             item_form.instance.item_type = comp_type
             item = item_form.save()
-            if item_form.cleaned_data['value'] > 0:
+            if item_form.cleaned_data['value']:
                 value = ItemValue(value=item_form.cleaned_data['value'],
                                   created_by=request.user,
-                                  item=item)
+                                  item=item, reason='uc', status='dn')
                 value.save()
             messages.success(request, _('Item {} added ').format(item.designator()))
+            return redirect(item.get_absolute_url())
+        else:
+            messages.error(request, _('Input incorrect. Check form fields'))
+    else:
+        item_form = ComponentForm(instance=item)
+
+    if comp_type == 'co':
+        title = _('Add Component')
+    elif comp_type == 'ap':
+        title = _('Add Assembly Part')
+    elif comp_type == 'cm':
+        title = _('Add Consumable')
+    else:
+        title = _('Unknown Type')
+    return render(
+        request,
+        'items/add_item.html',
+        {'item_form': item_form,
+         'title': title,
+         }
+    )
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.edit_item', raise_exception=PermissionDenied())
+@transaction.atomic
+def edit_component(request, comp_type, component_id):
+    item = get_object_or_404(Item, pk=component_id)
+    if request.method == 'POST':
+        item_form = ComponentForm(request.POST, instance=item)
+        if item_form.is_valid():
+            item_form.instance.item_type = comp_type
+            item = item_form.save()
+            messages.success(request, _('Item {} changed ').format(item.designator()))
             return redirect(item.get_absolute_url())
         else:
             messages.error(request, _('Input incorrect. Check form fields'))
@@ -167,9 +204,11 @@ def edit_component(request, comp_type, component_id=-1):
         title = _('Unknown Type')
     return render(
         request,
-        'items/edit_component.html',
+        'items/edit_item.html',
         {'item_form': item_form,
          'title': title,
+         'delete_url': reverse_lazy('items:delete_item', kwargs={'item_id': component_id}),
+         'documents': item.document.all().prefetch_related('doc_type'),
          }
     )
 

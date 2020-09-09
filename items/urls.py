@@ -9,19 +9,19 @@ urlpatterns = [
     path('components', views.components, name='component_list'),
     path('assemblies', views.assembly_pars, name='assembly_parts'),
     path('consumables', views.consumables, name='consumables'),
-    path('bom/<int:number>', views.bom, name='bom_list'),
     path('items/search', views.context_search, name='context_search'),
+    path('items/delete/<int:item_id>', views.delete_item, name='delete_item'),
 
 
-    path('component/add', views.edit_component, {'comp_type': 'co'}, name='add_component'),
+    path('component/add', views.add_component, {'comp_type': 'co'}, name='add_component'),
     path('component/edit/<int:component_id>', views.edit_component, {'comp_type': 'co'}, name='edit_component'),
     path('component/<int:component_id>', views.component, name='detail_component'),
 
-    path('assembly/add', views.edit_component, {'comp_type': 'ap'}, name='add_assembly'),
-    path('assembly/edit/<int:component_id>', views.edit_component, {'comp_type': 'ap'}, name='edit_assembly'),
+    path('assembly/add', views.add_component, {'comp_type': 'ap'}, name='add_assembly'),
+    path('assembly/edit/<int:component_id>', views.add_component, {'comp_type': 'ap'}, name='edit_assembly'),
     path('assembly/<int:assembly_id>', views.assembly, name='detail_assembly'),
 
-    path('consumable/add', views.edit_component, {'comp_type': 'cm'}, name='add_consumable'),
+    path('consumable/add', views.add_component, {'comp_type': 'cm'}, name='add_consumable'),
     path('consumable/edit/<int:component_id>', views.edit_component, {'comp_type': 'cm'}, name='edit_consumable'),
     path('consumable/<int:component_id>', views.component, name='detail_consumable'),
 
