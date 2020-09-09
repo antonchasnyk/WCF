@@ -20,34 +20,34 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-md-4 col-12">
-                              {{ form.name.label_tag }}
-                              {% if  form.name.errors%}
-                                {{ form.name | attr:"class:form-control is-invalid, required:required"}}
-                              {% else %}
-                                {{ form.name | attr:"class:form-control, required:required"}}
-                              {% endif %}
+                            {{ form.document.label_tag }}
+                            {% if  form.document.errors%}
+                              {{ form.document | attr:'class:form-control is-invalid searchable, required:required'}}
+                            {% else %}
+                              {{ form.document | attr:'class:form-control searchable, required:required'}}
+                            {% endif %}
                             <div class="invalid-feedback">
-                              {{ form.name.errors.as_text }}
+                              {{ form.document.errors.as_text }}
                             </div>
                         </div>
                         <div class="form-group col-md-4 col-12">
-                            {{ form.category.label_tag }}
-                            {% if  form.category.errors%}
-                              {{ form.category | attr:'class:form-control is-invalid searchable, required:required'}}
-                            {% else %}
-                              {{ form.category | attr:'class:form-control searchable, required:required'}}
-                            {% endif %}
+                              {{ form.doc_type.label_tag }}
+                              {% if  form.doc_type.errors%}
+                                {{ form.doc_type | attr:"class:form-control is-invalid, required:required"}}
+                              {% else %}
+                                {{ form.doc_type | attr:"class:form-control, required:required"}}
+                              {% endif %}
                             <div class="invalid-feedback">
-                              {{ form.category.errors.as_text }}
+                              {{ form.doc_type.errors.as_text }}
                             </div>
                         </div>
                         <div class="form-group col-md-1 col-12">
                             <div class="row margin-20"></div>
                             <div class="row">
-                                <a href="{% url 'items:category_add_popup' form.category.id_for_label %}"  onclick="return showAddPopup(this);">
+                                <a href="{% url 'items:file_type_add_popup' form.doc_type.id_for_label %}"  onclick="return showAddPopup(this);">
                                   <i class="material-icons">add</i>
                                 </a>
-                                <a href="{% url 'items:category_edit_popup' 0 form.category.id_for_label %}"  onclick="return showEditPopup(this);">
+                                <a href="{% url 'items:file_type_edit_popup' 0 form.doc_type.id_for_label %}"  onclick="return showEditPopup(this);">
                                   <i class="material-icons">edit</i>
                                 </a>
                             </div>

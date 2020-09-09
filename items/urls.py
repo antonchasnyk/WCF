@@ -11,7 +11,7 @@ urlpatterns = [
     path('consumables', views.consumables, name='consumables'),
     path('items/search', views.context_search, name='context_search'),
     path('items/delete/<int:item_id>', views.delete_item, name='delete_item'),
-    path('items/delete/doc/<int:doc_id>', views.delete_file, name='delete_file'),
+
 
 
     path('component/add', views.add_component, {'comp_type': 'co'}, name='add_component'),
@@ -31,4 +31,9 @@ urlpatterns = [
          name='subcategory_edit_popup'),
     path('components/category/add/<str:to>', views.category_popup, name='category_add_popup'),
     path('components/category/<int:category_id>/<str:to>', views.category_popup, name='category_edit_popup'),
+
+    path('items/doc/delete/<int:doc_id>', views.delete_file, name='delete_file'),
+    path('items/doc/add/<int:item_id>/<str:to>', views.file_add_popup, name='file_add_popup'),
+    path('items/doc/type/add/<str:to>', views.file_type_popup, name='file_type_add_popup'),
+    path('items/doc/type/<int:file_type_id>/<str:to>', views.file_type_popup, name='file_type_edit_popup'),
 ]

@@ -10,8 +10,8 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
 from WCF import settings
-from items.forms import CategoryForm
-from items.models import ItemCategory, ItemDocFile
+from items.forms import CategoryForm, FileAddForm, FileTypeForm
+from items.models import ItemCategory, ItemDocFile, DocType
 from purchase.models import ItemValue
 from .forms import ComponentForm, SubCategoryForm
 from .models import Item, BOM, ItemSubCategory
@@ -221,6 +221,7 @@ def edit_component(request, comp_type, component_id):
          'title': title,
          'delete_url': reverse_lazy('items:delete_item', kwargs={'item_id': component_id}),
          'documents': item.document.all().prefetch_related('doc_type'),
+         'item': item,
          }
     )
 
@@ -253,6 +254,40 @@ def category_popup(request, to, category_id=-1):
         return HttpResponse(
             '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
     return render(request, "items/edit_category_popup.html", {"form": form})
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.edit_item', raise_exception=PermissionDenied())
+def file_add_popup(request, item_id, to):
+    if request.method == 'POST':
+        form = FileAddForm(request.POST, request.FILES)
+    else:
+        form = FileAddForm()
+    if form.is_valid():
+        instance = form.save(item_id=item_id)
+        return HttpResponse(
+            '<script>opener.closeFilePopup(window, "%s", "%s", "%s", "%s", "#%s");</script>'
+            % (instance.doc_type.name,
+               instance.filename(),
+               settings.MEDIA_URL + instance.document.name,
+               reverse_lazy('items:delete_file', kwargs={'doc_id': instance.pk}),
+               to))
+    return render(request, "items/file_add_popup.html", {"form": form})
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.add_item', raise_exception=PermissionDenied())
+def file_type_popup(request, to, file_type_id=-1):
+    if file_type_id >= 0:
+        file_type = get_object_or_404(DocType, id=file_type_id)
+    else:
+        file_type = None
+    form = FileTypeForm(request.POST or None, instance=file_type)
+    if form.is_valid():
+        instance = form.save()
+        return HttpResponse(
+            '<script>opener.closePopup(window, "%s", "%s", "#%s");</script>' % (instance.pk, instance, to))
+    return render(request, "items/edit_file_type_popup.html", {"form": form})
 
 
 @login_required(login_url=reverse_lazy('account:login'))

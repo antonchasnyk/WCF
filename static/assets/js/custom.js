@@ -14,7 +14,7 @@ function showEditPopup(triggeringLink) {
     let name = $("#"+lastSegment+" :selected").val();
     parts[parts.length - 2] = name;
     let newurl = parts.join("/");
-    let win = window.open(newurl, "Edit",
+    let win = window.open(newurl, name,
        'height=500,width=800,resizable=yes,scrollbars=yes');
     win.focus();
     return false;
@@ -29,6 +29,15 @@ function showAddPopup(triggeringLink) {
 
 function closePopup(win, newID, newRepr, id) {
     $(id).append('<option value=' + newID + ' selected >' + newRepr + '</option>');
+    win.close();
+}
+
+function closeFilePopup(win, type, file_name, url, delete_url, id) {
+    $(id).append('<dt class="padding-5">'+ type +'</dt>\n' +
+                 '<dd class="padding-5"><a href="'+url+'">'+file_name+'</a>\n' +
+                 '<span class="margin-10"></span>\n' +
+                 '<a href="'+delete_url+'" class="btn btn-icon btn-sm btn-danger padding-10"><i class="fas fa-times"></i></a>\n' +
+                 '</dd>');
     win.close();
 }
 
