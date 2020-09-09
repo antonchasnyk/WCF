@@ -1,5 +1,6 @@
 <input type="search" list="id_{{ widget.name }}_options" name="{{ widget.name }}_selector" id="id_{{ widget.name }}_selector"
-       value="{{ widget.text|default:'' }}" autocomplete="off" {% include "django/forms/widgets/attrs.html" %}>
+       value="{{ widget.text|default:'' }}" autocomplete="off" {% include "django/forms/widgets/attrs.html" %}
+        href="{{ widget.search_url }}">
   <datalist id="id_{{ widget.name }}_options">
   </datalist>
 
@@ -7,12 +8,3 @@
   width: 0; height: 0;
   float: left;"  name="{{ widget.name }}" id="id_{{ widget.name}}"
 {% if widget.required %} required {% endif %} {% if widget.value != None %}value="{{ widget.value}}"{% endif %}>
-
-<script>
-    let hid = document.getElementById('id_{{ widget.name }}');
-    let inp = document.getElementById('id_{{ widget.name }}_selector');
-    let option_list = document.getElementById('id_{{ widget.name }}_options');
-    inp.addEventListener('input', function(){
-        get_searchable_id(hid,inp, option_list, '{{ widget.search_url }}', '{{ widget.target_url }}')
-    });
-</script>
