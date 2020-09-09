@@ -43,7 +43,7 @@
                     <td>  {{ item.value|default:'0' }}</td>
                     <td> {{ item.item.value_units }}</td>
                     <td>
-                        <a href="{{ item.item.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
+                        {% include "purchase/item_action_by_permition.html" with item=item %}
                     </td>
                 </tr>
             {% endfor %}

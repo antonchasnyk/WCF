@@ -89,20 +89,7 @@
                                                 <td>  {{ item.quantity }} / {{ item.item.get_value }}</td>
                                                 <td> {{ item.item.value_units }}</td>
                                                 <td>
-                                                    {% if perms.items.add_item %}
-                                                        <div class="dropdown d-inline mr-2">
-                                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                {% translate "Action"%}
-                                                            </button>
-                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                <a class="dropdown-item" href="{{ item.assembly_part.get_absolute_url }}">{% translate "Detail" %}</a>
-                                                                <a class="dropdown-item" href="#">{% translate "Edit" %}</a>
-                                                            </div>
-                                                        </div>
-                                                    {% else %}
-                                                        <a href="{{ item.assembly_part.get_absolute_url }}" class="btn btn-primary">{% translate "Detail" %}</a>
-                                                    {% endif %}
-
+                                                    {% include "items/item_action_by_permition.html" with item=item.assembly_part.item %}
                                                 </td>
                                             </tr>
                                         {% endfor %}
