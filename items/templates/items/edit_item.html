@@ -21,14 +21,16 @@
             <div class="col-6">
                 <h4> {% translate 'Documentation' %}</h4>
                 {% for file in documents %}
-                  <dt>{{ file.doc_type.name }}</dt>
-                  <dd><a href="{{ MEDIA_URL }}{{ file.document.name }}">{{ file.filename }}</a></dd>
+                  <dt class="padding-5">{{ file.doc_type.name }}</dt>
+                  <dd class="padding-5"><a href="{{ MEDIA_URL }}{{ file.document.name }}">{{ file.filename }}</a>
+                      <span class="margin-10"></span>
+                  <a href="{% url 'items:delete_file' file.pk %}" class="btn btn-icon btn-sm btn-danger padding-10"><i class="fas fa-times"></i></a>
+                   </dd>
                 {% endfor %}
                      <button class="btn btn-success">{% translate "Add document" %}</button>
 
             </div>
         </div>
-
 {% endblock %}
 
 

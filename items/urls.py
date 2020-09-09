@@ -11,6 +11,7 @@ urlpatterns = [
     path('consumables', views.consumables, name='consumables'),
     path('items/search', views.context_search, name='context_search'),
     path('items/delete/<int:item_id>', views.delete_item, name='delete_item'),
+    path('items/delete/doc/<int:doc_id>', views.delete_file, name='delete_file'),
 
 
     path('component/add', views.add_component, {'comp_type': 'co'}, name='add_component'),

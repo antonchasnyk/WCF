@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from WCF import settings
 from items.forms import CategoryForm
-from items.models import ItemCategory
+from items.models import ItemCategory, ItemDocFile
 from purchase.models import ItemValue
 from .forms import ComponentForm, SubCategoryForm
 from .models import Item, BOM, ItemSubCategory
@@ -175,6 +175,18 @@ def add_component(request, comp_type, component_id=-1):
          'title': title,
          }
     )
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.edit_item', raise_exception=PermissionDenied())
+def delete_file(request, doc_id):
+    item = get_object_or_404(ItemDocFile, pk=doc_id)
+    try:
+        item.delete()
+        messages.success(request, _('File deleted '))
+    except ProtectedError:
+        messages.error(request, _('Cant delete file'))
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required(login_url=reverse_lazy('account:login'))
