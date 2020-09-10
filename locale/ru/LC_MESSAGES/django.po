@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-10 15:27+0300\n"
+"POT-Creation-Date: 2020-09-10 17:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,6 @@ msgstr "Расположение"
 
 #: .\account\models.py:14 .\account\models.py:21
 #: .\account\templates\account\team.html:18
-#: .\items\templates\items\detail_assembly.html:72
 msgid "Position"
 msgstr "Должность"
 
@@ -363,6 +362,10 @@ msgstr "Склад"
 #: .\items\templates\items\edit_item.html:42
 msgid "Parameters"
 msgstr "Параметры"
+
+#: .\items\templates\items\detail_assembly.html:72
+msgid "RefDes"
+msgstr "Позиция"
 
 #: .\items\templates\items\detail_assembly.html:73
 msgid "Designator"
