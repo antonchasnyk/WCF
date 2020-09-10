@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-08 09:54+0300\n"
+"POT-Creation-Date: 2020-09-10 15:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,6 +62,12 @@ msgstr "О себе"
 msgid "Location"
 msgstr "Расположение"
 
+#: .\account\models.py:14 .\account\models.py:21
+#: .\account\templates\account\team.html:18
+#: .\items\templates\items\detail_assembly.html:72
+msgid "Position"
+msgstr "Должность"
+
 #: .\account\models.py:15
 msgid "Mobile phone"
 msgstr "Номер мобильного"
@@ -69,10 +75,6 @@ msgstr "Номер мобильного"
 #: .\account\models.py:16
 msgid "Internal phone"
 msgstr "Внутренний номер"
-
-#: .\account\models.py:21 .\account\templates\account\team.html:18
-msgid "Position"
-msgstr "Должность"
 
 #: .\account\templates\account\auth-login.html:20
 #: .\templates\registration\password_reset_form.html:21
@@ -124,15 +126,34 @@ msgid "email"
 msgstr "email"
 
 #: .\account\templates\account\profile.html:165
+#: .\items\templates\items\add_item.html:80
 #: .\items\templates\items\edit_category_popup.html:36
-#: .\items\templates\items\edit_component.html:73
+#: .\items\templates\items\edit_file_type_popup.html:36
+#: .\items\templates\items\edit_item.html:74
 #: .\items\templates\items\edit_subcategory_popup.html:58
+#: .\items\templates\items\file_add_popup.html:58
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
 #: .\account\templates\account\profile.html:185
 msgid "Change your avatar"
 msgstr "Изменить аватар"
+
+#: .\account\templates\account\profile.html:200
+msgid "Upload error"
+msgstr "Ошибка загрузки"
+
+#: .\account\templates\account\profile.html:212
+msgid "Crop the image"
+msgstr "Обрезать изображение"
+
+#: .\account\templates\account\profile.html:224
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\account\templates\account\profile.html:225
+msgid "Crop"
+msgstr "Обрезать"
 
 #: .\account\templates\account\team.html:5 .\templates\index.html:170
 #: .\templates\index.html:171
@@ -152,14 +173,22 @@ msgid "Number"
 msgstr "Номер"
 
 #: .\account\templates\account\team.html:21
-#: .\items\templates\items\ajax_search.html:32
-#: .\items\templates\items\detail_assembly.html:94
-#: .\items\templates\items\detail_assembly.html:125
-#: .\items\templates\items\detail_assembly.html:156
-#: .\items\templates\items\detail_component.html:95
-#: .\purchase\templates\purchase\needs.html:49
+#: .\items\templates\items\ajax_search.html:15
+#: .\items\templates\items\detail_assembly.html:76
+#: .\items\templates\items\detail_component.html:78
+#: .\items\templates\items\edit_item.html:49
+#: .\items\templates\items\item_action_by_permition.html:9
+#: .\purchase\templates\purchase\done.html:32
+#: .\purchase\templates\purchase\in_progres.html:33
+#: .\purchase\templates\purchase\needs.html:38
 msgid "Action"
 msgstr "Действие"
+
+#: .\account\templates\account\team.html:32
+#: .\items\templates\items\item_action_by_permition.html:12
+#: .\items\templates\items\item_action_by_permition.html:19
+msgid "Detail"
+msgstr "Подробнее"
 
 #: .\account\views.py:27
 msgid "Login or Password incorrect"
@@ -176,6 +205,10 @@ msgstr "Не верный ввод"
 #: .\account\views.py:95
 msgid "avatar to large"
 msgstr "Аватар слишком большой"
+
+#: .\items\forms.py:10
+msgid "In stock"
+msgstr "На складе"
 
 #: .\items\models.py:15
 msgid "Component"
@@ -209,8 +242,13 @@ msgstr "мм"
 msgid "Part Number"
 msgstr "Part Number"
 
-#: .\items\models.py:110 .\items\templates\items\detail_assembly.html:28
+#: .\items\models.py:110 .\items\templates\items\ajax_search.html:11
+#: .\items\templates\items\detail_assembly.html:28
 #: .\items\templates\items\detail_component.html:28
+#: .\items\templates\items\detail_component.html:74
+#: .\purchase\templates\purchase\done.html:28
+#: .\purchase\templates\purchase\in_progres.html:28
+#: .\purchase\templates\purchase\needs.html:34
 msgid "Comment"
 msgstr "Коментарий"
 
@@ -218,11 +256,21 @@ msgstr "Коментарий"
 msgid "Created_by"
 msgstr "Кем создано"
 
-#: .\items\models.py:114
+#: .\items\models.py:114 .\items\templates\items\ajax_search.html:10
+#: .\items\templates\items\detail_component.html:73
+#: .\purchase\templates\purchase\done.html:27
+#: .\purchase\templates\purchase\in_progres.html:27
+#: .\purchase\templates\purchase\needs.html:33
 msgid "Type"
 msgstr "Тип"
 
-#: .\items\models.py:116
+#: .\items\models.py:116 .\items\templates\items\ajax_search.html:14
+#: .\items\templates\items\detail_assembly.html:75
+#: .\items\templates\items\detail_component.html:77
+#: .\items\templates\items\detail_component.html:108
+#: .\purchase\templates\purchase\done.html:31
+#: .\purchase\templates\purchase\in_progres.html:31
+#: .\purchase\templates\purchase\needs.html:37
 msgid "Units"
 msgstr "Единицы"
 
@@ -243,49 +291,48 @@ msgstr "Имя категории"
 msgid "Sub Category name"
 msgstr "Имя подкатегории"
 
-#: .\items\models.py:179
+#: .\items\models.py:179 .\items\models.py:196
 msgid "Document type"
 msgstr "Тип документа"
 
-#: .\items\models.py:231
+#: .\items\models.py:198
+msgid "Document"
+msgstr "Документа"
+
+#: .\items\models.py:232
 msgid "position"
 msgstr "должность"
 
-#: .\items\models.py:233
+#: .\items\models.py:234
 msgid "Quantity"
 msgstr "Количество"
 
-#: .\items\templates\items\ajax_search.html:35
-#: .\items\templates\items\ajax_search.html:40
-#: .\items\templates\items\detail_assembly.html:97
-#: .\items\templates\items\detail_assembly.html:102
-#: .\items\templates\items\detail_assembly.html:128
-#: .\items\templates\items\detail_assembly.html:133
-#: .\items\templates\items\detail_assembly.html:159
-#: .\items\templates\items\detail_assembly.html:164
-#: .\items\templates\items\detail_component.html:98
-#: .\items\templates\items\detail_component.html:103
-#: .\purchase\templates\purchase\done.html:46
-#: .\purchase\templates\purchase\in_progres.html:48
-#: .\purchase\templates\purchase\needs.html:52
-#: .\purchase\templates\purchase\needs.html:57
-msgid "Detail"
-msgstr "Подробнее"
-
-#: .\items\templates\items\ajax_search.html:36
-#: .\items\templates\items\detail_assembly.html:17
-#: .\items\templates\items\detail_assembly.html:98
-#: .\items\templates\items\detail_assembly.html:129
-#: .\items\templates\items\detail_assembly.html:160
-#: .\items\templates\items\detail_component.html:17
-#: .\items\templates\items\detail_component.html:99
-msgid "Edit"
-msgstr "Изменить"
-
+#: .\items\templates\items\ajax_search.html:12
 #: .\items\templates\items\detail_assembly.html:26
 #: .\items\templates\items\detail_component.html:26
+#: .\items\templates\items\detail_component.html:75
+#: .\purchase\templates\purchase\done.html:29
+#: .\purchase\templates\purchase\in_progres.html:29
+#: .\purchase\templates\purchase\needs.html:35
 msgid "Partnumber"
 msgstr "Partnumber"
+
+#: .\items\templates\items\ajax_search.html:13
+#: .\items\templates\items\detail_assembly.html:145
+#: .\items\templates\items\detail_component.html:107
+#: .\items\templates\items\detail_component.html:136
+#: .\items\templates\items\edit_item.html:48 .\purchase\models.py:56
+#: .\purchase\templates\purchase\done.html:30
+#: .\purchase\templates\purchase\in_progres.html:30
+#: .\purchase\templates\purchase\needs.html:36
+msgid "Value"
+msgstr "Значение"
+
+#: .\items\templates\items\detail_assembly.html:17
+#: .\items\templates\items\detail_component.html:17
+#: .\items\templates\items\item_action_by_permition.html:13
+msgid "Edit"
+msgstr "Изменить"
 
 #: .\items\templates\items\detail_assembly.html:30
 #: .\items\templates\items\detail_component.html:30
@@ -295,6 +342,12 @@ msgstr "На складе"
 #: .\items\templates\items\detail_assembly.html:32
 msgid "Avereg sales"
 msgstr "Средние продажи"
+
+#: .\items\templates\items\detail_assembly.html:37
+#: .\items\templates\items\detail_component.html:37
+#: .\items\templates\items\edit_item.html:23
+msgid "Documentation"
+msgstr "Документация"
 
 #: .\items\templates\items\detail_assembly.html:56
 msgid "BOM"
@@ -307,32 +360,37 @@ msgstr "Склад"
 
 #: .\items\templates\items\detail_assembly.html:64
 #: .\items\templates\items\detail_component.html:64
+#: .\items\templates\items\edit_item.html:42
 msgid "Parameters"
 msgstr "Параметры"
 
-#: .\items\templates\items\detail_assembly.html:81 .\items\views.py:62
+#: .\items\templates\items\detail_assembly.html:73
+msgid "Designator"
+msgstr "Наименование"
+
+#: .\items\templates\items\detail_assembly.html:74
+#: .\items\templates\items\detail_component.html:76
+msgid "Qtt/Value"
+msgstr "Кол./Склад"
+
+#: .\items\templates\items\detail_assembly.html:81 .\items\views.py:80
 #: .\templates\index.html:140
 msgid "Components"
 msgstr "Компоненты"
 
-#: .\items\templates\items\detail_assembly.html:111 .\items\views.py:81
+#: .\items\templates\items\detail_assembly.html:98 .\items\views.py:99
 #: .\templates\index.html:147
 msgid "Assembly parts"
 msgstr "Сборочные единицы"
 
-#: .\items\templates\items\detail_assembly.html:142 .\items\views.py:98
+#: .\items\templates\items\detail_assembly.html:116 .\items\views.py:116
 msgid "Consumables"
 msgstr "Расходники"
 
-#: .\items\templates\items\detail_assembly.html:183
-#: .\items\templates\items\detail_component.html:148
+#: .\items\templates\items\detail_assembly.html:144
+#: .\items\templates\items\detail_component.html:135
 msgid "Parameter"
 msgstr "Параметр"
-
-#: .\items\templates\items\detail_assembly.html:184
-#: .\items\templates\items\detail_component.html:149 .\purchase\models.py:56
-msgid "Value"
-msgstr "Значение"
 
 #: .\items\templates\items\detail_component.html:32
 msgid "Avereg used"
@@ -342,15 +400,57 @@ msgstr "Среднее потребление"
 msgid "Used In"
 msgstr "Используется в"
 
+#: .\items\templates\items\detail_component.html:106
+msgid "Date"
+msgstr "Дата"
+
+#: .\items\templates\items\detail_component.html:109 .\purchase\models.py:59
+msgid "Reason"
+msgstr "Причина"
+
+#: .\items\templates\items\detail_component.html:110
+msgid "Used in"
+msgstr "Используется в"
+
 #: .\items\templates\items\edit_category_popup.html:18
 msgid "Edit Category"
 msgstr "Редактировать категорию"
 
+#: .\items\templates\items\edit_file_type_popup.html:6
+msgid "File Type"
+msgstr "Тип документа"
+
+#: .\items\templates\items\edit_file_type_popup.html:18
+msgid "Edit File Type"
+msgstr "Изменить тип документа"
+
+#: .\items\templates\items\edit_item.html:14
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\items\templates\items\edit_item.html:35
+msgid "Add document"
+msgstr "Добавить документ"
+
+#: .\items\templates\items\edit_item.html:47
+msgid "Name"
+msgstr "Название"
+
+#: .\items\templates\items\edit_item.html:57
+msgid "Dell"
+msgstr "Удалить"
+
+#: .\items\templates\items\edit_item.html:64
+msgid "Add row"
+msgstr "Добавить строку"
+
 #: .\items\templates\items\edit_subcategory_popup.html:6
+#: .\items\templates\items\file_add_popup.html:6
 msgid "Subcategory"
 msgstr "Подкатегория"
 
 #: .\items\templates\items\edit_subcategory_popup.html:18
+#: .\items\templates\items\file_add_popup.html:18
 msgid "Edit Subcategory"
 msgstr "Редактировать подкатегорию"
 
@@ -358,48 +458,95 @@ msgstr "Редактировать подкатегорию"
 msgid "Add New"
 msgstr "Добавить"
 
-#: .\items\views.py:137
+#: .\items\views.py:130
+msgid "Item {} deleted "
+msgstr "Элемент {} добавлен"
+
+#: .\items\views.py:133
+msgid "Cant delete {}. Used in references objects"
+msgstr "Невозможно удалить {}. Используется в других объектах"
+
+#: .\items\views.py:135
+msgid "Cant delete nothing"
+msgstr "Невозможно удалить пустое место"
+
+#: .\items\views.py:158
 msgid "Item {} added "
 msgstr "Элемент {} добавлен"
 
-#: .\items\views.py:140
+#: .\items\views.py:161 .\items\views.py:215
 msgid "Input incorrect. Check form fields"
 msgstr "Не корректный ввод. Проверьте поля формы"
 
-#: .\items\views.py:145
-msgid "Edit Component"
-msgstr "Изменить компонент"
+#: .\items\views.py:166
+msgid "Add Component"
+msgstr "Добавить компонент"
 
-#: .\items\views.py:147
-msgid "Edit Assembly Part"
-msgstr "Изменить сборочную единицу"
+#: .\items\views.py:168
+msgid "Add Assembly Part"
+msgstr "Добавить сборочную единицу"
 
-#: .\items\views.py:149
-msgid "Edit Consumable"
-msgstr "Изменить расходник"
+#: .\items\views.py:170
+msgid "Add Consumable"
+msgstr "Добавить расходник"
 
-#: .\items\views.py:151
+#: .\items\views.py:172 .\items\views.py:226
 msgid "Unknown Type"
 msgstr "Не известный тип"
 
-#: .\items\views.py:196
+#: .\items\views.py:188
+msgid "File deleted "
+msgstr "Файл удален"
+
+#: .\items\views.py:190
+msgid "Cant delete file"
+msgstr "Невозможно удалить файл"
+
+#: .\items\views.py:204
+msgid "Parameters updated"
+msgstr "Параметры обновлены"
+
+#: .\items\views.py:206
+msgid "Cant save parameters. Internal server error"
+msgstr "Невозможно сохранить параметры. Внутренняя ошибка сервера"
+
+#: .\items\views.py:212
+msgid "Item {} changed "
+msgstr "Элемент {} добавлен"
+
+#: .\items\views.py:220
+msgid "Edit Component"
+msgstr "Изменить компонент"
+
+#: .\items\views.py:222
+msgid "Edit Assembly Part"
+msgstr "Изменить сборочную единицу"
+
+#: .\items\views.py:224
+msgid "Edit Consumable"
+msgstr "Изменить расходник"
+
+#: .\items\views.py:308
 msgid "Consumable Detail"
 msgstr "Подробнее о расходнике"
 
-#: .\items\views.py:198 .\items\views.py:219
+#: .\items\views.py:310 .\items\views.py:331
 msgid "Component Detail"
 msgstr "Подробнее о компоненте"
 
-#: .\items\views.py:217
+#: .\items\views.py:329
 msgid "Assembly Detail"
 msgstr "Подробнее о сборочной единице"
+
+#: .\purchase\models.py:10 .\purchase\models.py:63
+msgid "price"
+msgstr "цена"
 
 #: .\purchase\models.py:21
 msgid "Preliminary"
 msgstr "Предварительный"
 
-#: .\purchase\models.py:22 .\purchase\views.py:14 .\purchase\views.py:25
-#: .\purchase\views.py:36
+#: .\purchase\models.py:22 .\purchase\views.py:17
 msgid "Needs"
 msgstr "Необходимо"
 
@@ -415,7 +562,7 @@ msgstr "Оплачено"
 msgid "On the way"
 msgstr "В дороге"
 
-#: .\purchase\models.py:26
+#: .\purchase\models.py:26 .\purchase\views.py:40
 msgid "Done"
 msgstr "Завершено"
 
@@ -435,13 +582,9 @@ msgstr "Ремонт"
 msgid "User correction"
 msgstr "Корректировка"
 
-#: .\purchase\models.py:57
+#: .\purchase\models.py:57 .\purchase\templates\purchase\in_progres.html:32
 msgid "Status"
 msgstr "Статус"
-
-#: .\purchase\models.py:59
-msgid "Reason"
-msgstr "Причина"
 
 #: .\purchase\models.py:76
 msgid "Can order needs"
@@ -459,9 +602,15 @@ msgstr "Может доставлять"
 msgid "Can accept to warehouse"
 msgstr "Может принимать на склад"
 
-#: .\purchase\templates\purchase\needs.html:53
+#: .\purchase\templates\purchase\item_action_by_permition.html:8
 msgid "Order"
 msgstr "Заказать"
+
+#: .\purchase\views.py:29
+#, fuzzy
+#| msgid "in progress"
+msgid "In progress"
+msgstr "в процессе"
 
 #: .\templates\blank.html:5
 msgid "Blank Page"

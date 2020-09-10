@@ -54,14 +54,14 @@
                             <tr>
                                 <td id="{{forloop.counter}}">{{ key }}</td>
                                 <td id="{{forloop.counter}}">{{ value }}</td>
-                                <th id="{{forloop.counter}}"><button class="btn btn-danger" id="id_row_delete" >Dell</button></th>
+                                <th id="{{forloop.counter}}"><button class="btn btn-danger" id="id_row_delete" >{% translate "Dell" %}</button></th>
                             </tr>
                         {% endfor %}
                         </tbody>
                         <tfoot>
                           <tr>
                             <th>
-                              <button class="btn btn-success" id="id_row_add">Add row</button>
+                              <button class="btn btn-success" id="id_row_add">{% translate "Add row" %}</button>
                             </th>
                             <th>
                               <input type="hidden" value="{{ item.attributes|length }}" id="id_row_counts">

@@ -193,8 +193,9 @@ def get_doc_file_path(instance, filename):
 
 class ItemDocFile(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='document')
-    doc_type = models.ForeignKey(DocType, on_delete=models.PROTECT, related_name='document')
-    document = models.FileField(upload_to=get_doc_file_path,  null=False, verbose_name="File", max_length=255)
+    doc_type = models.ForeignKey(DocType, verbose_name=_('Document type'), on_delete=models.PROTECT,
+                                 related_name='document')
+    document = models.FileField(upload_to=get_doc_file_path,  null=False, verbose_name=_("Document"), max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False,)
 

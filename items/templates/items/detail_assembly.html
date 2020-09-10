@@ -34,7 +34,7 @@
                               <dt>&nbsp;</dt>
                               <dd>Coming soon  {{item.value_units }}/year</dd>
                             </dl>
-                            <h6> Documentation</h6>
+                            <h6> {% translate "Documentation" %}</h6>
                             <dl class="">
                              <dl>
                               {% for file in documents %}
@@ -69,11 +69,11 @@
                                   <div class="table-responsive">
                                     <table class="table table-striped">
                                     <thead class="thead-inverse">
-                                        <th> Position </th>
-                                        <th> Designator </th>
-                                        <th> Qtt/Value </th>
-                                        <th> Units</th>
-                                        <th> Action</th>
+                                        <th> {% translate 'Position' %} </th>
+                                        <th> {% translate 'Designator' %} </th>
+                                        <th> {% translate 'Qtt/Value' %} </th>
+                                        <th> {% translate 'Units' %}</th>
+                                        <th> {% translate 'Action' %}</th>
                                     </thead>
                                         <tbody>
                                          <tr>

@@ -70,12 +70,12 @@
                                     <table class="table table-striped">
                                         <thead class="thead-inverse">
                                         <th width="5%">#</th>
-                                        <th> Type </th>
-                                        <th> Comment </th>
-                                        <th> Partnumber </th>
-                                        <th> Qtt/Value </th>
-                                        <th> Units</th>
-                                        <th> Action</th>
+                                        <th> {% translate 'Type' %} </th>
+                                        <th> {% translate 'Comment' %} </th>
+                                        <th> {% translate 'Partnumber' %} </th>
+                                        <th> {% translate 'Qtt/Value' %} </th>
+                                        <th> {% translate 'Units' %}</th>
+                                        <th> {% translate 'Action' %}</th>
                                     </thead>
                                         <tbody>
                                          {% for item in item.used_in.all %}
@@ -103,11 +103,11 @@
                                     <table class="table table-striped">
                                         <thead class="thead-inverse">
                                         <th width="5%">#</th>
-                                        <th> Date </th>
-                                        <th> Value </th>
-                                        <th> Units </th>
-                                        <th> Reason</th>
-                                        <th> Used in</th>
+                                        <th> {% translate "Date" %} </th>
+                                        <th> {% translate "Value" %} </th>
+                                        <th> {% translate "Units" %} </th>
+                                        <th> {% translate "Reason" %}</th>
+                                        <th> {% translate "Used in" %}</th>
                                     </thead>
                                         <tbody>
                                          {% for item in item.get_value_set  %}

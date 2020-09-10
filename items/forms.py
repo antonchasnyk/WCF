@@ -7,7 +7,7 @@ from .models import Item, ItemSubCategory
 
 
 class ComponentForm(forms.ModelForm):
-    value = IntegerField(min_value=0, required=False)
+    value = IntegerField(min_value=0, required=False, label=_('In stock'))
 
     class Meta:
         model = Item

@@ -26,7 +26,7 @@ def in_progress(request):
     return render(request,
                   'purchase/in_progres.html',
                   {'item_list': item_list,
-                   'title': _('Needs'),
+                   'title': _('In progress'),
                    }
                   )
 
@@ -37,6 +37,6 @@ def done(request):
     return render(request,
                   'purchase/done.html',
                   {'item_list': item_list,
-                   'title': _('Needs'),
+                   'title': _('Done'),
                    }
                   )

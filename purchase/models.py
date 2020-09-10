@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 class ItemPrice(models.Model):
     item = models.ForeignKey('items.Item', on_delete=models.CASCADE, null=False, blank=False)
-    price = models.DecimalField(verbose_name='price', default=0.0, max_digits=10, decimal_places=3,
+    price = models.DecimalField(verbose_name=_('price'), default=0.0, max_digits=10, decimal_places=3,
                                 null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -60,7 +60,7 @@ class ItemValue(models.Model):
                               default='pu', null=False, blank=False)
     assembly_part = models.ForeignKey('items.Item', on_delete=models.PROTECT,
                                       null=True, blank=True, related_name='value_used_in')
-    price = models.DecimalField(verbose_name='price', default=0.0, max_digits=10, decimal_places=3,
+    price = models.DecimalField(verbose_name=_('price'), default=0.0, max_digits=10, decimal_places=3,
                                 null=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)

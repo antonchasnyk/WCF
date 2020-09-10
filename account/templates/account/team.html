@@ -29,7 +29,7 @@
                       <td>{{ person.profile.position }}</td>
                       <td>{{ person.profile.internal_phone }}</td>
                       <td>{{ person.profile.location }}</td>
-                      <td><a href="{% url "account:profile_detail" person.pk %}" class="btn btn-primary">Detail</a></td>
+                      <td><a href="{% url "account:profile_detail" person.pk %}" class="btn btn-primary">{% translate 'Detail' %}</a></td>
                     </tr>
                 {% endfor %}
               </tbody></table>
