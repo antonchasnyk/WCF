@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -194,6 +196,14 @@ def delete_file(request, doc_id):
 @transaction.atomic
 def edit_component(request, comp_type, component_id):
     item = get_object_or_404(Item, pk=component_id)
+    if request.is_ajax():
+        params = request.POST.get('parameters')
+        item.attributes = json.loads(params)
+        try:
+            item.save()
+            return HttpResponse(status=200, content=_('Parameters updated'))
+        except Exception:
+            return HttpResponse(status=500, content=_('Cant save parameters. Internal server error'))
     if request.method == 'POST':
         item_form = ComponentForm(request.POST, instance=item)
         if item_form.is_valid():
