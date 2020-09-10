@@ -38,6 +38,8 @@ function save_table() {
         {
             to_json[key] =data;
         }
+        else
+            $(this).remove();
     });
     console.log(JSON.stringify(to_json))
     let target = $('#id_parameters_save').attr('href')
