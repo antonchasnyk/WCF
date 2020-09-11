@@ -1,7 +1,7 @@
 import os
 
 from django.db import models
-from django.db.models import Sum, Q
+from django.db.models import Sum, Q, UniqueConstraint
 from django.dispatch import receiver
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
@@ -170,9 +170,33 @@ class ItemSubCategory(models.Model):
                             null=False, blank=False)
     category = models.ForeignKey('ItemCategory', verbose_name=_('Category'), on_delete=models.PROTECT,
                                  null=False, blank=False)
+    parent = models.ForeignKey(to='self', null=True, blank=True, related_name='child_subcategory',
+                               on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['name', 'parent'], name='items_unique_subcategory')
+        ]
 
     def __str__(self):
         return self.name + ' ' + self.category.name
+
+    def get_path(self, path=None):
+        if path is None:
+            path = []
+        if self.parent:
+            path.append(self)
+            self.parent.get_path(path)
+        else:
+            path.append(self)
+        return path
+
+    @classmethod
+    def get_roots(cls):
+        return cls.objects.filter(parent=None)
+
+    def get_children(self):
+        return self.__class__.objects.filter(parent=self)
 
 
 class DocType(models.Model):

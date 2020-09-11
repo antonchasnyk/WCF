@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from django.db.models import Q
+from django.db.models import Q, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 

@@ -89,7 +89,7 @@
                                                 <td>  {{ item.quantity }} / {{ item.item.get_value }}</td>
                                                 <td> {{ item.item.value_units }}</td>
                                                 <td>
-                                                    {% include "items/item_action_by_permition.html" with item=item.assembly_part.item %}
+                                                    {% include "items/item_action_by_permition.html" with item=item.assembly_part %}
                                                 </td>
                                             </tr>
                                         {% endfor %}
