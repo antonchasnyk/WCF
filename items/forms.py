@@ -27,7 +27,11 @@ class FileAddForm(forms.ModelForm):
 class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = ItemSubCategory
-        fields = ['name', 'category']
+        fields = ['name', 'parent', 'category']
+
+    def __init__(self, *args, **kwargs):
+        super(SubCategoryForm, self).__init__(*args, **kwargs)
+        self.fields['parent'].required = False
 
 
 class CategoryForm(forms.ModelForm):

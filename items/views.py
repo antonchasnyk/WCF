@@ -37,7 +37,7 @@ def search(queryset, request, context):
                                          Q(comment__icontains=chunk) |
                                          Q(subcategory__name__icontains=chunk) |
                                          Q(subcategory__category__name__icontains=chunk)
-                                         )
+                                         ).prefetch_related('subcategory')
     paginator = Paginator(item_list, settings.ITEMS_ON_PAGE)
     page_number = request.GET.get('p')
     page_obj = paginator.get_page(page_number)

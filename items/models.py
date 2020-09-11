@@ -83,25 +83,29 @@ def unit_conversion(source, target, value):
 
 class ValuedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().annotate(value=Sum('item_value__value', filter=Q(item_value__status='dn')))
+        return super().get_queryset()\
+            .annotate(value=Sum('item_value__value', filter=Q(item_value__status='dn'))).prefetch_related('subcategory')
 
 
 class ComponentManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='dn'))).filter(item_type='co')
+                                                         filter=Q(item_value__status='dn')))\
+            .filter(item_type='co').prefetch_related('subcategory')
 
 
 class AssemblyPartsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='dn'))).filter(item_type='ap')
+                                                         filter=Q(item_value__status='dn')))\
+            .filter(item_type='ap').prefetch_related('subcategory')
 
 
 class ConsumableManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
-                                                         filter=Q(item_value__status='dn'))).filter(item_type='cm')
+                                                         filter=Q(item_value__status='dn')))\
+            .filter(item_type='cm').prefetch_related('subcategory')
 
 
 class Item(models.Model):
@@ -179,7 +183,10 @@ class ItemSubCategory(models.Model):
         ]
 
     def __str__(self):
-        return self.name + ' ' + self.category.name
+        if self.parent:
+            return self.name + ' ' + str(self.parent)
+        else:
+            return self.name + ' ' + self.category.name
 
     def get_path(self, path=None):
         if path is None:
