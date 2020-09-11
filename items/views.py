@@ -180,7 +180,7 @@ def add_component(request, comp_type, component_id=-1):
 
 
 @login_required(login_url=reverse_lazy('account:login'))
-@permission_required('items.edit_item', raise_exception=PermissionDenied())
+@permission_required('items.change_item', raise_exception=PermissionDenied())
 def delete_file(request, doc_id):
     item = get_object_or_404(ItemDocFile, pk=doc_id)
     try:
@@ -192,7 +192,7 @@ def delete_file(request, doc_id):
 
 
 @login_required(login_url=reverse_lazy('account:login'))
-@permission_required('items.edit_item', raise_exception=PermissionDenied())
+@permission_required('items.change_item', raise_exception=PermissionDenied())
 @transaction.atomic
 def edit_component(request, comp_type, component_id):
     item = get_object_or_404(Item, pk=component_id)
@@ -267,7 +267,7 @@ def category_popup(request, to, category_id=-1):
 
 
 @login_required(login_url=reverse_lazy('account:login'))
-@permission_required('items.edit_item', raise_exception=PermissionDenied())
+@permission_required('items.change_item', raise_exception=PermissionDenied())
 def file_add_popup(request, item_id, to):
     if request.method == 'POST':
         form = FileAddForm(request.POST, request.FILES)

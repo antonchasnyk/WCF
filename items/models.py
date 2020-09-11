@@ -84,28 +84,29 @@ def unit_conversion(source, target, value):
 class ValuedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()\
-            .annotate(value=Sum('item_value__value', filter=Q(item_value__status='dn'))).prefetch_related('subcategory')
+            .annotate(value=Sum('item_value__value', filter=Q(item_value__status='dn')))\
+            .prefetch_related('subcategory').order_by('subcategory__name', 'part_number')
 
 
 class ComponentManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
                                                          filter=Q(item_value__status='dn')))\
-            .filter(item_type='co').prefetch_related('subcategory')
+            .filter(item_type='co').prefetch_related('subcategory').order_by('subcategory__name', 'part_number')
 
 
 class AssemblyPartsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
                                                          filter=Q(item_value__status='dn')))\
-            .filter(item_type='ap').prefetch_related('subcategory')
+            .filter(item_type='ap').prefetch_related('subcategory').order_by('subcategory__name', 'part_number')
 
 
 class ConsumableManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().annotate(value=Sum('item_value__value',
                                                          filter=Q(item_value__status='dn')))\
-            .filter(item_type='cm').prefetch_related('subcategory')
+            .filter(item_type='cm').prefetch_related('subcategory').order_by('subcategory__name', 'part_number')
 
 
 class Item(models.Model):
@@ -131,6 +132,15 @@ class Item(models.Model):
     components = ComponentManager()
     assembly_parts = AssemblyPartsManager()
     consumable = ConsumableManager()
+
+    class Meta:
+        ordering = 'part_number', 'subcategory__name'
+        indexes = [
+            models.Index(fields=['part_number']),
+            models.Index(fields=['comment']),
+            models.Index(fields=['subcategory']),
+            models.Index(fields=['item_type']),
+        ]
 
     def __str__(self):
         return self.part_number
@@ -165,6 +175,11 @@ class Item(models.Model):
 class ItemCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Category name'), unique=True, null=False, blank=False)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['name']),
+        ]
+
     def __str__(self):
         return self.name
 
@@ -180,6 +195,11 @@ class ItemSubCategory(models.Model):
     class Meta:
         constraints = [
             UniqueConstraint(fields=['name', 'parent'], name='items_unique_subcategory')
+        ]
+        ordering = ['name', 'category__name']
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['parent']),
         ]
 
     def __str__(self):
@@ -208,6 +228,12 @@ class ItemSubCategory(models.Model):
 
 class DocType(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Document type'), unique=True, null=False, blank=False)
+
+    class Meta:
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=['name']),
+        ]
 
     def __str__(self):
         return self.name
@@ -265,6 +291,13 @@ class BOM(models.Model):
     quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['item']),
+            models.Index(fields=['assembly_part']),
+            models.Index(fields=['item', 'assembly_part']),
+        ]
 
     def __str__(self):
         return self.assembly_part.part_number + ' BOM'

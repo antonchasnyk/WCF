@@ -78,6 +78,13 @@ class ItemValue(models.Model):
             ("can_deliver", _("Can make delivery")),
             ("can_done", _("Can accept to warehouse")),
         )
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['item']),
+            models.Index(fields=['status']),
+            models.Index(fields=['updated_at']),
+            models.Index(fields=['reason']),
+        ]
 
     def __str__(self):
         return '{} value:{} status:{}'.format(str(self.item.designator()), str(self.value), str(self.status))
