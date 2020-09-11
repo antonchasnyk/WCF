@@ -81,53 +81,24 @@
                                                 {% translate 'Components' %}
                                               </td>
                                          </tr>
-                                         {% for component in components %}
-                                            <tr>
-                                                <td>  {{ component.position}}</td>
-                                                <td>  {{ component.item.designator }}</td>
-                                                <td>  {{ component.quantity }} / {{ component.item.get_value }}</td>
-                                                <td> {{ component.item.value_units }}</td>
-                                                <td>
-                                                    {% include "items/item_action_by_permition.html" with item=component.item %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                         {% if consumables %}
+                                            {% include "items/bom_sub_table.html" with components=components %}
+                                         {% if assemblies %}
                                          <tr>
                                              <td colspan="6" style="text-align: center; font-weight: bold">
                                                 {% translate 'Assembly parts' %}
                                               </td>
                                          </tr>
+                                             {% include "items/bom_sub_table.html" with components=assemblies %}
                                          {% endif %}
-                                         {% for assembly in assemblies %}
-                                            <tr>
-                                                <td>  {{ assembly.position}}</td>
-                                                <td>  {{ assembly.item.designator }}</td>
-                                                <td>  {{ assembly.quantity }} / {{ assembly.item.get_value }}</td>
-                                                <td> {{ assembly.item.value_units }}</td>
-                                                <td>
-                                                    {% include "items/item_action_by_permition.html" with item=assembly.item %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
+
                                          {% if consumables %}
                                          <tr>
                                              <td colspan="6" style="text-align: center; font-weight: bold">
                                                 {% translate 'Consumables' %}
                                               </td>
                                          </tr>
+                                            {% include "items/bom_sub_table.html" with components=consumables %}
                                          {% endif %}
-                                         {% for consumable in consumables %}
-                                            <tr>
-                                                <td>  {{ consumable.position}}</td>
-                                                <td>  {{ consumable.item.designator }}</td>
-                                                <td>  {{ consumable.quantity }} / {{ consumable.item.get_value }}</td>
-                                                <td> {{ consumable.item.value_units }}</td>
-                                                <td>
-                                                     {% include "items/item_action_by_permition.html" with item=consumable.item %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
 
                                     </tbody>
                                     </table>

@@ -1,0 +1,11 @@
+{% for component in components %}
+    <tr>
+        <td>  {{ component.position}}</td>
+        <td>  {{ component.item.designator }}</td>
+        <td>  {{ component.quantity }} / {{ component.item.get_value }}</td>
+        <td> {{ component.item.value_units }}</td>
+        <td>
+            {% include "items/item_action_by_permition.html" with item=component.item %}
+        </td>
+    </tr>
+{% endfor %}
