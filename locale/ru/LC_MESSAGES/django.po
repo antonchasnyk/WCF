@@ -515,7 +515,7 @@ msgstr "Невозможно сохранить параметры. Внутре
 
 #: .\items\views.py:212
 msgid "Item {} changed "
-msgstr "Элемент {} добавлен"
+msgstr "Элемент {} изменен"
 
 #: .\items\views.py:220
 msgid "Edit Component"

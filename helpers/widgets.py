@@ -21,7 +21,7 @@ class SelectableSearch(widgets.Input):
         super().__init__(attrs)
 
     def get_context(self, name, value, attrs):
-        if value and self.text == '' and self.model:
+        if value and self.model:
             self.text = self.model.objects.get(pk=value).part_number
         context = super().get_context(name, value, attrs)
         context['widget']['type'] = self.input_type

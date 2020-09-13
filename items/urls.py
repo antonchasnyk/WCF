@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('assembly/add', views.add_component, {'comp_type': 'ap'}, name='add_assembly'),
     path('assembly/edit/<int:component_id>', views.edit_component, {'comp_type': 'ap'}, name='edit_assembly'),
+    path('assembly/edit/bom/<int:component_id>', views.edit_bom, name='edit_assembly_bom'),
     path('assembly/<int:assembly_id>', views.assembly, name='detail_assembly'),
 
     path('consumable/add', views.add_component, {'comp_type': 'cm'}, name='add_consumable'),

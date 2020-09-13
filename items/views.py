@@ -55,8 +55,8 @@ def search(queryset, request, context):
 
 @login_required(login_url=reverse_lazy('account:login'))
 def context_search(request):
-    item_list = Item.components.all()
-    ajax, *z= search(item_list, request, 'context')
+    item_list = Item.valued_objects.all()
+    ajax, *z = search(item_list, request, 'context')
     if ajax:
         return z[0]
     else:
@@ -192,6 +192,39 @@ def delete_file(request, doc_id):
 @login_required(login_url=reverse_lazy('account:login'))
 @permission_required('items.change_item', raise_exception=PermissionDenied())
 @transaction.atomic
+def edit_bom(request, component_id):
+    item = get_object_or_404(Item, pk=component_id)
+    if request.method == 'POST':
+        print('got_formset')
+        formset = BOMFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            print('formset is valid')
+            formset.save()
+            messages.success(request, _('Item {} changed ').format(item.designator()))
+            return redirect(item.get_absolute_url())
+        else:
+            messages.error(request, _('Input incorrect. Check form fields'))
+            item_form = ComponentForm(instance=item)
+            title = _('Edit Assembly Part')
+            return render(
+                request,
+                'items/edit_assembly.html',
+                {'item_form': item_form,
+                 'title': title,
+                 'delete_url': reverse_lazy('items:delete_item', kwargs={'item_id': component_id}),
+                 'documents': item.document.all().prefetch_related('doc_type'),
+                 'item': item,
+                 'formset': formset,
+                 'bom_active': True,
+                 })
+    else:
+        messages.error(request, _('Forbidden method'))
+        return redirect(item.get_absolute_url())
+
+
+@login_required(login_url=reverse_lazy('account:login'))
+@permission_required('items.change_item', raise_exception=PermissionDenied())
+@transaction.atomic
 def edit_component(request, comp_type, component_id):
     item = get_object_or_404(Item, pk=component_id)
     if request.is_ajax():
@@ -219,9 +252,7 @@ def edit_component(request, comp_type, component_id):
         title = _('Edit Component')
     elif comp_type == 'ap':
         title = _('Edit Assembly Part')
-
         formset = BOMFormSet(queryset=item.consist_of.order_by('position').all())
-
         return render(
             request,
             'items/edit_assembly.html',

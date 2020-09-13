@@ -40,20 +40,26 @@
     {% block edit_params %}
         <ul class="nav nav-tabs" id="edit_params" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="parameters-tab" data-toggle="tab"
+            <a class="nav-link {% if not bom_active %}active {% endif %}" id="parameters-tab" data-toggle="tab"
                href="#parameters" role="tab" aria-controls="parameters" aria-selected="false">{% translate 'Parameters' %}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " id="bom-tab" data-toggle="tab"
+            <a class="nav-link {% if bom_active %} active {% endif %}" id="bom-tab" data-toggle="tab"
                href="#bom" role="tab" aria-controls="bom" aria-selected="true">{% translate 'BOM' %}</a>
           </li>
         </ul>
         <div class="tab-content" id="edit_params_content">
-          <div class="tab-pane fade active show" id="parameters" role="tabpanel" aria-labelledby="parameters-tab">
+          <div class="tab-pane fade {% if not bom_active %}active show {% endif %}" id="parameters" role="tabpanel" aria-labelledby="parameters-tab">
             {% include 'items/edit_item_param_table.html' %}
           </div>
-          <div class="tab-pane fade" id="bom" role="tabpanel" aria-labelledby="bom-tab">
-            {{ formset.as_ul }}
+          <div class="tab-pane fade {% if bom_active %} active show {% endif %}" id="bom" role="tabpanel" aria-labelledby="bom-tab">
+              <form method="post" action="{% url 'items:edit_assembly_bom' item.pk %}">
+                  {% csrf_token %}
+                {{ formset.as_ul }}
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary">{% translate "Save Changes" %}</button>
+                  </div>
+              </form>
           </div>
         </div>
     {% endblock %}
