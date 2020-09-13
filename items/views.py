@@ -198,12 +198,13 @@ def edit_component(request, comp_type, component_id):
     item = get_object_or_404(Item, pk=component_id)
     if request.is_ajax():
         params = request.POST.get('parameters')
-        item.attributes = json.loads(params)
-        try:
-            item.save()
-            return HttpResponse(status=200, content=_('Parameters updated'))
-        except Exception:
-            return HttpResponse(status=500, content=_('Cant save parameters. Internal server error'))
+        if params:
+            item.attributes = json.loads(params)
+            try:
+                item.save()
+                return HttpResponse(status=200, content=_('Parameters updated'))
+            except Exception:
+                return HttpResponse(status=500, content=_('Cant save parameters. Internal server error'))
     if request.method == 'POST':
         item_form = ComponentForm(request.POST, instance=item)
         if item_form.is_valid():
@@ -220,6 +221,15 @@ def edit_component(request, comp_type, component_id):
         title = _('Edit Component')
     elif comp_type == 'ap':
         title = _('Edit Assembly Part')
+        return render(
+            request,
+            'items/edit_assembly.html',
+            {'item_form': item_form,
+             'title': title,
+             'delete_url': reverse_lazy('items:delete_item', kwargs={'item_id': component_id}),
+             'documents': item.document.all().prefetch_related('doc_type'),
+             'item': item,
+             })
     elif comp_type == 'cm':
         title = _('Edit Consumable')
     else:

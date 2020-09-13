@@ -13,7 +13,8 @@ function add_row() {
     let row = table_body.append( ' <tr>\n' +
         '<td id="'+row_count+'"></td>\n' +
         '<td id="'+row_count+'"></td>\n' +
-        '<th id="'+row_count+'"><button class="btn btn-danger" id="id_row_delete" >Dell</button></th>\n' +
+        '<th id="'+row_count+'"><button class="btn btn-danger" id="id_row_delete" >' +
+        '<i class="fas fa-times"></i></button></th>\n' +
         '</tr>');
     row.children(':last').children('th').children('button').on('click', dell_row);
     $('#id_row_counts').val(row_count);
@@ -32,8 +33,8 @@ function save_table() {
     let to_json = {};
     $(table_body).find("tr").each(function () {
         let data_row = $(this).find('td');
-        let key = $(data_row[0]).text()
-        let data = $(data_row[1]).text()
+        let key = $(data_row[0]).text();
+        let data = $(data_row[1]).text();
         if(key !== '' && data !=='')
         {
             to_json[key] =data;
@@ -41,8 +42,8 @@ function save_table() {
         else
             $(this).remove();
     });
-    console.log(JSON.stringify(to_json))
-    let target = $('#id_parameters_save').attr('href')
+    console.log(JSON.stringify(to_json));
+    let target = $('#id_parameters_save').attr('href');
     $.ajax(target, {
         type: "POST",
         data: {

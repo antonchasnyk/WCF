@@ -1,0 +1,44 @@
+{% load static %}
+{% load i18n %}
+{% load utils %}
+
+<div class="row">
+            <div class="col-12">
+                <h4> {% translate 'Parameters' %}</h4>
+                    <div class="table-responsive">
+                      <table id="editParameters" class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>{% translate 'Name' %}</th>
+                            <th>{% translate 'Value' %}</th>
+                            <th>{% translate 'Action' %}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, value in item.attributes.items %}
+                            <tr>
+                                <td id="{{forloop.counter}}">{{ key }}</td>
+                                <td id="{{forloop.counter}}">{{ value }}</td>
+                                <th id="{{forloop.counter}}"><button class="btn btn-danger" id="id_row_delete" >
+                                    <i class="fas fa-times"></i>
+                                </button></th>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <th>
+                              <button class="btn btn-success" id="id_row_add">{% translate "Add row" %}</button>
+                            </th>
+                            <th>
+                              <input type="hidden" value="{{ item.attributes|length }}" id="id_row_counts">
+                            </th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                   <div class="card-footer text-right">
+                    <button class="btn btn-primary" id="id_parameters_save" href="{{ item.get_edit_url }}">{% translate "Save Changes" %}</button>
+                  </div>
+            </div>
+        </div>

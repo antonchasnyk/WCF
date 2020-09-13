@@ -167,7 +167,7 @@ class Item(models.Model):
         if self.item_type == 'co':
             return reverse_lazy('items:edit_component', kwargs={'component_id': self.pk})
         elif self.item_type == 'ap':
-            return "/" + str(self.pk)
+            return reverse_lazy('items:edit_assembly', kwargs={'component_id': self.pk})
         elif self.item_type == 'cm':
             return reverse_lazy('items:edit_consumable', kwargs={'component_id': self.pk})
 
