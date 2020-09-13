@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+
+<table class="table table-striped">
+    <thead class="thead-inverse">
+    <th width="5%">#</th>
+    <th> {% translate "Date" %} </th>
+    <th> {% translate "Value" %} </th>
+    <th> {% translate "Units" %} </th>
+    <th> {% translate "Reason" %}</th>
+    <th> {% translate "Used in" %}</th>
+</thead>
+    <tbody>
+     {% for item in item.get_value_set  %}
+        <tr>
+            <th>
+                {{forloop.counter}}
+            </th>
+            <td>  {{ item.updated_at}}</td>
+            <td>  {{ item.value }}</td>
+            <td> {{ item.item.value_units }}</td>
+            <td>  {{ item.get_reason_display }} </td>
+            <td>  {{ item.assembly_part.designator }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
