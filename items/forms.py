@@ -1,8 +1,10 @@
 from django import forms
-from django.forms import IntegerField
+from django.forms import IntegerField, modelformset_factory
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-from items.models import ItemCategory, ItemDocFile, DocType
+from helpers.widgets import SelectableSearch
+from items.models import ItemCategory, ItemDocFile, DocType, BOM
 from .models import Item, ItemSubCategory
 
 
@@ -44,3 +46,14 @@ class FileTypeForm(forms.ModelForm):
     class Meta:
         model = DocType
         fields = ['name']
+
+
+class BOMForm(forms.ModelForm):
+    class Meta:
+        model = BOM
+        fields = ['position', 'item', 'quantity']
+
+
+BOMFormSet = modelformset_factory(BOM, form=BOMForm,
+                                  widgets={'item': SelectableSearch(search_url=reverse_lazy('items:context_search'),
+                                                                    model=Item)})

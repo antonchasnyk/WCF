@@ -53,7 +53,7 @@
             {% include 'items/edit_item_param_table.html' %}
           </div>
           <div class="tab-pane fade" id="bom" role="tabpanel" aria-labelledby="bom-tab">
-
+            {{ formset.as_ul }}
           </div>
         </div>
     {% endblock %}
@@ -67,4 +67,5 @@
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
     <script src="{% static "assets/js/page/editable-table.js" %}"></script>
+    {{ formset.media }}
 {% endblock %}

@@ -5,18 +5,16 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q, ProtectedError
-from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 
 from WCF import settings
-from items.forms import CategoryForm, FileAddForm, FileTypeForm
-from items.models import ItemCategory, ItemDocFile, DocType
 from purchase.models import ItemValue
-from .forms import ComponentForm, SubCategoryForm
-from .models import Item, BOM, ItemSubCategory
+from .forms import ComponentForm, SubCategoryForm, CategoryForm, FileAddForm, FileTypeForm, BOMFormSet
+from .models import Item, ItemSubCategory, ItemCategory, ItemDocFile, DocType
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -221,6 +219,9 @@ def edit_component(request, comp_type, component_id):
         title = _('Edit Component')
     elif comp_type == 'ap':
         title = _('Edit Assembly Part')
+
+        formset = BOMFormSet(queryset=item.consist_of.order_by('position').all())
+
         return render(
             request,
             'items/edit_assembly.html',
@@ -229,6 +230,7 @@ def edit_component(request, comp_type, component_id):
              'delete_url': reverse_lazy('items:delete_item', kwargs={'item_id': component_id}),
              'documents': item.document.all().prefetch_related('doc_type'),
              'item': item,
+             'formset': formset,
              })
     elif comp_type == 'cm':
         title = _('Edit Consumable')
