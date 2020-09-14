@@ -21,8 +21,8 @@ class SelectableSearch(widgets.Input):
         super().__init__(attrs)
 
     def get_context(self, name, value, attrs):
-        if value and self.model:
-            self.text = self.model.objects.get(pk=value).part_number
+        if value and self.model and self.text.strip() != ' ':
+            self.text = self.model.objects.get(pk=value).designator
         context = super().get_context(name, value, attrs)
         context['widget']['type'] = self.input_type
         context['widget']['search_url'] = self.search_url
@@ -30,6 +30,5 @@ class SelectableSearch(widgets.Input):
         return context
 
     def value_from_datadict(self, data, files, name):
-        print(data)
         self.text = data.get(name+'_selector')
         return super().value_from_datadict(data, files, name)
