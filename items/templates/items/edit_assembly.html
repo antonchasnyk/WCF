@@ -53,12 +53,13 @@
             {% include 'items/edit_item_param_table.html' %}
           </div>
           <div class="tab-pane fade {% if bom_active %} active show {% endif %}" id="bom" role="tabpanel" aria-labelledby="bom-tab">
-              <form method="post" action="{% url 'items:edit_assembly_bom' item.pk %}">
+          <h4> {% translate 'BOM' %}</h4>
+              <form method="post" action="{% url 'items:edit_assembly_bom' item.pk %}" class="needs-validation">
                   {% csrf_token %}
                     {{ formset.management_form }}
                    <div id="id_form_set">
                    {% for form in formset.forms %}
-                       {{ form.as_ul }}
+                         {% include 'items/edit_assembly_formsetform_render.html' %}
                    {% endfor %}
                     </div>
                   <div class="card-footer">
@@ -66,7 +67,7 @@
                           <button class="btn btn-success" type="button" id="id_add_new_form">{% translate "Add row" %}</button>
                       </div>
                             <div id="id_empty_form" style="display:none">
-                                    {{ formset.empty_form.as_ul }}
+                                {% include 'items/edit_assembly_formsetform_render.html' with form=formset.empty_form %}
                             </div>
                       <div class="text-right">
                         <button class="btn btn-primary" type="submit">{% translate "Save Changes" %}</button>

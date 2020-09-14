@@ -286,7 +286,7 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 class BOM(models.Model):
     item = models.ForeignKey('Item', on_delete=models.PROTECT, related_name='used_in')
     assembly_part = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='consist_of')
-    position = models.CharField(max_length=200, verbose_name=_('position'),
+    position = models.CharField(max_length=200, verbose_name=_('RefDes'),
                                 unique=False, null=False, blank=False)
     quantity = models.IntegerField(default=0, verbose_name=_('Quantity'), null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)

@@ -56,4 +56,4 @@ class BOMForm(forms.ModelForm):
 
 BOMFormSet = modelformset_factory(BOM, form=BOMForm,
                                   widgets={'item': SelectableSearch(search_url=reverse_lazy('items:context_search'),
-                                                                    model=Item)}, extra=1)
+                                                                    model=Item)}, extra=1, can_delete=True)
