@@ -195,10 +195,9 @@ def delete_file(request, doc_id):
 def edit_bom(request, component_id):
     item = get_object_or_404(Item, pk=component_id)
     if request.method == 'POST':
-        print('got_formset')
         formset = BOMFormSet(request.POST, request.FILES)
         if formset.is_valid():
-            print('formset is valid')
+            formset.__dict__['assembly_part'] = item
             formset.save()
             messages.success(request, _('Item {} changed ').format(item.designator()))
             return redirect(item.get_absolute_url())
@@ -253,8 +252,6 @@ def edit_component(request, comp_type, component_id):
     elif comp_type == 'ap':
         title = _('Edit Assembly Part')
         formset = BOMFormSet(queryset=item.consist_of.order_by('position').all())
-        for form in formset:
-            print(form.__dict__['fields'])
         return render(
             request,
             'items/edit_assembly.html',

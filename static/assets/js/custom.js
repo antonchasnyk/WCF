@@ -46,7 +46,6 @@ function search() {
         type: "GET",
         data: {
             'q' : $('#search').val(),
-            'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
         },
         success: searchSuccess,
         dataType: 'html'

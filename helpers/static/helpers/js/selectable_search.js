@@ -14,7 +14,6 @@ for (let i=0; i<selectors.length; i++)
         type: "GET",
         data: {
             'q' : g,
-            'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
         },
         success: function (data, textStatus, jqXHR) {
             $(option_list).html(data);

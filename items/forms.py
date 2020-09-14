@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import IntegerField, modelformset_factory
+from django.forms import IntegerField, modelformset_factory, TextInput, BaseModelFormSet
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
@@ -53,7 +53,18 @@ class BOMForm(forms.ModelForm):
         model = BOM
         fields = ['position', 'item', 'quantity']
 
+    def save(self, commit=True):
+        self.instance.assembly_part = self.assembly_part
+        super(BOMForm, self).save(commit=commit)
 
-BOMFormSet = modelformset_factory(BOM, form=BOMForm,
+
+class BOMFromSet(BaseModelFormSet):
+    def save(self, commit=True):
+        for form in self.forms:
+            form.__dict__['assembly_part'] = self.assembly_part
+        super(BOMFromSet, self).save(commit=commit)
+
+
+BOMFormSet = modelformset_factory(BOM, form=BOMForm, formset=BOMFromSet,
                                   widgets={'item': SelectableSearch(search_url=reverse_lazy('items:context_search'),
                                                                     model=Item)}, extra=1, can_delete=True)
