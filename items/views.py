@@ -253,6 +253,8 @@ def edit_component(request, comp_type, component_id):
     elif comp_type == 'ap':
         title = _('Edit Assembly Part')
         formset = BOMFormSet(queryset=item.consist_of.order_by('position').all())
+        for form in formset:
+            print(form.__dict__['fields'])
         return render(
             request,
             'items/edit_assembly.html',
