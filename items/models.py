@@ -39,6 +39,15 @@ def unit_conversion(source, target, value):
     >>> unit_conversion('Hz', 'kHz', 10)
     (0.01, 'kHz')
 
+    >>> unit_conversion('pcs', 'kpcs', 10)
+    (10, 'pcs')
+
+    >>> unit_conversion('kpcs', 'pcs', 10)
+    (10, 'kpcs')
+
+    >>> unit_conversion('pF', 'pF', 10)
+    (10, 'pF')
+
     >>> unit_conversion('km', 'l', 10)
     Traceback (most recent call last):
         ...
@@ -56,24 +65,23 @@ def unit_conversion(source, target, value):
     :return:
     """
     si_prefix = {
-        'p': 10E-12,
-        'n': 10E-9,
-        'u': 10E-6,
-        'm': 10E-3,
+        'p': 1E-12,
+        'n': 1E-9,
+        'u': 1E-6,
+        'm': 1E-3,
         '': 1,
-        'k': 10E3,
-        'M': 10E6,
-        'G': 10E9,
+        'k': 1E3,
+        'M': 1E6,
+        'G': 1E9,
     }
 
-    if source == 'pcs' or target == 'pcs':
-        return value, 'pcs'
+    if 'pcs' in source or 'pcs' in target:
+        return value, source
     elif source == target:
         return value, target
     else:
         source_prefix, source_base = si_prefix_search.findall(source)[0]
         target_prefix, target_base = si_prefix_search.findall(target)[0]
-
         if source_base == target_base:
             ratio = si_prefix[source_prefix] / si_prefix[target_prefix]
             return value*ratio, target
