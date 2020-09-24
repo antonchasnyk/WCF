@@ -12,7 +12,7 @@ $("[data-checkboxes]").each(function() {
       total = all.length,
       checked_length = checked.length;
 
-    if(role == 'dad') {
+    if(role === 'dad') {
       if(me.is(':checked')) {
         all.prop('checked', true);
       }else{
@@ -54,7 +54,7 @@ function formatDate(date, format) {
         MM: ('0' + date.getMinutes()).slice(-2),
         HH: ('0' + date.getHours()).slice(-2),
     };
-    return format.replace(/mm|dd|yy|yyy|HH|MM/gi, matched => map[matched])
+    return format.replace(/mm|dd|yy|yyy|HH|MM/gi, matched => map[matched]);
 }
 
 function get_bom_title() {
