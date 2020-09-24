@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 {% load i18n %}
+{% block title %} <title>{{title}}: {{ item }}</title> {% endblock %}
 
 {% block section_header %} <h1>{{title}}: {{ item }}</h1> {% endblock %}
 
@@ -67,35 +68,49 @@
                             <div class="tab-content tab-bordered" id="myTab3Content">
                               <div class="tab-pane fade show active" id="used_in" role="tabpanel" aria-labelledby="used_in-tab">
                                   <div class="table-responsive">
-                                    <table class="table table-striped">
-                                    <thead class="thead-inverse">
+                                    <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                                    <thead >
                                         <th> {% translate 'RefDes' %} </th>
                                         <th> {% translate 'Designator' %} </th>
                                         <th> {% translate 'Qtt/Value' %} </th>
                                         <th> {% translate 'Units' %}</th>
-                                        <th> {% translate 'Action' %}</th>
+                                        <th class="notexport"> {% translate 'Action' %}</th>
                                     </thead>
                                         <tbody>
+                                        {% if components %}
                                          <tr>
-                                             <td colspan="6" style="text-align: center; font-weight: bold">
+                                             <td style="display: none;"></td>
+                                             <td colspan="5" style="text-align: center; font-weight: bold">
                                                 {% translate 'Components' %}
                                               </td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
                                          </tr>
                                             {% include "items/bom_sub_table.html" with components=components %}
+                                         {% endif %}
                                          {% if assemblies %}
                                          <tr>
+                                             <td style="display: none;"></td>
                                              <td colspan="6" style="text-align: center; font-weight: bold">
                                                 {% translate 'Assembly parts' %}
                                               </td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
                                          </tr>
                                              {% include "items/bom_sub_table.html" with components=assemblies %}
                                          {% endif %}
 
                                          {% if consumables %}
                                          <tr>
+                                             <td style="display: none;"></td>
                                              <td colspan="6" style="text-align: center; font-weight: bold">
                                                 {% translate 'Consumables' %}
                                               </td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
+                                             <td style="display: none;"></td>
                                          </tr>
                                             {% include "items/bom_sub_table.html" with components=consumables %}
                                          {% endif %}
@@ -142,5 +157,11 @@
 {% endblock %}
   <!-- Page Specific JS File -->
 {% block page_specific_js %}
+    <script src="{% static 'assets/bundles/datatables/datatables.min.js'%}"></script>
+    <script src="{% static 'assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js'%}"></script>
+    <script src="{% static 'assets/bundles/datatables/export-tables/dataTables.buttons.min.js'%}"></script>
+    <script src="{% static 'assets/bundles/datatables/export-tables/buttons.flash.min.js'%}"></script>
+    <script src="{% static 'assets/bundles/datatables/export-tables/buttons.print.min.js'%}"></script>
+    <script src="{% static 'assets/js/page/datatables.js'%}"></script>
 {% endblock %}
 

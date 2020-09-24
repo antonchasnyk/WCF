@@ -46,8 +46,39 @@ $('#save-stage').DataTable({
 	});
 $('#tableExport').DataTable({
 		dom: 'Bfrtip',
+        paging: false,
+        ordering: false,
+        searching: false,
 		buttons: [
-			'copy', 'csv', 'excel', 'pdf', 'print'
+            {
+                extend: 'pdf',
+                exportOptions: {
+                    columns: ':visible:not(.notexport)',
+                    rows: ':visible:not(.notexport)',
+                    pageSize: 'A4'
+                }
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':visible:not(.notexport)',
+                    rows: ':visible:not(.notexport)'
+                }
+            },
+            {
+                extend: 'csv',
+                exportOptions: {
+                    columns: ':visible:not(.notexport)',
+                    rows: ':visible:not(.notexport)'
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible:not(.notexport)',
+                    rows: ':visible:not(.notexport)'
+                }
+            }
 		]
 	});
 	
