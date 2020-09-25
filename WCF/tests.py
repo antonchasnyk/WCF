@@ -1,11 +1,13 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
+from django.urls import reverse
 
 from WCF.backends import EmailBackend
+from WCF.context_processors.side_menu import side_menu
 
 
-class ItemTestCase(TestCase):
+class UserAuthenticateCase(TestCase):
     def setUp(self):
         self.user = User.objects.create(username='Testuser', email='test_user@gmail.com', is_active=True)
         self.user.set_password('TU12345678tu')
@@ -51,3 +53,18 @@ class ItemTestCase(TestCase):
 
         does_not_exist = authenticate(username='supaaaeruser@gmail.com', password='Superuser12345678')
         self.assertEqual(does_not_exist, None)
+
+
+class SideMenuContextCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_get_menu_link(self):
+        request = self.factory.get(reverse('items:dashboard'))
+        new_context = side_menu(request)
+        self.assertEqual(new_context['dash'], 'active')
+
+        request = self.factory.get(reverse('purchase:needs'))
+        new_context = side_menu(request)
+        self.assertEqual(new_context['purch'], 'active')
+        self.assertEqual(new_context['purch_needs'], 'active')
