@@ -14,9 +14,6 @@ class UserAdvancedFieldCase(TestCase):
         self.user.save()
         self.position = Position.objects.create(name='PosName')
 
-    def get(*args, **kwargs):
-        pass
-
     def test_position_base_wrappers(self):
         position = Position.objects.get(name='PosName')
         self.assertEqual(str(position), str(self.position))
