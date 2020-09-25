@@ -1,5 +1,13 @@
 # WCF
-![Coverage](https://img.shields.io/badge/Coverage-73%25-yellow) 
+![Coverage](https://img.shields.io/badge/Coverage-79%25-yellow) 
+<!--  
+    brightgreen     100%
+    green           90%
+    yellowgreen     80%
+    yellow          70%
+    orange          60%
+    red             50%
+ -->
 
 ## Django localizations
 ```shell script
