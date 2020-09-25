@@ -14,7 +14,7 @@ class ItemPrice(models.Model):
     created_by = models.ForeignKey('auth.User', on_delete=models.PROTECT, null=False, blank=False)
 
     def __str__(self):
-        return str(self.item) + ' ' + str(self.created_at)
+        return str(self.item) + ' {}$ '.format(self.price) + str(self.created_at)
 
 
 value_status = [
