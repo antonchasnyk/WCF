@@ -1,5 +1,5 @@
 # WCF
-![Coverage](https://img.shields.io/badge/Coverage-68%25-yellow) 
+![Coverage](https://img.shields.io/badge/Coverage-70%25-yellow) 
 
 ## Django localizations
 ```shell script
