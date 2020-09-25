@@ -28,6 +28,10 @@ class UserAuthenticateCase(TestCase):
         self.superuser.save()
 
     def test_item_base_wrapper(self):
+        from . import asgi
+        self.assertTrue(asgi.application)
+        from . import wsgi
+        self.assertTrue(wsgi.application)
         user = User.objects.get(username='Testuser')
         self.assertEqual(self.user, user)
 
